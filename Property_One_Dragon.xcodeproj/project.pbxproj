@@ -16,6 +16,9 @@
 		E5056D541FA18AEC00441F02 /* PropertyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */; };
 		E5056D561FA19FE600441F02 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D551FA19FE600441F02 /* Property.swift */; };
 		E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */; };
+		E5C27FA61FA700D70002FC7A /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA51FA700D70002FC7A /* Receipt.swift */; };
+		E5C27FA81FA838600002FC7A /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA71FA838600002FC7A /* ReceiptViewController.swift */; };
+		E5C27FAA1FA838700002FC7A /* ReceiptAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA91FA838700002FC7A /* ReceiptAddViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDetailViewController.swift; sourceTree = "<group>"; };
 		E5056D551FA19FE600441F02 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyAddViewController.swift; sourceTree = "<group>"; };
+		E5C27FA51FA700D70002FC7A /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		E5C27FA71FA838600002FC7A /* ReceiptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
+		E5C27FA91FA838700002FC7A /* ReceiptAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +73,11 @@
 				E5056D511F9F000B00441F02 /* PropertyViewController.swift */,
 				E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */,
 				E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */,
+				E5C27FA71FA838600002FC7A /* ReceiptViewController.swift */,
+				E5C27FA91FA838700002FC7A /* ReceiptAddViewController.swift */,
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
 				E5056D551FA19FE600441F02 /* Property.swift */,
+				E5C27FA51FA700D70002FC7A /* Receipt.swift */,
 				E5056D441F9EFDF000441F02 /* Assets.xcassets */,
 				E5056D461F9EFDF000441F02 /* LaunchScreen.storyboard */,
 				E5056D491F9EFDF000441F02 /* Info.plist */,
@@ -149,8 +158,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5056D561FA19FE600441F02 /* Property.swift in Sources */,
+				E5C27FA81FA838600002FC7A /* ReceiptViewController.swift in Sources */,
 				E5056D541FA18AEC00441F02 /* PropertyDetailViewController.swift in Sources */,
 				E5056D401F9EFDF000441F02 /* ViewController.swift in Sources */,
+				E5C27FA61FA700D70002FC7A /* Receipt.swift in Sources */,
+				E5C27FAA1FA838700002FC7A /* ReceiptAddViewController.swift in Sources */,
 				E5056D521F9F000B00441F02 /* PropertyViewController.swift in Sources */,
 				E5056D3E1F9EFDF000441F02 /* AppDelegate.swift in Sources */,
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,
