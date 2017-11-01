@@ -77,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="588" y="797"/>
         </scene>
-        <!--View Controller-->
+        <!--Receipt Detail View Controller-->
         <scene sceneID="a77-zu-IPQ">
             <objects>
-                <viewController id="1zi-Wk-o6F" sceneMemberID="viewController">
+                <viewController id="1zi-Wk-o6F" customClass="ReceiptDetailViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ggr-SJ-Eef"/>
                         <viewControllerLayoutGuide type="bottom" id="w9o-0r-0Ru"/>
@@ -88,12 +88,24 @@
                     <view key="view" contentMode="scaleToFill" id="Fbr-Jg-1hh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gW-wu-KWE">
+                                <rect key="frame" x="16" y="103" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="billAmountLabel" destination="1gW-wu-KWE" id="toa-Z1-dmj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iCs-yd-hls" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="797"/>
+            <point key="canvasLocation" x="1332" y="796.55172413793105"/>
         </scene>
         <!--Property View Controller-->
         <scene sceneID="NZf-50-mqQ">

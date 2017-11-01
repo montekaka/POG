@@ -11,6 +11,7 @@ import UIKit
 class ReceiptViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     //var data: [String] = ["Row 1","Row 2","Row 3"]
+    var selectedRow:Int = -1
     
     @IBOutlet weak var table: UITableView!
     
@@ -44,9 +45,29 @@ class ReceiptViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        let object = appDelegrate.receiptsArray[indexPath.row]
-        print("\(object.amount ?? 0)")
+        //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        //let object = appDelegrate.receiptsArray[indexPath.row]
+        self.performSegue(withIdentifier: "receiptDetailSegue", sender: nil)
+        //print("\(object.amount ?? 0)")
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "receiptDetailSegue" {
+            let detailView: ReceiptDetailViewController = segue.destination as! ReceiptDetailViewController
+            selectedRow = table.indexPathForSelectedRow!.row
+            detailView.masterView = self
+            
+            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            let object = appDelegrate.receiptsArray[selectedRow]
+            
+            detailView.detailItem = object
+            
+            // print("\(object.amount ?? 0)")
+        }
+        
+        
+        //detailView.setText(t: data[selectedRow].address!)
     }
     
     override func didReceiveMemoryWarning() {
