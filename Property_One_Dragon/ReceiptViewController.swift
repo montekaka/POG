@@ -10,7 +10,7 @@ import UIKit
 
 class ReceiptViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var data: [String] = ["Row 1","Row 2","Row 3"]
+    //var data: [String] = ["Row 1","Row 2","Row 3"]
     
     @IBOutlet weak var table: UITableView!
     
@@ -22,19 +22,31 @@ class ReceiptViewController: UIViewController, UITableViewDataSource, UITableVie
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        table.reloadData()
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        //return data.count
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegrate.receiptsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        let object = appDelegrate.receiptsArray[indexPath.row]
+        
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "receiptTableCell")!
-        cell.textLabel?.text = data[indexPath.row]
+        cell.textLabel?.text = "\(object.amount ?? 0)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(data[indexPath.row])")
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        let object = appDelegrate.receiptsArray[indexPath.row]
+        print("\(object.amount ?? 0)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,7 +55,7 @@ class ReceiptViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func addReceipt(){
-        
+        self.performSegue(withIdentifier: "receiptAddSegue", sender: self)
     }
     
     

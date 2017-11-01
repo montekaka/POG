@@ -319,10 +319,16 @@
                                 <rect key="frame" x="16" y="318" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="addButtonPressedWithSender:" destination="F53-xe-qoI" eventType="touchUpInside" id="9IT-UF-1nC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="billAmount" destination="ThD-Et-95o" id="6mb-Wp-kBI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cy3-UC-XaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -35,7 +35,7 @@ class PropertyDetailViewController: UIViewController {
                     if let firstPlacemark = placemarks?[0]{
                         let pm = MKPlacemark(placemark: firstPlacemark)
                         self.mapView?.addAnnotation(pm)
-                        let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 500, 500)
+                        let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 2000, 2000)
                         self.mapView?.setRegion(region, animated: false)
                     }
                 }
