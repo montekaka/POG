@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WOu-e0-Ai4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6my-k8-CV7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -75,7 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFn-Xt-aYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="588" y="797"/>
+            <point key="canvasLocation" x="588" y="880"/>
         </scene>
         <!--Receipt Detail View Controller-->
         <scene sceneID="a77-zu-IPQ">
@@ -105,7 +105,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iCs-yd-hls" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1332" y="796.55172413793105"/>
+            <point key="canvasLocation" x="1332" y="887"/>
         </scene>
         <!--Property View Controller-->
         <scene sceneID="NZf-50-mqQ">
@@ -196,6 +196,15 @@
                                             <nil key="highlightedColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9j3-d5-a1d">
+                                            <rect key="frame" x="8" y="82" width="359" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Add Receipt"/>
+                                            <connections>
+                                                <action selector="addReceiptButtonPressedWithSender:" destination="NfI-vM-cBu" eventType="touchUpInside" id="5Is-I0-3pf"/>
+                                                <segue destination="F53-xe-qoI" kind="show" identifier="propertyAddReceiptSegue" id="Mki-tC-89x"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <blurEffect style="light"/>
@@ -212,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtc-1n-woW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2058" y="134"/>
+            <point key="canvasLocation" x="2056.8000000000002" y="133.5832083958021"/>
         </scene>
         <!--Property Add View Controller-->
         <scene sceneID="EaH-fS-gsR">
@@ -344,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cy3-UC-XaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2057" y="797"/>
+            <point key="canvasLocation" x="2057" y="887"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9Qt-vr-QVy">
@@ -366,6 +375,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Mki-tC-89x"/>
         <segue reference="bGh-ls-JYm"/>
     </inferredMetricsTieBreakers>
 </document>

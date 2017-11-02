@@ -12,6 +12,7 @@ import MapKit
 class PropertyDetailViewController: UIViewController {
     var masterView: PropertyViewController!
     
+    
     @IBOutlet weak var addressLabel : UILabel?
     
     @IBOutlet weak var mapView : MKMapView?
@@ -62,7 +63,9 @@ class PropertyDetailViewController: UIViewController {
         
     }
     
-    
+    @IBAction func addReceiptButtonPressed(sender : UIButton) {
+        //self.performSegue(withIdentifier: "propertyAddReceiptSegue", sender: self)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -77,6 +80,11 @@ class PropertyDetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "propertyEditSegue" {
             let controller = segue.destination as! PropertyAddViewController
+            controller.property = detailItem
+        }
+        
+        if segue.identifier == "propertyAddReceiptSegue" {
+            let controller = segue.destination as! ReceiptAddViewController
             controller.property = detailItem
         }
     }

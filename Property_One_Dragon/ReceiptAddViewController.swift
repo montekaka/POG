@@ -11,9 +11,15 @@ import UIKit
 class ReceiptAddViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var billAmount: UITextField!
+    var property : Property?
     
     @IBAction func addButtonPressed(sender: UIButton) {
         let r = Receipt(amount: Double(billAmount.text!)!)
+        
+        if property == nil {
+        } else {
+            r?.property_id = property?.id
+        }
         receipt = r
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
         // this should sit inside property instead its own, we will refactor it later on
