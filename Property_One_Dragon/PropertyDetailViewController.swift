@@ -11,6 +11,7 @@ import MapKit
 
 class PropertyDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var masterView: PropertyViewController!
+    var selectedPropertyReceiptRow:Int = -1
     
     @IBOutlet weak var receiptTable: UITableView!
     
@@ -91,6 +92,23 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! ReceiptAddViewController
             controller.property = detailItem
         }
+        
+        if segue.identifier == "propertyReceiptDetailSegue" {
+            let detailView: ReceiptDetailViewController = segue.destination as! ReceiptDetailViewController
+            selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
+            
+            
+            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            let receiptsArray = appDelegrate.receiptsArray.filter{
+                $0.property_id == detailItem?.id
+            }
+            
+            let object = receiptsArray[selectedPropertyReceiptRow]
+            
+            detailView.detailItem = object
+            
+            // print("\(object.amount ?? 0)")
+        }
     }
 
     func editProperty(){
@@ -121,6 +139,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         //cell.textLabel?.text = data[indexPath.row].address
         return cell
     }
+    
     
     
     /*
