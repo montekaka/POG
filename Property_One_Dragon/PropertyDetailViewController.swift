@@ -101,8 +101,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        print("hello world")
-        return appDelegrate.receiptsArray.count
+        let receiptsArray = appDelegrate.receiptsArray.filter{
+            $0.property_id == detailItem?.id
+        }
+        return receiptsArray.count
         //return data.count
     }
     
@@ -110,8 +112,11 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "propertyReceiptTableCell")!
         
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        let receiptsArray = appDelegrate.receiptsArray.filter{
+            $0.property_id == detailItem?.id
+        }
         
-        let object = appDelegrate.receiptsArray[indexPath.row]
+        let object = receiptsArray[indexPath.row]
         cell.textLabel?.text = "\(object.amount ?? 0)"
         //cell.textLabel?.text = data[indexPath.row].address
         return cell
