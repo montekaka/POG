@@ -12,14 +12,15 @@ class ReceiptViewController: UIViewController, UITableViewDataSource, UITableVie
 
     //var data: [String] = ["Row 1","Row 2","Row 3"]
     var selectedRow:Int = -1
+    var property : Property?
     
     @IBOutlet weak var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Receipts"
-        let addReceiptButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReceipt))
-        self.navigationItem.rightBarButtonItem = addReceiptButton
+//        let addReceiptButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReceipt))
+//        self.navigationItem.rightBarButtonItem = addReceiptButton
 
         // Do any additional setup after loading the view.
     }

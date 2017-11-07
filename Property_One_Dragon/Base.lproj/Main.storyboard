@@ -196,8 +196,27 @@
                                             <nil key="highlightedColor"/>
                                             <size key="shadowOffset" width="0.0" height="0.0"/>
                                         </label>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mqC-UM-jcW">
+                                            <rect key="frame" x="0.0" y="128" width="375" height="412"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <prototypes>
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="propertyReceiptTableCell" id="NSa-t0-xce">
+                                                    <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NSa-t0-xce" id="QcS-DE-lTv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                    </tableViewCellContentView>
+                                                </tableViewCell>
+                                            </prototypes>
+                                            <connections>
+                                                <outlet property="dataSource" destination="NfI-vM-cBu" id="kxv-IS-v06"/>
+                                                <outlet property="delegate" destination="NfI-vM-cBu" id="dbH-ei-9zJ"/>
+                                            </connections>
+                                        </tableView>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9j3-d5-a1d">
-                                            <rect key="frame" x="8" y="82" width="359" height="30"/>
+                                            <rect key="frame" x="0.0" y="573" width="375" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Add Receipt"/>
                                             <connections>
@@ -216,6 +235,7 @@
                     <connections>
                         <outlet property="addressLabel" destination="Nq6-Bp-zjQ" id="f5o-rl-eSB"/>
                         <outlet property="mapView" destination="0b0-9S-1Pl" id="ek6-mq-KYH"/>
+                        <outlet property="receiptTable" destination="mqC-UM-jcW" id="Bst-Hg-Pc6"/>
                         <segue destination="lpj-Ce-oF0" kind="show" identifier="propertyEditSegue" id="bGh-ls-JYm"/>
                     </connections>
                 </viewController>
@@ -375,7 +395,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Mki-tC-89x"/>
         <segue reference="bGh-ls-JYm"/>
+        <segue reference="Mki-tC-89x"/>
     </inferredMetricsTieBreakers>
 </document>

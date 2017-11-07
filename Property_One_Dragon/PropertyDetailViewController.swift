@@ -9,14 +9,17 @@
 import UIKit
 import MapKit
 
-class PropertyDetailViewController: UIViewController {
+class PropertyDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var masterView: PropertyViewController!
     
+    @IBOutlet weak var receiptTable: UITableView!
     
     @IBOutlet weak var addressLabel : UILabel?
     
     @IBOutlet weak var mapView : MKMapView?
     
+    
+    var receiptData:[Receipt] = []
     var detailItem : Property? {
         didSet {
             self.configureView()
@@ -70,6 +73,7 @@ class PropertyDetailViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.configureView()
+        receiptTable.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,8 +97,27 @@ class PropertyDetailViewController: UIViewController {
         self.performSegue(withIdentifier: "propertyEditSegue", sender: self)
     }
     
+    // receipt table
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        print("hello world")
+        return appDelegrate.receiptsArray.count
+        //return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "propertyReceiptTableCell")!
+        
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        
+        let object = appDelegrate.receiptsArray[indexPath.row]
+        cell.textLabel?.text = "\(object.amount ?? 0)"
+        //cell.textLabel?.text = data[indexPath.row].address
+        return cell
+    }
+    
+    
     /*
     // MARK: - Navigation
 
