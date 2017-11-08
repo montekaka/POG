@@ -63,13 +63,17 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         // edit
         do {
             try property!.setAddress(address: addressField.text!)
+            try property!.setMortgagePayment(mortgagePaymentText: (mortgagaPayment.text)!)
+            try property!.setRentalIncome(rentalIncomeText: (rentalIncome.text)!)
         } catch let error as PropertyValidationError {
             var errorMsg = ""
             switch(error) {
                 case .InvalidAddress:
                     errorMsg = "Invalid address"
-                default:
-                    errorMsg = "Invalid"
+                case .InvalidRentalIncome:
+                    errorMsg = "Invalid Rental Income"
+                case .InvalidMortgagePayment:
+                    errorMsg = "Invalid Mortgage Payment"
             }
             let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
@@ -96,8 +100,8 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         
         if let property = property {
             addressField.text = property.address
-            mortgagaPayment.text = "$\(property.mortgagePayment ?? 0)"
-            rentalIncome.text = "$\(property.rentalIncome ?? 0)"
+            mortgagaPayment.text = "\(property.mortgagePayment ?? 0)"
+            rentalIncome.text = "\(property.rentalIncome ?? 0)"
         }
                 
     }
