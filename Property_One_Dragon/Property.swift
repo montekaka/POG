@@ -18,10 +18,14 @@ class Property {
     private(set) var address: String?
     private(set) var mortgagePayment: Double?
     private(set) var rentalIncome: Double?
+    private(set) var id: Int?
     
     init?(address: String){
         do {
             try setAddress(address: address)
+            let randomNum:UInt32 = arc4random_uniform(100)
+            let someInt:Int = Int(randomNum)
+            self.id = someInt
         } catch {
             return nil
         }

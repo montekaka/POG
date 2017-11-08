@@ -9,13 +9,18 @@
 import UIKit
 import MapKit
 
-class PropertyDetailViewController: UIViewController {
+class PropertyDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var masterView: PropertyViewController!
+    var selectedPropertyReceiptRow:Int = -1
+    
+    @IBOutlet weak var receiptTable: UITableView!
     
     @IBOutlet weak var addressLabel : UILabel?
     
     @IBOutlet weak var mapView : MKMapView?
     
+    
+    var receiptData:[Receipt] = []
     var detailItem : Property? {
         didSet {
             self.configureView()
@@ -35,7 +40,7 @@ class PropertyDetailViewController: UIViewController {
                     if let firstPlacemark = placemarks?[0]{
                         let pm = MKPlacemark(placemark: firstPlacemark)
                         self.mapView?.addAnnotation(pm)
-                        let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 500, 500)
+                        let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 2000, 2000)
                         self.mapView?.setRegion(region, animated: false)
                     }
                 }
@@ -62,11 +67,14 @@ class PropertyDetailViewController: UIViewController {
         
     }
     
-    
+    @IBAction func addReceiptButtonPressed(sender : UIButton) {
+        //self.performSegue(withIdentifier: "propertyAddReceiptSegue", sender: self)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.configureView()
+        receiptTable.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -79,14 +87,64 @@ class PropertyDetailViewController: UIViewController {
             let controller = segue.destination as! PropertyAddViewController
             controller.property = detailItem
         }
+        
+        if segue.identifier == "propertyAddReceiptSegue" {
+            let controller = segue.destination as! ReceiptAddViewController
+            controller.property = detailItem
+        }
+        
+        if segue.identifier == "propertyReceiptDetailSegue" {
+            let detailView: ReceiptDetailViewController = segue.destination as! ReceiptDetailViewController
+            selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
+            
+            
+            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            let receiptsArray = appDelegrate.receiptsArray.filter{
+                $0.property_id == detailItem?.id
+            }
+            
+            let object = receiptsArray[selectedPropertyReceiptRow]
+            
+            detailView.detailItem = object
+            
+            // print("\(object.amount ?? 0)")
+        }
     }
 
     func editProperty(){
         self.performSegue(withIdentifier: "propertyEditSegue", sender: self)
     }
     
+    // receipt table
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        let receiptsArray = appDelegrate.receiptsArray.filter{
+            $0.property_id == detailItem?.id
+        }
+        return receiptsArray.count
+        //return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "propertyReceiptTableCell")!
+        
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        let receiptsArray = appDelegrate.receiptsArray.filter{
+            $0.property_id == detailItem?.id
+        }
+        
+        let object = receiptsArray[indexPath.row]
+        cell.textLabel?.text = "\(object.amount ?? 0)"
+        //cell.textLabel?.text = data[indexPath.row].address
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Receipts"
+    }
+    
+    
     /*
     // MARK: - Navigation
 
