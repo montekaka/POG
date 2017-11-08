@@ -77,12 +77,12 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PropertyViewCustomCell
         
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
         
         let object = appDelegrate.propertiesArray[indexPath.row]
-        cell.textLabel!.text = object.address
+        cell.addressLabel!.text = object.address
         //cell.textLabel?.text = data[indexPath.row].address
         return cell
     }
