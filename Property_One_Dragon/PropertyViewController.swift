@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class PropertyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
@@ -82,7 +83,23 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
         
         let object = appDelegrate.propertiesArray[indexPath.row]
+        
         cell.addressLabel!.text = object.address
+        
+        // map 
+        if let address = object.address {
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(address){
+                (placemarks, error) -> Void in
+                if let firstPlacemark = placemarks?[0]{
+                    let pm = MKPlacemark(placemark: firstPlacemark)
+                    cell.propertyMapView?.addAnnotation(pm)
+                    let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 500, 500)
+                    cell.propertyMapView?.setRegion(region, animated: false)
+                }
+            }
+        }
+        
         //cell.textLabel?.text = data[indexPath.row].address
         return cell
     }

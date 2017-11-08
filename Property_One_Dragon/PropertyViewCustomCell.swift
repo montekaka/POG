@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import MapKit
 
 class PropertyViewCustomCell: UITableViewCell {
     
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var propertyMapView: MKMapView?
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
