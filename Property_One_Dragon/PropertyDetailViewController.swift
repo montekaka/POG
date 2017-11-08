@@ -140,6 +140,9 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         return cell
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Receipts"
+    }
     
     
     /*
