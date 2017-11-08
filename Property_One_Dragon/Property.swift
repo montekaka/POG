@@ -38,18 +38,35 @@ class Property {
         self.address = address
     }
     
-    func setMortgagePayment(mortgagePayment: Double) throws {
-        if (mortgagePayment < 0 ){
+    func setMortgagePayment(mortgagePaymentText: String) throws {
+        let mortgagePayment: Double
+        if let _ = Double(mortgagePaymentText) {
+            mortgagePayment = Double(mortgagePaymentText)!
+            if (mortgagePayment < 0 ){
+                throw PropertyValidationError.InvalidMortgagePayment
+            } else {
+                
+            }
+        } else {
             throw PropertyValidationError.InvalidMortgagePayment
         }
         self.mortgagePayment = mortgagePayment
     }
 
-    func setRentalIncome(rentalIncome: Double) throws {
-        if (rentalIncome < 0 ){
+    func setRentalIncome(rentalIncomeText: String) throws {
+        let rentalIncome: Double
+        if let _ = Double(rentalIncomeText) {
+            rentalIncome = Double(rentalIncomeText)!
+            if (rentalIncome < 0 ){
+                throw PropertyValidationError.InvalidRentalIncome
+            } else {
+                
+            }
+        } else {
             throw PropertyValidationError.InvalidRentalIncome
         }
         self.rentalIncome = rentalIncome
+               
     }
     
     

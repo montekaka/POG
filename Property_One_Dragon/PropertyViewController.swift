@@ -85,6 +85,8 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         let object = appDelegrate.propertiesArray[indexPath.row]
         
         cell.addressLabel!.text = object.address
+        cell.revenueLabel!.text =  "$\(object.rentalIncome ?? 0)"
+        cell.expenseLabel!.text =  "$\(object.mortgagePayment ?? 0)"
         
         // map 
         if let address = object.address {
