@@ -10,7 +10,12 @@ import UIKit
 
 class PropertyAddViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var addressField : UITextField!
+    var addressField : UITextField!
+    
+    @IBOutlet weak var addressLineField: UITextField!
+    @IBOutlet weak var stateField: UITextField!
+    @IBOutlet weak var cityField: UITextField!
+    @IBOutlet weak var zipCodeField: UITextField!
     
     @IBOutlet weak var mortgagaPayment: UITextField!
     
