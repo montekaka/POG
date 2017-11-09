@@ -16,6 +16,11 @@ enum PropertyValidationError : Error {
 
 class Property {
     private(set) var address: String?
+    var addressLine: String?
+    var state: String?
+    var city: String?
+    var zipCode: String?
+    
     private(set) var mortgagePayment: Double?
     private(set) var rentalIncome: Double?
     private(set) var id: Int?

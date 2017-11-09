@@ -10,7 +10,7 @@ import UIKit
 
 class PropertyAddViewController: UIViewController, UITextFieldDelegate {
     
-    var addressField : UITextField!
+    var addressValue : String!
     
     @IBOutlet weak var addressLineField: UITextField!
     @IBOutlet weak var stateField: UITextField!
@@ -27,10 +27,16 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         // NSLog("Button pressed")
         
         if property == nil {
-            if let p = Property(address: addressField.text!){
+            let addressValue = addressLineField.text! + " " + stateField.text! + " " + cityField.text! + " " + zipCodeField.text!
+            
+            if let p = Property(address: addressValue){
                 property = p
                 //property?.setMortgagePayment(mortgagePayment: Double(mortgagaPayment.text!)!)
-
+                p.addressLine = addressLineField.text
+                p.state = stateField.text
+                p.city = cityField.text
+                p.zipCode = zipCodeField.text
+                
                 do {
                     try property!.setMortgagePayment(mortgagePaymentText: (mortgagaPayment.text)!)
                     try property!.setRentalIncome(rentalIncomeText: (rentalIncome.text)!)
@@ -67,7 +73,12 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         
         // edit
         do {
-            try property!.setAddress(address: addressField.text!)
+            let addressValue = addressLineField.text! + " " + stateField.text! + " " + cityField.text! + " " + zipCodeField.text!
+            try property!.setAddress(address: addressValue)
+            property?.addressLine = addressLineField.text!
+            property?.state = stateField.text
+            property?.city = cityField.text
+            property?.zipCode = zipCodeField.text
             try property!.setMortgagePayment(mortgagePaymentText: (mortgagaPayment.text)!)
             try property!.setRentalIncome(rentalIncomeText: (rentalIncome.text)!)
         } catch let error as PropertyValidationError {
@@ -104,7 +115,11 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
         
         if let property = property {
-            addressField.text = property.address
+            addressLineField.text = property.addressLine
+            stateField.text = property.state
+            cityField.text = property.city
+            zipCodeField.text = property.zipCode
+            
             mortgagaPayment.text = "\(property.mortgagePayment ?? 0)"
             rentalIncome.text = "\(property.rentalIncome ?? 0)"
         }
