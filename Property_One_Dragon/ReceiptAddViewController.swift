@@ -21,11 +21,22 @@ class ReceiptAddViewController: UIViewController, UITextFieldDelegate {
             r?.property_id = property?.id
         }
         receipt = r
+        
+        // create a new receipt
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
         // this should sit inside property instead its own, we will refactor it later on
         appDelegrate.receiptsArray.append(receipt!)
+        // add the new receipt cost to property expense
         
-        // after we successfully create the receipt, then go back 
+        let propertyArray = appDelegrate.propertiesArray.filter{
+            $0.id == property?.id
+        }
+        
+        if(propertyArray.count > 0 ){
+            propertyArray[0].totalExpense = propertyArray[0].totalExpense! + (r?.amount)!
+        }
+        
+        // after we successfully create the receipt, then go back
         self.navigationController?.popViewController(animated: true)
     }
     var receipt : Receipt?

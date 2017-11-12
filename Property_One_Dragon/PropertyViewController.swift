@@ -39,8 +39,12 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
 //
 //        if newRowText == "" {
 //            //data.remove(at: selectedRow)
-//            
+//
 //        }
+        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        if(appDelegrate.propertiesArray.count == 0){
+            self.performSegue(withIdentifier: "propertyAddSegue", sender: self)
+        }
         
         table.reloadData()
         // save()
@@ -85,8 +89,8 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         let object = appDelegrate.propertiesArray[indexPath.row]
         
         cell.addressLabel!.text = object.address
-        cell.revenueLabel!.text =  "$\(object.rentalIncome ?? 0)"
-        cell.expenseLabel!.text =  "$\(object.mortgagePayment ?? 0)"
+        cell.revenueLabel!.text =  "$\(object.totalExpense ?? 0)"
+        cell.expenseLabel!.text =  "$\(object.totalExpense ?? 0)"
         
         // map 
         if let address = object.address {

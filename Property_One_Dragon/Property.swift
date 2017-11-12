@@ -23,11 +23,20 @@ class Property {
     
     private(set) var mortgagePayment: Double?
     private(set) var rentalIncome: Double?
+    
+    private(set) var totalIncome: Double?
+    // private(set) var totalExpense: Double?
+    var totalExpense: Double?
+    
     private(set) var id: Int?
     
     init?(address: String){
         do {
             try setAddress(address: address)
+            self.mortgagePayment = 0
+            self.rentalIncome = 0
+            self.totalIncome = 0
+            self.totalExpense = 0
             let randomNum:UInt32 = arc4random_uniform(100)
             let someInt:Int = Int(randomNum)
             self.id = someInt
@@ -55,7 +64,10 @@ class Property {
         } else {
             throw PropertyValidationError.InvalidMortgagePayment
         }
+        self.totalExpense = self.totalExpense! - self.mortgagePayment!
         self.mortgagePayment = mortgagePayment
+        self.totalExpense = self.totalExpense! + self.mortgagePayment!
+        
     }
 
     func setRentalIncome(rentalIncomeText: String) throws {
@@ -70,8 +82,10 @@ class Property {
         } else {
             throw PropertyValidationError.InvalidRentalIncome
         }
+        
+        self.totalIncome = self.totalIncome! - self.rentalIncome!
         self.rentalIncome = rentalIncome
-               
+        self.totalIncome = self.totalIncome! + self.rentalIncome!
     }
     
     
