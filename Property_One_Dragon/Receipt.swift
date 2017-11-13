@@ -9,9 +9,16 @@
 import Foundation
 
 class Receipt {
+    // must fill
     var date: Date?
     var amount: Double?
     var property_id: Int?
+    
+    // optional
+    var isRecurrent : boolean_t?
+    var frequency: String?
+    var isAnnualized: boolean_t?
+    var category: String?
     
     init?( amount: Double){
         // self.date = date
