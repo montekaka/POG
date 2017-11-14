@@ -11,7 +11,10 @@ import UIKit
 class ReceiptAddViewController: UITableViewController {
     
     @IBOutlet weak var billAmount: UITextField!
+    @IBOutlet weak var paidDateField: UITextField!
+    
     var property : Property?
+    let paidDatePicker = UIDatePicker()
     
     func addButtonPressed() {
         let r = Receipt(amount: Double(billAmount.text!)!)
@@ -55,8 +58,12 @@ class ReceiptAddViewController: UITableViewController {
         self.title = "New Expense"
         
         // add button
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))
         self.navigationItem.rightBarButtonItem = addButton
+        
+        // add date picker
+        createPaidDatePicker()
+        // set the 
         
     }
     
@@ -68,14 +75,40 @@ class ReceiptAddViewController: UITableViewController {
         view.endEditing(true)
         return false
     }
+    
+    func createPaidDatePicker(){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePaidDatePickerPressed))
+        toolbar.setItems([done], animated: false)
+        
+        paidDateField.inputAccessoryView = toolbar
+        paidDateField.inputView = paidDatePicker
+        // format picker for date
+        paidDatePicker.datePickerMode = .date
+    }
+    
+    func donePaidDatePickerPressed(){
+        // format date
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        let dateString = formatter.string(from: paidDatePicker.date)
+        paidDateField.text = "\(dateString)"
+        self.view.endEditing(true)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    
     // table view
     // list of questions
+    
 
     
 
