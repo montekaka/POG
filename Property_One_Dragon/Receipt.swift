@@ -18,6 +18,7 @@ class Receipt {
     var frequency: String?
     var isAnnualized: boolean_t?
     var category: String?
+    var endDate: Date?
     
     init?( amount: Double){
         // self.date = date
