@@ -15,7 +15,6 @@ class Receipt {
     var property_id: Int?
     
     // optional
-    var isRecurrent : boolean_t?
     var frequency: String?
     var isAnnualized: boolean_t?
     var category: String?

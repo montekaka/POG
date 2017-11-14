@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ReceiptAddViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource {
+class ReceiptAddViewController: UITableViewController {
     
     @IBOutlet weak var billAmount: UITextField!
     var property : Property?
     
-    @IBAction func addButtonPressed(sender: UIButton) {
+    func addButtonPressed() {
         let r = Receipt(amount: Double(billAmount.text!)!)
         
         if property == nil {
@@ -34,10 +34,12 @@ class ReceiptAddViewController: UIViewController, UITextFieldDelegate, UITableVi
         
         if(propertyArray.count > 0 ){
             propertyArray[0].totalExpense = propertyArray[0].totalExpense! + (r?.amount)!
+            // after we successfully create the receipt, then go back
+            self.navigationController?.popViewController(animated: true)
         }
         
-        // after we successfully create the receipt, then go back
-        self.navigationController?.popViewController(animated: true)
+        
+        
     }
     var receipt : Receipt?
     
@@ -50,6 +52,12 @@ class ReceiptAddViewController: UIViewController, UITextFieldDelegate, UITableVi
         view.addGestureRecognizer(tap)
         
         // Do any additional setup after loading the view.
+        self.title = "New Expense"
+        
+        // add button
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed))
+        self.navigationItem.rightBarButtonItem = addButton
+        
     }
     
     func dismissKeyboard(){
@@ -68,17 +76,7 @@ class ReceiptAddViewController: UIViewController, UITextFieldDelegate, UITableVi
     
     // table view
     // list of questions
-    var questions = ["","","",""]
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Hello World"
-        return cell
-    }
+
     
 
     /*
