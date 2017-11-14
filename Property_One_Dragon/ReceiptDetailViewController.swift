@@ -17,11 +17,19 @@ class ReceiptDetailViewController: UIViewController {
     }
     
     @IBOutlet weak var billAmountLabel : UILabel?
+    @IBOutlet weak var paidDateLabel : UILabel?
     
     func configureView(){
         if let detail = self.detailItem {
             self.title = "Receipt"
             billAmountLabel?.text = "\(detail.amount ?? 0)"
+
+            // date
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+            let dateString = formatter.string(from: detail.date!)
+            paidDateLabel?.text = "\(dateString)"
         }
     }
     

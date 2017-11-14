@@ -12,12 +12,14 @@ class ReceiptAddViewController: UITableViewController {
     
     @IBOutlet weak var billAmount: UITextField!
     @IBOutlet weak var paidDateField: UITextField!
+    var paidDate: Date?
     
     var property : Property?
     let paidDatePicker = UIDatePicker()
     
     func addButtonPressed() {
         let r = Receipt(amount: Double(billAmount.text!)!)
+        r?.date = self.paidDate
         
         if property == nil {
         } else {
@@ -63,7 +65,7 @@ class ReceiptAddViewController: UITableViewController {
         
         // add date picker
         createPaidDatePicker()
-        // set the 
+        // set the
         
     }
     
@@ -94,6 +96,7 @@ class ReceiptAddViewController: UITableViewController {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
+        self.paidDate = self.paidDatePicker.date
         let dateString = formatter.string(from: paidDatePicker.date)
         paidDateField.text = "\(dateString)"
         self.view.endEditing(true)
