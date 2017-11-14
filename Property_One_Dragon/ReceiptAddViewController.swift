@@ -19,7 +19,13 @@ class ReceiptAddViewController: UITableViewController {
     
     func addButtonPressed() {
         let r = Receipt(amount: Double(billAmount.text!)!)
-        r?.date = self.paidDate
+        
+        if((self.paidDate) != nil){
+            r?.date = self.paidDate
+        } else {
+            r?.date = Date()
+        }
+        
         
         if property == nil {
         } else {
