@@ -8,7 +8,17 @@
 
 import UIKit
 
-class ReceiptAddViewController: UITableViewController {
+struct cellData {
+    let cell: Int!
+    let text: String!
+    
+}
+
+class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var arrayOfCellData = [cellData]()
+    
+    var receipt : Receipt?
     
     @IBOutlet weak var billAmount: UITextField!
     @IBOutlet weak var paidDateField: UITextField!
@@ -24,9 +34,7 @@ class ReceiptAddViewController: UITableViewController {
             r?.date = self.paidDate
         } else {
             r?.date = Date()
-        }
-        
-        
+        }            
         if property == nil {
         } else {
             r?.property_id = property?.id
@@ -48,16 +56,19 @@ class ReceiptAddViewController: UITableViewController {
             // after we successfully create the receipt, then go back
             self.navigationController?.popViewController(animated: true)
         }
-        
-        
-        
     }
-    var receipt : Receipt?
     
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // add cell data
+        arrayOfCellData = [
+            cellData(cell: 1, text: "Paid Amount")
+            ,cellData(cell: 1, text: "Date")
+            ,cellData(cell: 2, text: "Annualized")
+        ]
+        
         // billAmount.keyboardType = UIKeyboardType.numberPad
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -70,8 +81,8 @@ class ReceiptAddViewController: UITableViewController {
         self.navigationItem.rightBarButtonItem = addButton
         
         // add date picker
-        createPaidDatePicker()
-        // set the
+        // createPaidDatePicker()
+        
         
     }
     
@@ -117,8 +128,46 @@ class ReceiptAddViewController: UITableViewController {
     
     // table view
     // list of questions
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrayOfCellData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "receiptAddCell", for: IndexPath)
+//        
+//        let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
+//        cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+//        return cell
+        
+        if arrayOfCellData[indexPath.row].cell == 1 {
+            let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            return cell
+            
+        } else if arrayOfCellData[indexPath.row].cell == 2 {
+            let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellSwitch", owner: self, options: nil)?.first as! ReceiptAddTableViewCellSwitch
+            cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
+            return cell
+        } else {
+            let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            return cell
+        }
+        
+    }
     
 
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 305
+//        if arrayOfCellData[indexPath.row].cell == 1 {
+//            return 305
+//            
+//        } else if arrayOfCellData[indexPath.row].cell == 2 {
+//            return 200
+//        } else {
+//           return 305
+//        }
+    }
     
 
     /*
