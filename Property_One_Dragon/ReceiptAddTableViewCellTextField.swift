@@ -12,4 +12,5 @@ class ReceiptAddTableViewCellTextField: UITableViewCell {
 
     @IBOutlet weak var TextFieldLabel: UILabel!
        
+    @IBOutlet weak var TextField: UITextField!
 }

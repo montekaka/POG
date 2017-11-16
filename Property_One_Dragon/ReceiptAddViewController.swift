@@ -9,7 +9,7 @@
 import UIKit
 
 struct cellData {
-    let cell: Int!
+    let cell: String!
     let text: String!
     
 }
@@ -20,9 +20,10 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     
     var receipt : Receipt?
     
-    @IBOutlet weak var billAmount: UITextField!
-    @IBOutlet weak var paidDateField: UITextField!
+    var billAmount: UITextField!
+    var paidDateField: UITextField!
     var paidDate: Date?
+    var paidDateCell: ReceiptAddTableViewCellTextField!
     
     var property : Property?
     let paidDatePicker = UIDatePicker()
@@ -64,9 +65,9 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         // add cell data
         arrayOfCellData = [
-            cellData(cell: 1, text: "Paid Amount")
-            ,cellData(cell: 1, text: "Date")
-            ,cellData(cell: 2, text: "Annualized")
+            cellData(cell: "Input", text: "Paid Amount")
+            ,cellData(cell: "Input", text: "Date")
+            ,cellData(cell: "Switch", text: "Annualized")
         ]
         
         // billAmount.keyboardType = UIKeyboardType.numberPad
@@ -95,15 +96,17 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         return false
     }
     
-    func createPaidDatePicker(){
+    func createPaidDatePicker(cell: ReceiptAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
         let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePaidDatePickerPressed))
         toolbar.setItems([done], animated: false)
         
-        paidDateField.inputAccessoryView = toolbar
-        paidDateField.inputView = paidDatePicker
+        cell.TextField.inputAccessoryView = toolbar
+        cell.TextField.inputView = paidDatePicker
+        //paidDateField.inputAccessoryView = toolbar
+        // paidDateField.inputView = paidDatePicker
         // format picker for date
         paidDatePicker.datePickerMode = .date
     }
@@ -115,7 +118,8 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         formatter.timeStyle = .none
         self.paidDate = self.paidDatePicker.date
         let dateString = formatter.string(from: paidDatePicker.date)
-        paidDateField.text = "\(dateString)"
+        self.paidDateCell.TextField.text = "\(dateString)"
+        //paidDateField.text = "\(dateString)"
         self.view.endEditing(true)
     }
     
@@ -127,24 +131,25 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     
     
     // table view
-    // list of questions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayOfCellData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "receiptAddCell", for: IndexPath)
-//        
-//        let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
-//        cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
-//        return cell
         
-        if arrayOfCellData[indexPath.row].cell == 1 {
+        if arrayOfCellData[indexPath.row].cell == "Input" {
             let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            
+            if arrayOfCellData[indexPath.row].text == "Paid Amount" {
+                self.billAmount = cell.TextField
+            } else if arrayOfCellData[indexPath.row].text == "Date" {
+                self.paidDateCell = cell
+                createPaidDatePicker(cell: cell)
+            }
             return cell
             
-        } else if arrayOfCellData[indexPath.row].cell == 2 {
+        } else if arrayOfCellData[indexPath.row].cell == "Switch" {
             let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellSwitch", owner: self, options: nil)?.first as! ReceiptAddTableViewCellSwitch
             cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
             return cell
@@ -156,17 +161,15 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 305
-//        if arrayOfCellData[indexPath.row].cell == 1 {
-//            return 305
-//            
-//        } else if arrayOfCellData[indexPath.row].cell == 2 {
-//            return 200
-//        } else {
-//           return 305
-//        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if arrayOfCellData[indexPath.row].cell == "Input" {
+            return 90
+            
+        } else if arrayOfCellData[indexPath.row].cell  == "Switch"  {
+            return 44
+        } else {
+            return 90
+        }
     }
     
 
