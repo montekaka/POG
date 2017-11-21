@@ -16,6 +16,8 @@
 		E5056D541FA18AEC00441F02 /* PropertyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */; };
 		E5056D561FA19FE600441F02 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D551FA19FE600441F02 /* Property.swift */; };
 		E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */; };
+		E5083B6C1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */; };
+		E5083B6D1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */; };
 		E53853FB1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853F91FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift */; };
 		E53853FC1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */; };
 		E53853FF1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */; };
@@ -39,6 +41,8 @@
 		E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDetailViewController.swift; sourceTree = "<group>"; };
 		E5056D551FA19FE600441F02 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyAddViewController.swift; sourceTree = "<group>"; };
+		E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddTableViewCellPicker.swift; sourceTree = "<group>"; };
+		E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiptAddTableViewCellPicker.xib; sourceTree = "<group>"; };
 		E53853F91FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddTableViewCellTextField.swift; sourceTree = "<group>"; };
 		E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiptAddTableViewCellTextField.xib; sourceTree = "<group>"; };
 		E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddTableViewCellSwitch.swift; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 				E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */,
 				E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */,
 				E53853FE1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib */,
+				E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */,
+				E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */,
 				E5B9DC5C1FAA36F3000C1999 /* ReceiptDetailViewController.swift */,
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
 				E5056D551FA19FE600441F02 /* Property.swift */,
@@ -164,6 +170,7 @@
 			files = (
 				E5056D481F9EFDF000441F02 /* LaunchScreen.storyboard in Resources */,
 				E5056D451F9EFDF000441F02 /* Assets.xcassets in Resources */,
+				E5083B6D1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib in Resources */,
 				E53853FC1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib in Resources */,
 				E53854001FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib in Resources */,
 				E5056D431F9EFDF000441F02 /* Main.storyboard in Resources */,
@@ -187,6 +194,7 @@
 				E5C27FAA1FA838700002FC7A /* ReceiptAddViewController.swift in Sources */,
 				E5056D521F9F000B00441F02 /* PropertyViewController.swift in Sources */,
 				E5056D3E1F9EFDF000441F02 /* AppDelegate.swift in Sources */,
+				E5083B6C1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift in Sources */,
 				E53853FB1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift in Sources */,
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,
 				E53853FF1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift in Sources */,

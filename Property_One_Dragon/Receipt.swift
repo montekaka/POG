@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct frequencyData {
+    let label: String!
+    let value: Float32!
+}
+
 class Receipt {
     // must fill
     var date: Date?
@@ -15,7 +20,7 @@ class Receipt {
     var property_id: Int?
     
     // optional
-    var frequency: String?
+    var frequency: frequencyData?
     var isAnnualized: boolean_t?
     var category: String?
     var endDate: Date?

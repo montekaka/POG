@@ -14,19 +14,29 @@ struct cellData {
     
 }
 
-class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var arrayOfCellData = [cellData]()
+    var arrayOfFrequencyPickerData = [frequencyData]()
     
     var receipt : Receipt?
     
     var billAmount: UITextField!
     var paidDateField: UITextField!
     var paidDate: Date?
-    var paidDateCell: ReceiptAddTableViewCellTextField!
+    var paidDateCell: ReceiptAddTableViewCellPicker!
     
     var property : Property?
     let paidDatePicker = UIDatePicker()
+    
+    // picker view
+    var fequencyPickerView = UIPickerView()
+    var fequencyPickerCell: ReceiptAddTableViewCellPicker!
+    var selectedFrequenceData: frequencyData?
+    
+    
+    
     
     func addButtonPressed() {
         let r = Receipt(amount: Double(billAmount.text!)!)
@@ -35,7 +45,12 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             r?.date = self.paidDate
         } else {
             r?.date = Date()
-        }            
+        }
+        
+        if((self.selectedFrequenceData) != nil){
+            r?.frequency = self.selectedFrequenceData
+        }
+        
         if property == nil {
         } else {
             r?.property_id = property?.id
@@ -66,10 +81,18 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         // add cell data
         arrayOfCellData = [
             cellData(cell: "Input", text: "Paid Amount")
-            ,cellData(cell: "Input", text: "Date")
+            ,cellData(cell: "Picker", text: "Date")
+            ,cellData(cell: "Picker", text: "Frequency")
             ,cellData(cell: "Switch", text: "Annualized")
         ]
-        
+        // add frequence data 
+        arrayOfFrequencyPickerData = [
+            frequencyData(label: "Not Repeat", value: 0),
+            frequencyData(label: "Semi Monthly", value: 0.5),
+            frequencyData(label: "Monthly", value: 1),
+            frequencyData(label: "Semi Annually", value: 6),
+            frequencyData(label: "Annually", value: 12)
+        ]
         // billAmount.keyboardType = UIKeyboardType.numberPad
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -96,7 +119,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         return false
     }
     
-    func createPaidDatePicker(cell: ReceiptAddTableViewCellTextField){
+    func createPaidDatePicker(cell: ReceiptAddTableViewCellPicker){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
@@ -123,6 +146,29 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         self.view.endEditing(true)
     }
     
+    
+    // picker veiw
+    func createFrequencePicker(cell: ReceiptAddTableViewCellPicker){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        fequencyPickerView.delegate = self
+        fequencyPickerView.dataSource = self
+        
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePaidDatePickerPressed))
+        toolbar.setItems([done], animated: false)
+        
+        cell.TextField.inputAccessoryView = toolbar
+        cell.TextField.inputView = fequencyPickerView
+        //cell.TextField.textAlignment = .center
+        cell.TextField.placeholder = "e.g. Monthly"
+        //paidDateField.inputAccessoryView = toolbar
+        // paidDateField.inputView = paidDatePicker
+        // format picker for date
+        //paidDatePicker.datePickerMode = .date
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,20 +186,28 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         if arrayOfCellData[indexPath.row].cell == "Input" {
             let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
-            
-            if arrayOfCellData[indexPath.row].text == "Paid Amount" {
-                self.billAmount = cell.TextField
-            } else if arrayOfCellData[indexPath.row].text == "Date" {
-                self.paidDateCell = cell
-                createPaidDatePicker(cell: cell)
-            }
+            self.billAmount = cell.TextField
             return cell
             
         } else if arrayOfCellData[indexPath.row].cell == "Switch" {
             let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellSwitch", owner: self, options: nil)?.first as! ReceiptAddTableViewCellSwitch
             cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
             return cell
-        } else {
+        } else if arrayOfCellData[indexPath.row].cell == "Picker" {
+         let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellPicker", owner: self, options: nil)?.first as! ReceiptAddTableViewCellPicker
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            
+            if arrayOfCellData[indexPath.row].text == "Date" {
+                self.paidDateCell = cell
+                createPaidDatePicker(cell: cell)
+            } else if arrayOfCellData[indexPath.row].text == "Frequency" {
+                self.fequencyPickerCell = cell
+                createFrequencePicker(cell: cell)
+            }
+
+            return cell
+        }
+        else {
             let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
             return cell
@@ -165,14 +219,36 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         if arrayOfCellData[indexPath.row].cell == "Input" {
             return 90
             
-        } else if arrayOfCellData[indexPath.row].cell  == "Switch"  {
+        } else if arrayOfCellData[indexPath.row].cell  == "Picker"  {
+            return 44
+        }
+        else if arrayOfCellData[indexPath.row].cell  == "Switch"  {
             return 44
         } else {
             return 90
         }
     }
     
-
+    // picker view implemenation
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return arrayOfFrequencyPickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return arrayOfFrequencyPickerData[row].label
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        fequencyPickerCell.TextField.text = arrayOfFrequencyPickerData[row].label
+        self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
+        fequencyPickerCell.TextField.resignFirstResponder()
+    }
+    
+    // end picker view
     /*
     // MARK: - Navigation
 
