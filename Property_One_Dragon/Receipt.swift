@@ -27,7 +27,7 @@ class Receipt {
     // optional
     var frequency: frequencyData?
     var isAnnualized: Bool?
-    var category: String?
+    var category: categoryData?
     var endDate: Date?
     
     init?( amount: Double){

@@ -117,11 +117,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBf-7d-mWA">
+                                <rect key="frame" x="16" y="293" width="267" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="billAmountLabel" destination="1gW-wu-KWE" id="toa-Z1-dmj"/>
+                        <outlet property="categoryLabel" destination="mBf-7d-mWA" id="JLy-q1-68G"/>
                         <outlet property="isAnnualizedLabel" destination="5lP-j2-ncN" id="K24-oe-SHV"/>
                         <outlet property="paidDateLabel" destination="Wt2-YM-ZUO" id="d7Z-CD-064"/>
                         <outlet property="paymentFrequencyLabel" destination="Faa-s2-aIT" id="C3o-o7-RQz"/>

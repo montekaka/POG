@@ -56,6 +56,10 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             r?.frequency = self.selectedFrequenceData
         }
         
+        if((self.selectedCategoryData) != nil){
+            r?.category = self.selectedCategoryData
+        }
+        
         if property == nil {
         } else {
             r?.property_id = property?.id
