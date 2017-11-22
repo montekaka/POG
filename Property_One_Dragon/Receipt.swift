@@ -13,6 +13,11 @@ struct frequencyData {
     let value: Float32!
 }
 
+struct categoryData {
+    let label: String!
+    let value: Float32!
+}
+
 class Receipt {
     // must fill
     var date: Date?

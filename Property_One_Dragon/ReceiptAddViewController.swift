@@ -19,6 +19,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     
     var arrayOfCellData = [cellData]()
     var arrayOfFrequencyPickerData = [frequencyData]()
+    var arrayOfCategoryData = [categoryData]()
     
     var receipt : Receipt?
     
@@ -34,6 +35,10 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     var fequencyPickerView = UIPickerView()
     var fequencyPickerCell: ReceiptAddTableViewCellPicker?
     var selectedFrequenceData: frequencyData?
+    
+    var categoryPickerView = UIPickerView()
+    var categoryPickerCell: ReceiptAddTableViewCellPicker?
+    var selectedCategoryData: categoryData?
     
     // var isAnnualization
     var AnnualizationCell: ReceiptAddTableViewCellSwitch?
@@ -89,6 +94,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             ,cellData(cell: "Picker", text: "Date")
             ,cellData(cell: "Picker", text: "Frequency")
             ,cellData(cell: "Switch", text: "Annualized")
+            ,cellData(cell: "Picker", text: "Category")
         ]
         // add frequence data 
         arrayOfFrequencyPickerData = [
@@ -97,6 +103,14 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             frequencyData(label: "Monthly", value: 1),
             frequencyData(label: "Semi Annually", value: 6),
             frequencyData(label: "Annually", value: 12)
+        ]
+        
+        // add category data
+        arrayOfCategoryData = [
+            categoryData(label: "Expense 1", value: 1),
+            categoryData(label: "Expense 2", value: 2),
+            categoryData(label: "Expense 3", value: 3),
+            categoryData(label: "Expense 4", value: 4)
         ]
         // billAmount.keyboardType = UIKeyboardType.numberPad
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
@@ -159,19 +173,24 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         
         fequencyPickerView.delegate = self
         fequencyPickerView.dataSource = self
-        
-        // done button for toolbar
-        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePaidDatePickerPressed))
-        toolbar.setItems([done], animated: false)
+        fequencyPickerView.tag = 1
         
         cell.TextField.inputAccessoryView = toolbar
         cell.TextField.inputView = fequencyPickerView
-        //cell.TextField.textAlignment = .center
         cell.TextField.placeholder = "e.g. Monthly"
-        //paidDateField.inputAccessoryView = toolbar
-        // paidDateField.inputView = paidDatePicker
-        // format picker for date
-        //paidDatePicker.datePickerMode = .date
+    }
+    
+    func createCategoryPicker(cell: ReceiptAddTableViewCellPicker){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        categoryPickerView.delegate = self
+        categoryPickerView.dataSource = self
+        categoryPickerView.tag = 2
+        
+        cell.TextField.inputAccessoryView = toolbar
+        cell.TextField.inputView = categoryPickerView
+        cell.TextField.placeholder = "e.g. Expense 1"
     }
     
 
@@ -209,6 +228,9 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             } else if arrayOfCellData[indexPath.row].text == "Frequency" {
                 self.fequencyPickerCell = cell
                 createFrequencePicker(cell: cell)
+            } else if arrayOfCellData[indexPath.row].text == "Category" {
+                self.categoryPickerCell = cell
+                createCategoryPicker(cell: cell)
             }
 
             return cell
@@ -221,6 +243,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if arrayOfCellData[indexPath.row].cell == "Input" {
             return 90
@@ -241,17 +264,48 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return arrayOfFrequencyPickerData.count
+        
+        var count = 0
+        if(pickerView.tag == 1) {
+            // frequency
+            count = arrayOfFrequencyPickerData.count
+        }
+        
+        if(pickerView.tag == 2) {
+            // category
+            count = arrayOfCategoryData.count
+        }
+        
+        return count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return arrayOfFrequencyPickerData[row].label
+        
+        var label = ""
+
+        if(pickerView.tag == 1) {
+            // frequency
+            label = arrayOfFrequencyPickerData[row].label
+        }
+        
+        if(pickerView.tag == 2) {
+            // category
+            label = arrayOfCategoryData[row].label
+        }
+        
+        return label
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        fequencyPickerCell?.TextField.text = arrayOfFrequencyPickerData[row].label
-        self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
-        fequencyPickerCell?.TextField.resignFirstResponder()
+        if (pickerView.tag == 1) {
+            fequencyPickerCell?.TextField.text = arrayOfFrequencyPickerData[row].label
+            self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
+            fequencyPickerCell?.TextField.resignFirstResponder()
+        } else if (pickerView.tag == 2){
+            categoryPickerCell?.TextField.text = arrayOfCategoryData[row].label
+            self.selectedCategoryData = arrayOfCategoryData[row]
+            categoryPickerCell?.TextField.resignFirstResponder()
+        }
     }
     
     // end picker view
