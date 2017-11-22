@@ -17,6 +17,8 @@ struct cellData {
 
 class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var property : Property?
+    
     var arrayOfCellData = [cellData]()
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
@@ -24,12 +26,17 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     var receipt : Receipt?
     
     var billAmount: UITextField!
+    
+    // date picker
     var paidDateField: UITextField!
     var paidDate: Date?
     var paidDateCell: ReceiptAddTableViewCellPicker?
-    
-    var property : Property?
     let paidDatePicker = UIDatePicker()
+
+    var endDateField: UITextField!
+    var endDate: Date?
+    var endDateCell: ReceiptAddTableViewCellPicker?
+    let endDatePicker = UIDatePicker()
     
     // picker view
     var fequencyPickerView = UIPickerView()
@@ -99,6 +106,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             ,cellData(cell: "Picker", text: "Frequency")
             ,cellData(cell: "Switch", text: "Annualized")
             ,cellData(cell: "Picker", text: "Category")
+            ,cellData(cell: "Picker", text: "End Date")
         ]
         // add frequence data 
         arrayOfFrequencyPickerData = [
@@ -141,7 +149,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         view.endEditing(true)
         return false
     }
-    
+    // date picker
     func createPaidDatePicker(cell: ReceiptAddTableViewCellPicker){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -169,6 +177,33 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         self.view.endEditing(true)
     }
     
+    // end date date picker
+    func createEndDatePicker(cell: ReceiptAddTableViewCellPicker){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneEndDatePickerPressed))
+        toolbar.setItems([done], animated: false)
+        
+        cell.TextField.inputAccessoryView = toolbar
+        cell.TextField.inputView = endDatePicker
+        //paidDateField.inputAccessoryView = toolbar
+        // paidDateField.inputView = paidDatePicker
+        // format picker for date
+        endDatePicker.datePickerMode = .date
+    }
+    
+    func doneEndDatePickerPressed(){
+        // format date
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        self.endDate = self.endDatePicker.date
+        let dateString = formatter.string(from: endDatePicker.date)
+        self.endDateCell?.TextField.text = "\(dateString)"
+        //paidDateField.text = "\(dateString)"
+        self.view.endEditing(true)
+    }
     
     // picker veiw
     func createFrequencePicker(cell: ReceiptAddTableViewCellPicker){
@@ -229,7 +264,11 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             if arrayOfCellData[indexPath.row].text == "Date" {
                 self.paidDateCell = cell
                 createPaidDatePicker(cell: cell)
-            } else if arrayOfCellData[indexPath.row].text == "Frequency" {
+            } else if arrayOfCellData[indexPath.row].text == "End Date" {
+                self.endDateCell = cell
+                createEndDatePicker(cell: cell)
+            }
+            else if arrayOfCellData[indexPath.row].text == "Frequency" {
                 self.fequencyPickerCell = cell
                 createFrequencePicker(cell: cell)
             } else if arrayOfCellData[indexPath.row].text == "Category" {

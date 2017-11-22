@@ -92,13 +92,8 @@
 				E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */,
 				E5C27FA71FA838600002FC7A /* ReceiptViewController.swift */,
 				E5C27FA91FA838700002FC7A /* ReceiptAddViewController.swift */,
-				E53853F91FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift */,
-				E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */,
-				E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */,
-				E53853FE1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib */,
-				E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */,
-				E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */,
 				E5B9DC5C1FAA36F3000C1999 /* ReceiptDetailViewController.swift */,
+				E5E7AD621FC602410076CC97 /* ReceiptAddTableCell */,
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
 				E5056D551FA19FE600441F02 /* Property.swift */,
 				E5C27FA51FA700D70002FC7A /* Receipt.swift */,
@@ -107,6 +102,19 @@
 				E5056D491F9EFDF000441F02 /* Info.plist */,
 			);
 			path = Property_One_Dragon;
+			sourceTree = "<group>";
+		};
+		E5E7AD621FC602410076CC97 /* ReceiptAddTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				E53853F91FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift */,
+				E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */,
+				E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */,
+				E53853FE1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib */,
+				E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */,
+				E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */,
+			);
+			name = ReceiptAddTableCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
