@@ -11,5 +11,14 @@ import UIKit
 class ReceiptAddTableViewCellSwitch: UITableViewCell {
 
     @IBOutlet weak var switchTextLabel: UILabel!
+    var switchValue: Bool?
     
+  
+    @IBAction func switchChanged(_ sender: UISwitch) {
+        if (sender.isOn == true) {
+            switchValue = true
+        } else {
+            switchValue = false
+        }
+    }
 }

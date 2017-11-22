@@ -20,6 +20,9 @@ class ReceiptDetailViewController: UIViewController {
     @IBOutlet weak var paidDateLabel : UILabel?
     
     @IBOutlet weak var paymentFrequencyLabel: UILabel!
+    
+    @IBOutlet weak var isAnnualizedLabel: UILabel!
+    
     func configureView(){
         if let detail = self.detailItem {
             self.title = "Receipt"
@@ -38,6 +41,12 @@ class ReceiptDetailViewController: UIViewController {
                 paymentFrequencyLabel?.text = detail.frequency?.label
             }
             
+            // isAnnualized
+            if(detail.isAnnualized == true) {
+                isAnnualizedLabel?.text = "Annualized"
+            } else {
+                isAnnualizedLabel?.text = "Not Annualized"
+            }
         }
     }
     

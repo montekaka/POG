@@ -25,18 +25,18 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     var billAmount: UITextField!
     var paidDateField: UITextField!
     var paidDate: Date?
-    var paidDateCell: ReceiptAddTableViewCellPicker!
+    var paidDateCell: ReceiptAddTableViewCellPicker?
     
     var property : Property?
     let paidDatePicker = UIDatePicker()
     
     // picker view
     var fequencyPickerView = UIPickerView()
-    var fequencyPickerCell: ReceiptAddTableViewCellPicker!
+    var fequencyPickerCell: ReceiptAddTableViewCellPicker?
     var selectedFrequenceData: frequencyData?
     
-    
-    
+    // var isAnnualization
+    var AnnualizationCell: ReceiptAddTableViewCellSwitch?
     
     func addButtonPressed() {
         let r = Receipt(amount: Double(billAmount.text!)!)
@@ -54,6 +54,11 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         if property == nil {
         } else {
             r?.property_id = property?.id
+        }
+        if(self.AnnualizationCell?.switchValue == true) {
+            r?.isAnnualized = true
+        } else {
+            r?.isAnnualized = false
         }
         receipt = r
         
@@ -141,7 +146,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         formatter.timeStyle = .none
         self.paidDate = self.paidDatePicker.date
         let dateString = formatter.string(from: paidDatePicker.date)
-        self.paidDateCell.TextField.text = "\(dateString)"
+        self.paidDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
         self.view.endEditing(true)
     }
@@ -192,6 +197,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         } else if arrayOfCellData[indexPath.row].cell == "Switch" {
             let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellSwitch", owner: self, options: nil)?.first as! ReceiptAddTableViewCellSwitch
             cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
+            self.AnnualizationCell = cell
             return cell
         } else if arrayOfCellData[indexPath.row].cell == "Picker" {
          let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellPicker", owner: self, options: nil)?.first as! ReceiptAddTableViewCellPicker
@@ -243,9 +249,9 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        fequencyPickerCell.TextField.text = arrayOfFrequencyPickerData[row].label
+        fequencyPickerCell?.TextField.text = arrayOfFrequencyPickerData[row].label
         self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
-        fequencyPickerCell.TextField.resignFirstResponder()
+        fequencyPickerCell?.TextField.resignFirstResponder()
     }
     
     // end picker view

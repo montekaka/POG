@@ -21,7 +21,7 @@ class Receipt {
     
     // optional
     var frequency: frequencyData?
-    var isAnnualized: boolean_t?
+    var isAnnualized: Bool?
     var category: String?
     var endDate: Date?
     
