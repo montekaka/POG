@@ -17,6 +17,7 @@ struct cellData {
 
 class PaymentAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    @IBOutlet weak var tableView: UITableView!
     var property : Property?
     
     var arrayOfCellData = [cellData]()
@@ -100,7 +101,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
 
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         // add cell data
         arrayOfCellData = [
             cellData(cell: "Input", text: "Paid Amount")
@@ -140,6 +141,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         // add date picker
         // createPaidDatePicker()
         
+        // Remove extra empty cells in TableViewController    
+        tableView.tableFooterView = UIView()
         
     }
     

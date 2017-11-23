@@ -93,7 +93,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.property = detailItem
         }
         
-        if segue.identifier == "propertyReceiptDetailSegue" {
+        if segue.identifier == "propertyPaymentDetailSegue" {
             let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
             selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
             
