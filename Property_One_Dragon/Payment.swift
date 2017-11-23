@@ -47,20 +47,39 @@ class Payment {
     func get() -> [paymentData] {
         var data = [paymentData]()
         
+        // date formatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        
+        // currency formatter
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        
         if ((self.date) != nil ) {
-            data.append(paymentData(label: "Date", value: self.date, format: "Date"))
+            let paidDateString = dateFormatter.string(from: self.date!)
+            
+            data.append(paymentData(label: "Date", value: self.date, format: paidDateString))
         }
         if ((self.amount) != nil ) {
-            data.append(paymentData(label: "amount", value: self.amount, format: "Money"))
+            let amountStr = currencyFormatter.string(from: self.amount! as NSNumber)
+            data.append(paymentData(label: "amount", value: self.amount, format: amountStr))
         }
         if ((self.frequency) != nil ) {
-            data.append(paymentData(label: "Frequency", value: self.frequency, format: "String"))
+            
+            data.append(paymentData(label: "Frequency", value: self.frequency, format: self.frequency?.label))
         }
         if ((self.isAnnualized) != nil ) {
-            data.append(paymentData(label: "isAnnualized", value: self.isAnnualized, format: "String"))
+            
+            var isAnnualizedStr = "No"
+            if(self.isAnnualized == true){
+               isAnnualizedStr = "Yes"
+            }
+            
+            data.append(paymentData(label: "Annualized the payment", value: self.isAnnualized, format: isAnnualizedStr))
         }
         if ((self.category) != nil ) {
-            data.append(paymentData(label: "category", value: self.category, format: "String"))
+            data.append(paymentData(label: "category", value: self.category, format: self.category?.label))
         }
         return data
     }
