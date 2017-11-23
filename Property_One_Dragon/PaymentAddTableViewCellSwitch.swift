@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReceiptAddTableViewCellSwitch: UITableViewCell {
+class PaymentAddTableViewCellSwitch: UITableViewCell {
 
     @IBOutlet weak var switchTextLabel: UILabel!
     var switchValue: Bool?

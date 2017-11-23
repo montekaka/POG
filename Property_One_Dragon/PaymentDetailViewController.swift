@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ReceiptDetailViewController: UIViewController {
-    var masterView: ReceiptViewController!
-    var detailItem : Receipt? {
+class PaymentDetailViewController: UIViewController {
+    var masterView: PaymentViewController!
+    var detailItem : Payment? {
         didSet {
             self.configureView()
         }

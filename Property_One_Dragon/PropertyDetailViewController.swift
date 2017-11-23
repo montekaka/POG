@@ -20,7 +20,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var mapView : MKMapView?
     
     
-    var receiptData:[Receipt] = []
+    var paymentData:[Payment] = []
     var detailItem : Property? {
         didSet {
             self.configureView()
@@ -67,7 +67,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         
     }
     
-    @IBAction func addReceiptButtonPressed(sender : UIButton) {
+    @IBAction func addPaymentButtonPressed(sender : UIButton) {
         //self.performSegue(withIdentifier: "propertyAddReceiptSegue", sender: self)
     }
     
@@ -89,12 +89,12 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         }
         
         if segue.identifier == "propertyAddReceiptSegue" {
-            let controller = segue.destination as! ReceiptAddViewController
+            let controller = segue.destination as! PaymentAddViewController
             controller.property = detailItem
         }
         
         if segue.identifier == "propertyReceiptDetailSegue" {
-            let detailView: ReceiptDetailViewController = segue.destination as! ReceiptDetailViewController
+            let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
             selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
             
             

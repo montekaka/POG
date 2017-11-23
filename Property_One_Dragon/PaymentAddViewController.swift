@@ -15,7 +15,7 @@ struct cellData {
 }
 
 
-class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class PaymentAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var property : Property?
     
@@ -23,35 +23,35 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
     
-    var receipt : Receipt?
+    var payment : Payment?
     
     var billAmount: UITextField!
     
     // date picker
     var paidDateField: UITextField!
     var paidDate: Date?
-    var paidDateCell: ReceiptAddTableViewCellPicker?
+    var paidDateCell: PaymentAddTableViewCellPicker?
     let paidDatePicker = UIDatePicker()
 
     var endDateField: UITextField!
     var endDate: Date?
-    var endDateCell: ReceiptAddTableViewCellPicker?
+    var endDateCell: PaymentAddTableViewCellPicker?
     let endDatePicker = UIDatePicker()
     
     // picker view
     var fequencyPickerView = UIPickerView()
-    var fequencyPickerCell: ReceiptAddTableViewCellPicker?
+    var fequencyPickerCell: PaymentAddTableViewCellPicker?
     var selectedFrequenceData: frequencyData?
     
     var categoryPickerView = UIPickerView()
-    var categoryPickerCell: ReceiptAddTableViewCellPicker?
+    var categoryPickerCell: PaymentAddTableViewCellPicker?
     var selectedCategoryData: categoryData?
     
     // var isAnnualization
-    var AnnualizationCell: ReceiptAddTableViewCellSwitch?
+    var AnnualizationCell: PaymentAddTableViewCellSwitch?
     
     func addButtonPressed() {
-        let r = Receipt(amount: Double(billAmount.text!)!)
+        let r = Payment(amount: Double(billAmount.text!)!)
         
         if((self.paidDate) != nil){
             r?.date = self.paidDate
@@ -76,14 +76,15 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             r?.isAnnualized = false
         }
-        receipt = r
+        payment = r
         
         // create a new receipt
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
         // this should sit inside property instead its own, we will refactor it later on
-        appDelegrate.receiptsArray.append(receipt!)
-        // add the new receipt cost to property expense
+        appDelegrate.receiptsArray.append(payment!)
         
+        
+        // add the new receipt cost to property expense -- this should move to receipt to handle it
         let propertyArray = appDelegrate.propertiesArray.filter{
             $0.id == property?.id
         }
@@ -150,7 +151,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         return false
     }
     // date picker
-    func createPaidDatePicker(cell: ReceiptAddTableViewCellPicker){
+    func createPaidDatePicker(cell: PaymentAddTableViewCellPicker){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
@@ -178,7 +179,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // end date date picker
-    func createEndDatePicker(cell: ReceiptAddTableViewCellPicker){
+    func createEndDatePicker(cell: PaymentAddTableViewCellPicker){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
@@ -206,7 +207,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // picker veiw
-    func createFrequencePicker(cell: ReceiptAddTableViewCellPicker){
+    func createFrequencePicker(cell: PaymentAddTableViewCellPicker){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -219,7 +220,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
         cell.TextField.placeholder = "e.g. Monthly"
     }
     
-    func createCategoryPicker(cell: ReceiptAddTableViewCellPicker){
+    func createCategoryPicker(cell: PaymentAddTableViewCellPicker){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -247,18 +248,18 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if arrayOfCellData[indexPath.row].cell == "Input" {
-            let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
+            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
             self.billAmount = cell.TextField
             return cell
             
         } else if arrayOfCellData[indexPath.row].cell == "Switch" {
-            let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellSwitch", owner: self, options: nil)?.first as! ReceiptAddTableViewCellSwitch
+            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellSwitch", owner: self, options: nil)?.first as! PaymentAddTableViewCellSwitch
             cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
             self.AnnualizationCell = cell
             return cell
         } else if arrayOfCellData[indexPath.row].cell == "Picker" {
-         let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellPicker", owner: self, options: nil)?.first as! ReceiptAddTableViewCellPicker
+         let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellPicker", owner: self, options: nil)?.first as! PaymentAddTableViewCellPicker
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
             
             if arrayOfCellData[indexPath.row].text == "Date" {
@@ -279,7 +280,7 @@ class ReceiptAddViewController: UIViewController, UITableViewDataSource, UITable
             return cell
         }
         else {
-            let cell = Bundle.main.loadNibNamed("ReceiptAddTableViewCellTextField", owner: self, options: nil)?.first as! ReceiptAddTableViewCellTextField
+            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
             return cell
         }

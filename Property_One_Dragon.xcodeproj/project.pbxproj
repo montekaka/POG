@@ -16,17 +16,17 @@
 		E5056D541FA18AEC00441F02 /* PropertyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */; };
 		E5056D561FA19FE600441F02 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D551FA19FE600441F02 /* Property.swift */; };
 		E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */; };
-		E5083B6C1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */; };
-		E5083B6D1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */; };
-		E53853FB1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853F91FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift */; };
-		E53853FC1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */; };
-		E53853FF1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */; };
-		E53854001FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FE1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib */; };
+		E5083B6C1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5083B6A1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift */; };
+		E5083B6D1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5083B6B1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib */; };
+		E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853F91FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift */; };
+		E53853FC1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FA1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib */; };
+		E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */; };
+		E53854001FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */; };
 		E586EE001FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */; };
-		E5B9DC5D1FAA36F3000C1999 /* ReceiptDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9DC5C1FAA36F3000C1999 /* ReceiptDetailViewController.swift */; };
-		E5C27FA61FA700D70002FC7A /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA51FA700D70002FC7A /* Receipt.swift */; };
-		E5C27FA81FA838600002FC7A /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA71FA838600002FC7A /* ReceiptViewController.swift */; };
-		E5C27FAA1FA838700002FC7A /* ReceiptAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA91FA838700002FC7A /* ReceiptAddViewController.swift */; };
+		E5B9DC5D1FAA36F3000C1999 /* PaymentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */; };
+		E5C27FA61FA700D70002FC7A /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA51FA700D70002FC7A /* Payment.swift */; };
+		E5C27FA81FA838600002FC7A /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA71FA838600002FC7A /* PaymentViewController.swift */; };
+		E5C27FAA1FA838700002FC7A /* PaymentAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,17 +41,17 @@
 		E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyDetailViewController.swift; sourceTree = "<group>"; };
 		E5056D551FA19FE600441F02 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyAddViewController.swift; sourceTree = "<group>"; };
-		E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddTableViewCellPicker.swift; sourceTree = "<group>"; };
-		E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiptAddTableViewCellPicker.xib; sourceTree = "<group>"; };
-		E53853F91FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddTableViewCellTextField.swift; sourceTree = "<group>"; };
-		E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiptAddTableViewCellTextField.xib; sourceTree = "<group>"; };
-		E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddTableViewCellSwitch.swift; sourceTree = "<group>"; };
-		E53853FE1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReceiptAddTableViewCellSwitch.xib; sourceTree = "<group>"; };
+		E5083B6A1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellPicker.swift; sourceTree = "<group>"; };
+		E5083B6B1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellPicker.xib; sourceTree = "<group>"; };
+		E53853F91FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellTextField.swift; sourceTree = "<group>"; };
+		E53853FA1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellTextField.xib; sourceTree = "<group>"; };
+		E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellSwitch.swift; sourceTree = "<group>"; };
+		E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellSwitch.xib; sourceTree = "<group>"; };
 		E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyViewCustomCell.swift; sourceTree = "<group>"; };
-		E5B9DC5C1FAA36F3000C1999 /* ReceiptDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptDetailViewController.swift; sourceTree = "<group>"; };
-		E5C27FA51FA700D70002FC7A /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
-		E5C27FA71FA838600002FC7A /* ReceiptViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
-		E5C27FA91FA838700002FC7A /* ReceiptAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptAddViewController.swift; sourceTree = "<group>"; };
+		E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentDetailViewController.swift; sourceTree = "<group>"; };
+		E5C27FA51FA700D70002FC7A /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
+		E5C27FA71FA838600002FC7A /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,13 +90,13 @@
 				E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */,
 				E5056D531FA18AEC00441F02 /* PropertyDetailViewController.swift */,
 				E5056D571FA2FCE000441F02 /* PropertyAddViewController.swift */,
-				E5C27FA71FA838600002FC7A /* ReceiptViewController.swift */,
-				E5C27FA91FA838700002FC7A /* ReceiptAddViewController.swift */,
-				E5B9DC5C1FAA36F3000C1999 /* ReceiptDetailViewController.swift */,
-				E5E7AD621FC602410076CC97 /* ReceiptAddTableCell */,
+				E5C27FA71FA838600002FC7A /* PaymentViewController.swift */,
+				E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */,
+				E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */,
+				E5E7AD621FC602410076CC97 /* PaymentAddTableCell */,
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
 				E5056D551FA19FE600441F02 /* Property.swift */,
-				E5C27FA51FA700D70002FC7A /* Receipt.swift */,
+				E5C27FA51FA700D70002FC7A /* Payment.swift */,
 				E5056D441F9EFDF000441F02 /* Assets.xcassets */,
 				E5056D461F9EFDF000441F02 /* LaunchScreen.storyboard */,
 				E5056D491F9EFDF000441F02 /* Info.plist */,
@@ -104,17 +104,17 @@
 			path = Property_One_Dragon;
 			sourceTree = "<group>";
 		};
-		E5E7AD621FC602410076CC97 /* ReceiptAddTableCell */ = {
+		E5E7AD621FC602410076CC97 /* PaymentAddTableCell */ = {
 			isa = PBXGroup;
 			children = (
-				E53853F91FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift */,
-				E53853FA1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib */,
-				E53853FD1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift */,
-				E53853FE1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib */,
-				E5083B6A1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift */,
-				E5083B6B1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib */,
+				E53853F91FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift */,
+				E53853FA1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib */,
+				E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */,
+				E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */,
+				E5083B6A1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift */,
+				E5083B6B1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib */,
 			);
-			name = ReceiptAddTableCell;
+			name = PaymentAddTableCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,9 +178,9 @@
 			files = (
 				E5056D481F9EFDF000441F02 /* LaunchScreen.storyboard in Resources */,
 				E5056D451F9EFDF000441F02 /* Assets.xcassets in Resources */,
-				E5083B6D1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.xib in Resources */,
-				E53853FC1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.xib in Resources */,
-				E53854001FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.xib in Resources */,
+				E5083B6D1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib in Resources */,
+				E53853FC1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib in Resources */,
+				E53854001FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib in Resources */,
 				E5056D431F9EFDF000441F02 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,19 +193,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5056D561FA19FE600441F02 /* Property.swift in Sources */,
-				E5C27FA81FA838600002FC7A /* ReceiptViewController.swift in Sources */,
+				E5C27FA81FA838600002FC7A /* PaymentViewController.swift in Sources */,
 				E5056D541FA18AEC00441F02 /* PropertyDetailViewController.swift in Sources */,
 				E5056D401F9EFDF000441F02 /* ViewController.swift in Sources */,
-				E5B9DC5D1FAA36F3000C1999 /* ReceiptDetailViewController.swift in Sources */,
+				E5B9DC5D1FAA36F3000C1999 /* PaymentDetailViewController.swift in Sources */,
 				E586EE001FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift in Sources */,
-				E5C27FA61FA700D70002FC7A /* Receipt.swift in Sources */,
-				E5C27FAA1FA838700002FC7A /* ReceiptAddViewController.swift in Sources */,
+				E5C27FA61FA700D70002FC7A /* Payment.swift in Sources */,
+				E5C27FAA1FA838700002FC7A /* PaymentAddViewController.swift in Sources */,
 				E5056D521F9F000B00441F02 /* PropertyViewController.swift in Sources */,
 				E5056D3E1F9EFDF000441F02 /* AppDelegate.swift in Sources */,
-				E5083B6C1FC2B12500CF9756 /* ReceiptAddTableViewCellPicker.swift in Sources */,
-				E53853FB1FBC13DD0091C2E0 /* ReceiptAddTableViewCellTextField.swift in Sources */,
+				E5083B6C1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift in Sources */,
+				E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */,
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,
-				E53853FF1FBC14660091C2E0 /* ReceiptAddTableViewCellSwitch.swift in Sources */,
+				E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

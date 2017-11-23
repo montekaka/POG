@@ -1,16 +1,16 @@
 //
-//  ReceiptAddTableViewCellTextField.swift
+//  ReceiptAddTableViewCellPicker.swift
 //  Property_One_Dragon
 //
-//  Created by Jia Chen on 11/14/17.
+//  Created by Jia Chen on 11/19/17.
 //  Copyright © 2017 BruinSquare. All rights reserved.
 //
 
 import UIKit
 
-class ReceiptAddTableViewCellTextField: UITableViewCell {
+class PaymentAddTableViewCellPicker: UITableViewCell {
 
     @IBOutlet weak var TextFieldLabel: UILabel!
-       
     @IBOutlet weak var TextField: UITextField!
+      
 }

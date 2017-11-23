@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReceiptViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PaymentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     //var data: [String] = ["Row 1","Row 2","Row 3"]
     var selectedRow:Int = -1
@@ -40,7 +40,7 @@ class ReceiptViewController: UIViewController, UITableViewDataSource, UITableVie
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
         let object = appDelegrate.receiptsArray[indexPath.row]
         
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "receiptTableCell")!
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "paymentTableCell")!
         cell.textLabel?.text = "\(object.amount ?? 0)"
         return cell
     }
@@ -48,14 +48,14 @@ class ReceiptViewController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
         //let object = appDelegrate.receiptsArray[indexPath.row]
-        self.performSegue(withIdentifier: "receiptDetailSegue", sender: nil)
+        self.performSegue(withIdentifier: "paymentDetailSegue", sender: nil)
         //print("\(object.amount ?? 0)")
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "receiptDetailSegue" {
-            let detailView: ReceiptDetailViewController = segue.destination as! ReceiptDetailViewController
+        if segue.identifier == "paymentDetailSegue" {
+            let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
             selectedRow = table.indexPathForSelectedRow!.row
             detailView.masterView = self
             
@@ -77,7 +77,7 @@ class ReceiptViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func addReceipt(){
-        self.performSegue(withIdentifier: "receiptAddSegue", sender: self)
+        self.performSegue(withIdentifier: "paymentAddSegue", sender: self)
     }
     
     

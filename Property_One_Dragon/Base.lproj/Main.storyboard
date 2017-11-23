@@ -27,10 +27,10 @@
             </objects>
             <point key="canvasLocation" x="-223" y="149"/>
         </scene>
-        <!--Receipt View Controller-->
+        <!--Payment View Controller-->
         <scene sceneID="HrA-cl-NT7">
             <objects>
-                <viewController id="dLa-mH-ze2" customClass="ReceiptViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dLa-mH-ze2" customClass="PaymentViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VZE-jq-XT5"/>
                         <viewControllerLayoutGuide type="bottom" id="l4i-kY-Vmy"/>
@@ -43,7 +43,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="receiptTableCell" id="LU9-vY-gfl">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paymentTableCell" id="LU9-vY-gfl">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LU9-vY-gfl" id="aEE-w1-S8C">
@@ -69,80 +69,17 @@
                     <navigationItem key="navigationItem" id="FDG-Po-ugx"/>
                     <connections>
                         <outlet property="table" destination="4Pn-MH-GMt" id="ine-fM-5GZ"/>
-                        <segue destination="1zi-Wk-o6F" kind="show" identifier="receiptDetailSegue" id="O8P-iz-QWZ"/>
-                        <segue destination="W0z-ff-k2p" kind="show" identifier="receiptAddSegue" id="fGg-wr-Y9W"/>
+                        <segue destination="W0z-ff-k2p" kind="show" identifier="paymentAddSegue" id="fGg-wr-Y9W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFn-Xt-aYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1638" y="887"/>
         </scene>
-        <!--Receipt Detail View Controller-->
-        <scene sceneID="a77-zu-IPQ">
-            <objects>
-                <viewController id="1zi-Wk-o6F" customClass="ReceiptDetailViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ggr-SJ-Eef"/>
-                        <viewControllerLayoutGuide type="bottom" id="w9o-0r-0Ru"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Fbr-Jg-1hh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gW-wu-KWE">
-                                <rect key="frame" x="16" y="103" width="343" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wt2-YM-ZUO">
-                                <rect key="frame" x="16" y="149" width="267" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Faa-s2-aIT">
-                                <rect key="frame" x="16" y="203" width="267" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5lP-j2-ncN">
-                                <rect key="frame" x="16" y="248" width="267" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBf-7d-mWA">
-                                <rect key="frame" x="16" y="293" width="267" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="billAmountLabel" destination="1gW-wu-KWE" id="toa-Z1-dmj"/>
-                        <outlet property="categoryLabel" destination="mBf-7d-mWA" id="JLy-q1-68G"/>
-                        <outlet property="isAnnualizedLabel" destination="5lP-j2-ncN" id="K24-oe-SHV"/>
-                        <outlet property="paidDateLabel" destination="Wt2-YM-ZUO" id="d7Z-CD-064"/>
-                        <outlet property="paymentFrequencyLabel" destination="Faa-s2-aIT" id="C3o-o7-RQz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iCs-yd-hls" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1904.8" y="1668.2158920539732"/>
-        </scene>
-        <!--Receipt Add View Controller-->
+        <!--Payment Add View Controller-->
         <scene sceneID="wIK-Od-Ros">
             <objects>
-                <viewController id="W0z-ff-k2p" customClass="ReceiptAddViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="W0z-ff-k2p" customClass="PaymentAddViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yQj-6v-Np7"/>
                         <viewControllerLayoutGuide type="bottom" id="0J9-E3-8Ob"/>
@@ -156,8 +93,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="W0z-ff-k2p" id="B5Y-qV-T1C"/>
-                                    <outlet property="delegate" destination="W0z-ff-k2p" id="gx4-Kd-qLQ"/>
+                                    <outlet property="dataSource" destination="W0z-ff-k2p" id="08r-Tc-tZz"/>
+                                    <outlet property="delegate" destination="W0z-ff-k2p" id="00R-md-7x3"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -343,9 +280,6 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </tableViewCellContentView>
-                                                    <connections>
-                                                        <segue destination="1zi-Wk-o6F" kind="show" identifier="propertyReceiptDetailSegue" id="rOE-Ov-D6S"/>
-                                                    </connections>
                                                 </tableViewCell>
                                             </prototypes>
                                             <connections>
@@ -358,8 +292,8 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Add Receipt"/>
                                             <connections>
-                                                <action selector="addReceiptButtonPressedWithSender:" destination="NfI-vM-cBu" eventType="touchUpInside" id="5Is-I0-3pf"/>
-                                                <segue destination="W0z-ff-k2p" kind="show" identifier="propertyAddReceiptSegue" id="Hxw-uq-e5Z"/>
+                                                <action selector="addPaymentButtonPressedWithSender:" destination="NfI-vM-cBu" eventType="touchUpInside" id="awR-G6-pMl"/>
+                                                <segue destination="W0z-ff-k2p" kind="show" identifier="propertyAddPaymentSegue" id="2wA-Vr-Erb"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -552,8 +486,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0WM-px-7qa"/>
-        <segue reference="Hxw-uq-e5Z"/>
-        <segue reference="rOE-Ov-D6S"/>
+        <segue reference="2wA-Vr-Erb"/>
+        <segue reference="bGh-ls-JYm"/>
     </inferredMetricsTieBreakers>
 </document>
