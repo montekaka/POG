@@ -51,6 +51,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     var AnnualizationCell: PaymentAddTableViewCellSwitch?
     
     func addButtonPressed() {
+        
         let r = Payment(amount: Double(billAmount.text!)!)
         
         if((self.paidDate) != nil){

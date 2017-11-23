@@ -88,7 +88,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.property = detailItem
         }
         
-        if segue.identifier == "propertyAddReceiptSegue" {
+        if segue.identifier == "propertyAddPaymentSegue" {
             let controller = segue.destination as! PaymentAddViewController
             controller.property = detailItem
         }
