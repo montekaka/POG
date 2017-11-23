@@ -21,6 +21,7 @@ struct categoryData {
 struct paymentData {
     let label: String!
     let value: Any!
+    let format: String!
 }
 
 class Payment {
@@ -47,19 +48,19 @@ class Payment {
         var data = [paymentData]()
         
         if ((self.date) != nil ) {
-            data.append(paymentData(label: "Date", value: self.date))
+            data.append(paymentData(label: "Date", value: self.date, format: "Date"))
         }
         if ((self.amount) != nil ) {
-            data.append(paymentData(label: "amount", value: self.amount))
+            data.append(paymentData(label: "amount", value: self.amount, format: "Money"))
         }
         if ((self.frequency) != nil ) {
-            data.append(paymentData(label: "Frequency", value: self.frequency))
+            data.append(paymentData(label: "Frequency", value: self.frequency, format: "String"))
         }
         if ((self.isAnnualized) != nil ) {
-            data.append(paymentData(label: "isAnnualized", value: self.isAnnualized))
+            data.append(paymentData(label: "isAnnualized", value: self.isAnnualized, format: "String"))
         }
         if ((self.category) != nil ) {
-            data.append(paymentData(label: "category", value: self.category))
+            data.append(paymentData(label: "category", value: self.category, format: "String"))
         }
         return data
     }

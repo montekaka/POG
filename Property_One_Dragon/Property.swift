@@ -46,7 +46,7 @@ class Property {
     }
     
     func setAddress(address: String) throws {
-        if (address.characters.count < 1 ){
+        if (address.count < 1 ){
             throw PropertyValidationError.InvalidAddress
         }
         self.address = address

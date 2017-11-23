@@ -50,7 +50,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         // save()
     }
     
-    func addNote(){
+    @objc func addNote(){
         // handle the add button when it's in editing mode
         if (table.isEditing){
             return

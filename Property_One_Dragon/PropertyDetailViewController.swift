@@ -111,7 +111,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
 
-    func editProperty(){
+    @objc func editProperty(){
         self.performSegue(withIdentifier: "propertyEditSegue", sender: self)
     }
     

@@ -50,7 +50,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     // var isAnnualization
     var AnnualizationCell: PaymentAddTableViewCellSwitch?
     
-    func addButtonPressed() {
+    @objc func addButtonPressed() {
         
         let r = Payment(amount: Double(billAmount.text!)!)
         
@@ -143,7 +143,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    func dismissKeyboard(){
+    @objc func dismissKeyboard(){
         view.endEditing(true)
     }
     
@@ -167,7 +167,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         paidDatePicker.datePickerMode = .date
     }
     
-    func donePaidDatePickerPressed(){
+    @objc func donePaidDatePickerPressed(){
         // format date
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -195,7 +195,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         endDatePicker.datePickerMode = .date
     }
     
-    func doneEndDatePickerPressed(){
+    @objc func doneEndDatePickerPressed(){
         // format date
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
