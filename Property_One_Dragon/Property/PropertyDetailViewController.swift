@@ -12,51 +12,15 @@ import MapKit
 class PropertyDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var masterView: PropertyViewController!
     var selectedPropertyReceiptRow:Int = -1
-    
-    @IBOutlet weak var receiptTable: UITableView!
-    
-    @IBOutlet weak var addressLabel : UILabel?
-    
-    @IBOutlet weak var mapView : MKMapView?
-    
-    
+    @IBOutlet var tableView: UIView!
+    var detailItem : Property?
+    var propertyTableCells:[tableCellData] = []
     var paymentData:[Payment] = []
-    var detailItem : Property? {
-        didSet {
-            self.configureView()
-        }
-    }
-    
-    func configureView(){
-        
-        if let detail = self.detailItem{
-            self.title = detail.address
-            addressLabel?.text = detail.address
-            
-            if let address = detail.address {
-                let geocoder = CLGeocoder()
-                geocoder.geocodeAddressString(address){
-                    (placemarks, error) -> Void in
-                    if let firstPlacemark = placemarks?[0]{
-                        let pm = MKPlacemark(placemark: firstPlacemark)
-                        self.mapView?.addAnnotation(pm)
-                        let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 2000, 2000)
-                        self.mapView?.setRegion(region, animated: false)
-                    }
-                }
-            }
-        }
-        
-        //        if let p = Property(address: addressField.text!) {
-        //            print("Created a property: \(p.address ?? "gg")")
-        //        } else {
-        //            print("Error creating property")
-        //        }
-    }    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureView()
+        self.propertyTableCells = (self.detailItem?.get())!
+        
         // textView.becomeFirstResponder()
         // Do any additional setup after loading the view.
         
@@ -64,7 +28,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         let editPropertyButton =  UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editProperty))
         self.navigationItem.rightBarButtonItem = editPropertyButton
         
-        
+        // table view config
     }
     
     @IBAction func addPaymentButtonPressed(sender : UIButton) {
@@ -73,8 +37,6 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.configureView()
-        receiptTable.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,56 +55,63 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.property = detailItem
         }
         
-        if segue.identifier == "propertyPaymentDetailSegue" {
-            let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
-            selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
-            
-            
-            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-            let receiptsArray = appDelegrate.receiptsArray.filter{
-                $0.property_id == detailItem?.id
-            }
-            
-            let object = receiptsArray[selectedPropertyReceiptRow]
-            
-            detailView.detailItem = object
-            
-            // print("\(object.amount ?? 0)")
-        }
+//        if segue.identifier == "propertyPaymentDetailSegue" {
+//            let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
+//            selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
+//
+//
+//            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+//            let receiptsArray = appDelegrate.receiptsArray.filter{
+//                $0.property_id == detailItem?.id
+//            }
+//
+//            let object = receiptsArray[selectedPropertyReceiptRow]
+//
+//            detailView.detailItem = object
+//            
+//            // print("\(object.amount ?? 0)")
+//        }
     }
 
     @objc func editProperty(){
         self.performSegue(withIdentifier: "propertyEditSegue", sender: self)
     }
     
-    // receipt table
-    
+   // table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        let receiptsArray = appDelegrate.receiptsArray.filter{
-            $0.property_id == detailItem?.id
-        }
-        return receiptsArray.count
-        //return data.count
+        return propertyTableCells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "propertyReceiptTableCell")!
+        let p = propertyTableCells[indexPath.row]
         
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        let receiptsArray = appDelegrate.receiptsArray.filter{
-            $0.property_id == detailItem?.id
+        if (p.cellType == "CellWithButton") {
+            let cell = Bundle.main.loadNibNamed("PropertyDetailTableViewCellWithButton", owner: self, options: nil)?.first as! PropertyDetailTableViewCellWithButton
+            cell.label.text = propertyTableCells[indexPath.row].label
+            cell.value.text = propertyTableCells[indexPath.row].value
+            cell.selectionStyle = .none
+            return cell
+        } else {
+            let cell = Bundle.main.loadNibNamed("PropertyDetailTableViewCellText", owner: self, options: nil)?.first as! PropertyDetailTableViewCellText
+            cell.label.text = propertyTableCells[indexPath.row].label
+            cell.value.text = propertyTableCells[indexPath.row].value
+            cell.selectionStyle = .none
+            return cell
         }
         
-        let object = receiptsArray[indexPath.row]
-        cell.textLabel?.text = "\(object.amount ?? 0)"
-        //cell.textLabel?.text = data[indexPath.row].address
-        return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Receipts"
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let p = propertyTableCells[indexPath.row]
+
+        if (p.cellType == "CellWithButton") {
+            return 100
+        } else {
+            return 60
+        }
     }
+    
+    
     
     
     /*

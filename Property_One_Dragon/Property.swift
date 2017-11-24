@@ -97,5 +97,15 @@ class Property {
         self.totalIncome = self.totalIncome! + self.rentalIncome!
     }
     
+    func get() -> [tableCellData] {
+        var data = [tableCellData]()
+        data = [
+            tableCellData(label: "Address", value: self.address, cellType: "Text"),
+            tableCellData(label: "Income", value: self.getIncomeText(), cellType: "CellWithButton"),
+            tableCellData(label: "Expense", value: self.getExpenseText(), cellType: "CellWithButton")
+        ]                
+        return data
+    }
+    
     
 }

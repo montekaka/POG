@@ -29,3 +29,9 @@ struct cellData {
     let text: String!
     
 }
+
+struct tableCellData {
+    let label: String!
+    let value: String!
+    let cellType: String!
+}
