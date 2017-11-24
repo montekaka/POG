@@ -10,16 +10,8 @@ import UIKit
 
 class PropertyAddViewController: UIViewController, UITextFieldDelegate {
     
-    var addressValue : String!
-    
-    @IBOutlet weak var addressLineField: UITextField!
-    @IBOutlet weak var stateField: UITextField!
-    @IBOutlet weak var cityField: UITextField!
-    @IBOutlet weak var zipCodeField: UITextField!
-    
-    @IBOutlet weak var mortgagaPayment: UITextField!
-    
-    @IBOutlet weak var rentalIncome: UITextField!
+
+    @IBOutlet weak var addressValue: UITextField!
     
     var property : Property?
     
@@ -27,38 +19,11 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         // NSLog("Button pressed")
         
         if property == nil {
-            let addressValue = addressLineField.text! + " " + stateField.text! + " " + cityField.text! + " " + zipCodeField.text!
-            
-            if let p = Property(address: addressValue){
+            if let p = Property(address: addressValue.text!){
                 property = p
                 //property?.setMortgagePayment(mortgagePayment: Double(mortgagaPayment.text!)!)
-                p.addressLine = addressLineField.text
-                p.state = stateField.text
-                p.city = cityField.text
-                p.zipCode = zipCodeField.text
-                
-                do {
-                    try property!.setMortgagePayment(mortgagePaymentText: (mortgagaPayment.text)!)
-                    try property!.setRentalIncome(rentalIncomeText: (rentalIncome.text)!)
-                } catch let error as PropertyValidationError {
-                    var errorMsg = ""
-                    switch(error) {
-                    case .InvalidRentalIncome:
-                        errorMsg = "Invalid Rental Income"
-                    case .InvalidMortgagePayment:
-                        errorMsg = "Invalid Mortgage Payment"
-                    default:
-                        errorMsg = "Invalid"
-                    }
-                    let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                } catch {}                
-                
                 let appDelegrate = UIApplication.shared.delegate as! AppDelegate
                 appDelegrate.propertiesArray.append(property!)
-                
-                
             } else {
                 
                 let alert = UIAlertController(title: "Error", message: "Error creating property", preferredStyle: .alert)
@@ -73,14 +38,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         
         // edit
         do {
-            let addressValue = addressLineField.text! + " " + stateField.text! + " " + cityField.text! + " " + zipCodeField.text!
-            try property!.setAddress(address: addressValue)
-            property?.addressLine = addressLineField.text!
-            property?.state = stateField.text
-            property?.city = cityField.text
-            property?.zipCode = zipCodeField.text
-            try property!.setMortgagePayment(mortgagePaymentText: (mortgagaPayment.text)!)
-            try property!.setRentalIncome(rentalIncomeText: (rentalIncome.text)!)
+            try property!.setAddress(address: addressValue.text!)
         } catch let error as PropertyValidationError {
             var errorMsg = ""
             switch(error) {
@@ -115,13 +73,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
         
         if let property = property {
-            addressLineField.text = property.addressLine
-            stateField.text = property.state
-            cityField.text = property.city
-            zipCodeField.text = property.zipCode
-            
-            mortgagaPayment.text = "\(property.mortgagePayment ?? 0)"
-            rentalIncome.text = "\(property.rentalIncome ?? 0)"
+            addressValue.text = property.address
         }
                 
     }
