@@ -40,6 +40,20 @@ class Property {
         }
     }
     
+    func getIncomeText() -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        let amountStr = currencyFormatter.string(from: self.totalIncome! as NSNumber)
+        return amountStr!
+    }
+    
+    func getExpenseText() -> String {
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        let amountStr = currencyFormatter.string(from: self.totalExpense! as NSNumber)
+        return amountStr!
+    }
+    
     func setAddress(address: String) throws {
         if (address.count < 1 ){
             throw PropertyValidationError.InvalidAddress

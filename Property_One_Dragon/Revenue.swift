@@ -1,27 +1,23 @@
 //
-//  Receipt.swift
+//  Revenue.swift
 //  Property_One_Dragon
 //
-//  Created by Jia Chen on 10/29/17.
+//  Created by Jia Chen on 11/24/17.
 //  Copyright © 2017 BruinSquare. All rights reserved.
 //
 
 import Foundation
 
-class Payment {
+class Revenue {
     // must fill
     var date: Date?
     var amount: Double?
     var property_id: Int?
-    
     // optional
     var frequency: frequencyData?
     var isAnnualized: Bool?
-    var category: categoryData?
+    var category: categoryData? // lease vs airbnb
     var endDate: Date?
-    
-    // list of avaiable values
-    //private var data = [Receiptdata]()
     
     init?( amount: Double){
         // self.date = date
@@ -57,7 +53,7 @@ class Payment {
             
             var isAnnualizedStr = "No"
             if(self.isAnnualized == true){
-               isAnnualizedStr = "Yes"
+                isAnnualizedStr = "Yes"
             }
             
             data.append(paymentData(label: "Annualized the payment", value: self.isAnnualized, format: isAnnualizedStr))

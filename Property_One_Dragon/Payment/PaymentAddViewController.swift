@@ -8,13 +8,6 @@
 
 import UIKit
 
-struct cellData {
-    let cell: String!
-    let text: String!
-    
-}
-
-
 class PaymentAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
