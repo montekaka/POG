@@ -11,10 +11,9 @@ import UIKit
 class PropertyDetailTableViewCellWithButton: UITableViewCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var value: UILabel!
-    
-    @IBAction func new(_ sender: UIButton) {
-    }
-    @IBAction func detail(_ sender: UIButton) {
-    }
+        
+    @IBOutlet weak var newButton: UIButton!
+    @IBOutlet weak var detailButton: UIButton!
 }
+
 

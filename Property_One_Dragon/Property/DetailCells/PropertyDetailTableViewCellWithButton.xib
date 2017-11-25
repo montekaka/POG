@@ -42,12 +42,9 @@
                         <state key="normal" title="VIEW">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <connections>
-                            <action selector="detail:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="CtO-E1-jHA"/>
-                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d19-5m-bps">
-                        <rect key="frame" x="154" y="11" width="164" height="21"/>
+                        <rect key="frame" x="151" y="11" width="164" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
@@ -61,15 +58,14 @@
                         <state key="normal" title="NEW">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <connections>
-                            <action selector="new:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6hC-Ur-1GS"/>
-                        </connections>
                     </button>
                 </subviews>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="detailButton" destination="7jL-TX-MiL" id="53T-LA-CRn"/>
                 <outlet property="label" destination="l4g-IL-Vmk" id="CIW-VA-dqV"/>
+                <outlet property="newButton" destination="NYQ-R7-elu" id="atE-It-KdX"/>
                 <outlet property="value" destination="d19-5m-bps" id="LeZ-RJ-qVo"/>
             </connections>
         </tableViewCell>
