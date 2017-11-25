@@ -17,8 +17,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
     
-    var payment : Payment?
-    
+    var payment : Payment?    
     var billAmount: UITextField!
     
     // date picker

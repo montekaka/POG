@@ -59,22 +59,6 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.property = detailItem
         }
         
-//        if segue.identifier == "propertyPaymentDetailSegue" {
-//            let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
-//            selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
-//
-//
-//            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-//            let receiptsArray = appDelegrate.receiptsArray.filter{
-//                $0.property_id == detailItem?.id
-//            }
-//
-//            let object = receiptsArray[selectedPropertyReceiptRow]
-//
-//            detailView.detailItem = object
-//            
-//            // print("\(object.amount ?? 0)")
-//        }
     }
 
     @objc func editProperty(){
