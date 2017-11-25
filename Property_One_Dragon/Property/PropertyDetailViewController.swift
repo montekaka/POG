@@ -54,6 +54,11 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.property = detailItem
         }
         
+        if segue.identifier == "propertyPaymentTableSegue" {
+            let controller = segue.destination as! PaymentViewController
+            controller.property = detailItem
+        }
+        
 //        if segue.identifier == "propertyPaymentDetailSegue" {
 //            let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
 //            selectedPropertyReceiptRow = receiptTable.indexPathForSelectedRow!.row
@@ -80,6 +85,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         self.performSegue(withIdentifier: "propertyAddPaymentSegue", sender: self)
     }
     
+    @objc func viewPaymentButtonPressed() {
+        self.performSegue(withIdentifier: "propertyPaymentTableSegue", sender: self)
+    }
+    
    // table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return propertyTableCells.count
@@ -95,6 +104,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             cell.selectionStyle = .none
             if (p.label == "Expense") {
                 cell.newButton.addTarget(self, action: #selector(addPaymentButtonPressed), for: .touchUpInside)
+                cell.detailButton.addTarget(self, action: #selector(viewPaymentButtonPressed), for: .touchUpInside)
             }
             return cell
         } else {

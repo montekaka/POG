@@ -59,7 +59,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="HwG-hW-6NY" kind="show" id="B8D-hW-dZD"/>
+                                            <segue destination="HwG-hW-6NY" kind="show" identifier="paymentDetailSegue" id="B8D-hW-dZD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -304,7 +304,7 @@
                         <outlet property="tableView" destination="6yq-T5-aEn" id="Snn-9a-bpY"/>
                         <segue destination="lpj-Ce-oF0" kind="show" identifier="propertyEditSegue" id="bGh-ls-JYm"/>
                         <segue destination="W0z-ff-k2p" kind="show" identifier="propertyAddPaymentSegue" id="i2I-Zi-YwS"/>
-                        <segue destination="dLa-mH-ze2" kind="show" id="xXu-Ao-U1t"/>
+                        <segue destination="dLa-mH-ze2" kind="show" identifier="propertyPaymentTableSegue" id="xXu-Ao-U1t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtc-1n-woW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -393,6 +393,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bGh-ls-JYm"/>
-        <segue reference="i2I-Zi-YwS"/>
+        <segue reference="fGg-wr-Y9W"/>
     </inferredMetricsTieBreakers>
 </document>

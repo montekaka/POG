@@ -42,15 +42,11 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "paymentTableCell")!
         cell.textLabel?.text = "\(object.amount ?? 0)"
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        //let object = appDelegrate.receiptsArray[indexPath.row]
-        self.performSegue(withIdentifier: "paymentDetailSegue", sender: nil)
-        //print("\(object.amount ?? 0)")
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
