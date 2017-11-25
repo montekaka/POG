@@ -342,7 +342,7 @@
                                     <action selector="addButtonPressedWithSender:" destination="lpj-Ce-oF0" eventType="touchUpInside" id="CaB-wX-TZh"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" placeholder="e.g. 212 Main St Alhambra, CA 91230" textAlignment="center" minimumFontSize="17" background="AddressField" translatesAutoresizingMaskIntoConstraints="NO" id="3cM-2y-gnV">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g. 212 Main St Alhambra, CA 91230" textAlignment="center" minimumFontSize="17" background="AddressField" translatesAutoresizingMaskIntoConstraints="NO" id="3cM-2y-gnV">
                                 <rect key="frame" x="10" y="437" width="355" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
