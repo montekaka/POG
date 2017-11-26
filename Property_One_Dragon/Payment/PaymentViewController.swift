@@ -13,12 +13,15 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     //var data: [String] = ["Row 1","Row 2","Row 3"]
     var selectedRow:Int = -1
     var property : Property?
+    var viewTitle: String!
+    var dataArray: [Payment]!
+    
     
     @IBOutlet weak var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Receipts"
+        self.title = viewTitle
 //        let addReceiptButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReceipt))
 //        self.navigationItem.rightBarButtonItem = addReceiptButton
 
@@ -32,13 +35,16 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return data.count
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegrate.receiptsArray.count
+//        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+//        return appDelegrate.receiptsArray.count
+        return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        let object = appDelegrate.receiptsArray[indexPath.row]
+        //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        //let object = appDelegrate.receiptsArray[indexPath.row]
+        
+        let object = dataArray[indexPath.row]
         
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "paymentTableCell")!
         cell.textLabel?.text = "\(object.amount ?? 0)"
@@ -55,9 +61,10 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
             selectedRow = table.indexPathForSelectedRow!.row
             detailView.masterView = self
             
-            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-            let object = appDelegrate.receiptsArray[selectedRow]
+            //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            //let object = appDelegrate.receiptsArray[selectedRow]
             
+            let object = dataArray[selectedRow]
             detailView.detailItem = object
             
             // print("\(object.amount ?? 0)")

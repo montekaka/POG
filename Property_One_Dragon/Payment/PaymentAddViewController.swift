@@ -12,36 +12,36 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var tableView: UITableView!
     var property : Property?
-    
+    var viewTitle: String!
     var arrayOfCellData = [cellData]()
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
     
-    var payment : Payment?    
-    var billAmount: UITextField!
+    private var payment : Payment?
+    private var billAmount: UITextField!
     
     // date picker
-    var paidDateField: UITextField!
-    var paidDate: Date?
-    var paidDateCell: PaymentAddTableViewCellPicker?
-    let paidDatePicker = UIDatePicker()
+    private var paidDateField: UITextField!
+    private var paidDate: Date?
+    private var paidDateCell: PaymentAddTableViewCellPicker?
+    private let paidDatePicker = UIDatePicker()
 
-    var endDateField: UITextField!
-    var endDate: Date?
-    var endDateCell: PaymentAddTableViewCellPicker?
-    let endDatePicker = UIDatePicker()
+    private var endDateField: UITextField!
+    private var endDate: Date?
+    private var endDateCell: PaymentAddTableViewCellPicker?
+    private let endDatePicker = UIDatePicker()
     
     // picker view
-    var fequencyPickerView = UIPickerView()
-    var fequencyPickerCell: PaymentAddTableViewCellPicker?
-    var selectedFrequenceData: frequencyData?
+    private var fequencyPickerView = UIPickerView()
+    private var fequencyPickerCell: PaymentAddTableViewCellPicker?
+    private var selectedFrequenceData: frequencyData?
     
-    var categoryPickerView = UIPickerView()
-    var categoryPickerCell: PaymentAddTableViewCellPicker?
-    var selectedCategoryData: categoryData?
+    private var categoryPickerView = UIPickerView()
+    private var categoryPickerCell: PaymentAddTableViewCellPicker?
+    private var selectedCategoryData: categoryData?
     
     // var isAnnualization
-    var AnnualizationCell: PaymentAddTableViewCellSwitch?
+    private var AnnualizationCell: PaymentAddTableViewCellSwitch?
     
     @objc func addButtonPressed() {
         
@@ -95,36 +95,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()        
         // add cell data
-        arrayOfCellData = [
-            cellData(cell: "Input", text: "Paid Amount")
-            ,cellData(cell: "Picker", text: "Date")
-            ,cellData(cell: "Picker", text: "Frequency")
-            ,cellData(cell: "Switch", text: "Annualized")
-            ,cellData(cell: "Picker", text: "Category")
-            ,cellData(cell: "Picker", text: "End Date")
-        ]
-        // add frequence data 
-        arrayOfFrequencyPickerData = [
-            frequencyData(label: "Not Repeat", value: 0),
-            frequencyData(label: "Semi Monthly", value: 0.5),
-            frequencyData(label: "Monthly", value: 1),
-            frequencyData(label: "Semi Annually", value: 6),
-            frequencyData(label: "Annually", value: 12)
-        ]
-        
-        // add category data
-        arrayOfCategoryData = [
-            categoryData(label: "Expense 1", value: 1),
-            categoryData(label: "Expense 2", value: 2),
-            categoryData(label: "Expense 3", value: 3),
-            categoryData(label: "Expense 4", value: 4)
-        ]
         // billAmount.keyboardType = UIKeyboardType.numberPad
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         // Do any additional setup after loading the view.
-        self.title = "New Expense"
+        self.title = self.viewTitle
         
         // add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))

@@ -21,7 +21,6 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         self.propertyTableCells = (self.detailItem?.get())!
-        
         // textView.becomeFirstResponder()
         // Do any additional setup after loading the view.
         
@@ -52,11 +51,37 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         if segue.identifier == "propertyAddPaymentSegue" {
             let controller = segue.destination as! PaymentAddViewController
             controller.property = detailItem
+            controller.viewTitle = "New Expense"
+            // * enhancement * move the following array into a property list or json file
+            controller.arrayOfCellData = [
+                cellData(cell: "Input", text: "Paid Amount")
+                ,cellData(cell: "Picker", text: "Date")
+                ,cellData(cell: "Picker", text: "Frequency")
+                ,cellData(cell: "Switch", text: "Annualized")
+                ,cellData(cell: "Picker", text: "Category")
+                ,cellData(cell: "Picker", text: "End Date")
+            ]
+            controller.arrayOfFrequencyPickerData = [
+                frequencyData(label: "Not Repeat", value: 0),
+                frequencyData(label: "Semi Monthly", value: 0.5),
+                frequencyData(label: "Monthly", value: 1),
+                frequencyData(label: "Semi Annually", value: 6),
+                frequencyData(label: "Annually", value: 12)
+            ]
+            controller.arrayOfCategoryData = [
+                categoryData(label: "Expense 1", value: 1),
+                categoryData(label: "Expense 2", value: 2),
+                categoryData(label: "Expense 3", value: 3),
+                categoryData(label: "Expense 4", value: 4)
+            ]
         }
         
         if segue.identifier == "propertyPaymentTableSegue" {
             let controller = segue.destination as! PaymentViewController
             controller.property = detailItem
+            controller.viewTitle = "Receipts"
+            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            controller.dataArray = appDelegrate.receiptsArray
         }
         
     }
