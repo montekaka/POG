@@ -70,6 +70,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        self.createInputTextField()
         
         if let property = property {
             addressValue.text = property.address
@@ -87,6 +88,16 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         return false
     }
     
+    func createInputTextField(){
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        // done button for toolbar
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.dismissKeyboard))
+        toolBar.setItems([doneButton], animated: false)
+        
+        addressValue.inputAccessoryView = toolBar
+       // cell.TextField.inputAccessoryView = toolbar
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
