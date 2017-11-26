@@ -72,11 +72,14 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
         payment = r
         
-        // create a new receipt
+        // create a new payment
         let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        if(self.viewTitle == "New Income") {
+            appDelegrate.revenueArray.append(payment!)
+        } else {
+            appDelegrate.receiptsArray.append(payment!)
+        }
         // this should sit inside property instead its own, we will refactor it later on
-        appDelegrate.receiptsArray.append(payment!)
-        
         
         // add the new receipt cost to property expense -- this should move to receipt to handle it
         let propertyArray = appDelegrate.propertiesArray.filter{
@@ -84,7 +87,11 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         if(propertyArray.count > 0 ){
-            propertyArray[0].totalExpense = propertyArray[0].totalExpense! + (r?.amount)!
+            if(self.viewTitle == "New Income") {
+                propertyArray[0].totalIncome = propertyArray[0].totalIncome! + (r?.amount)!
+            } else {
+                propertyArray[0].totalExpense = propertyArray[0].totalExpense! + (r?.amount)!
+            }
             // after we successfully create the receipt, then go back
             self.navigationController?.popViewController(animated: true)
         }

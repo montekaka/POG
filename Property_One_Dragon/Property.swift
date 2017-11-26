@@ -19,9 +19,10 @@ class Property {
     
     private(set) var mortgagePayment: Double?
     private(set) var rentalIncome: Double?    
-    private(set) var totalIncome: Double?
+    //private(set) var totalIncome: Double?
     // private(set) var totalExpense: Double?
     var totalExpense: Double?
+    var totalIncome: Double?
     
     private(set) var id: Int?
     

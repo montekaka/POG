@@ -25,7 +25,6 @@
 		E572FA951FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572FA931FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift */; };
 		E572FA961FC772BF00DA23F1 /* PaymentDetailTableViewCellText.xib in Resources */ = {isa = PBXBuildFile; fileRef = E572FA941FC772BE00DA23F1 /* PaymentDetailTableViewCellText.xib */; };
 		E586EE001FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */; };
-		E5A0C46F1FC8A88500F55681 /* Revenue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A0C46E1FC8A88500F55681 /* Revenue.swift */; };
 		E5A0C4711FC8AB0000F55681 /* StructCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A0C4701FC8AB0000F55681 /* StructCollection.swift */; };
 		E5A0C4771FC8C2D000F55681 /* PropertyDetailTableViewCellText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A0C4751FC8C2D000F55681 /* PropertyDetailTableViewCellText.swift */; };
 		E5A0C4781FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A0C4761FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib */; };
@@ -58,7 +57,6 @@
 		E572FA931FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailTableViewCellText.swift; sourceTree = "<group>"; };
 		E572FA941FC772BE00DA23F1 /* PaymentDetailTableViewCellText.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentDetailTableViewCellText.xib; sourceTree = "<group>"; };
 		E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyViewCustomCell.swift; sourceTree = "<group>"; };
-		E5A0C46E1FC8A88500F55681 /* Revenue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Revenue.swift; sourceTree = "<group>"; };
 		E5A0C4701FC8AB0000F55681 /* StructCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructCollection.swift; sourceTree = "<group>"; };
 		E5A0C4751FC8C2D000F55681 /* PropertyDetailTableViewCellText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetailTableViewCellText.swift; sourceTree = "<group>"; };
 		E5A0C4761FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PropertyDetailTableViewCellText.xib; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
 				E5056D551FA19FE600441F02 /* Property.swift */,
 				E5C27FA51FA700D70002FC7A /* Payment.swift */,
-				E5A0C46E1FC8A88500F55681 /* Revenue.swift */,
 				E5A0C4701FC8AB0000F55681 /* StructCollection.swift */,
 				E5056D441F9EFDF000441F02 /* Assets.xcassets */,
 				E5056D461F9EFDF000441F02 /* LaunchScreen.storyboard */,
@@ -257,7 +254,6 @@
 				E5A0C4711FC8AB0000F55681 /* StructCollection.swift in Sources */,
 				E5A0C4771FC8C2D000F55681 /* PropertyDetailTableViewCellText.swift in Sources */,
 				E5C27FA81FA838600002FC7A /* PaymentViewController.swift in Sources */,
-				E5A0C46F1FC8A88500F55681 /* Revenue.swift in Sources */,
 				E5056D541FA18AEC00441F02 /* PropertyDetailViewController.swift in Sources */,
 				E572FA951FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift in Sources */,
 				E5056D401F9EFDF000441F02 /* ViewController.swift in Sources */,

@@ -85,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFn-Xt-aYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3078" y="149"/>
+            <point key="canvasLocation" x="2985" y="51"/>
         </scene>
         <!--Payment Detail View Controller-->
         <scene sceneID="iMF-5y-dYf">
@@ -117,7 +117,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTD-Ml-d6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4001" y="149"/>
+            <point key="canvasLocation" x="3980" y="51"/>
         </scene>
         <!--Payment Add View Controller-->
         <scene sceneID="wIK-Od-Ros">
@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nOy-PL-ncl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2530" y="920"/>
+            <point key="canvasLocation" x="2542" y="954"/>
         </scene>
         <!--Property View Controller-->
         <scene sceneID="NZf-50-mqQ">
@@ -305,6 +305,8 @@
                         <segue destination="lpj-Ce-oF0" kind="show" identifier="propertyEditSegue" id="bGh-ls-JYm"/>
                         <segue destination="W0z-ff-k2p" kind="show" identifier="propertyAddPaymentSegue" id="i2I-Zi-YwS"/>
                         <segue destination="dLa-mH-ze2" kind="show" identifier="propertyPaymentTableSegue" id="xXu-Ao-U1t"/>
+                        <segue destination="dLa-mH-ze2" kind="show" identifier="propertyRevenueTableSegue" id="3Zg-T6-vvl"/>
+                        <segue destination="W0z-ff-k2p" kind="show" identifier="propertyAddRevenueSegue" id="PSb-fl-RjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtc-1n-woW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -393,6 +395,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bGh-ls-JYm"/>
-        <segue reference="fGg-wr-Y9W"/>
+        <segue reference="PSb-fl-RjD"/>
+        <segue reference="3Zg-T6-vvl"/>
     </inferredMetricsTieBreakers>
 </document>

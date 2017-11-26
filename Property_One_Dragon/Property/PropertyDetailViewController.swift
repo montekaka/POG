@@ -84,6 +84,42 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.dataArray = appDelegrate.receiptsArray
         }
         
+        if segue.identifier == "propertyAddRevenueSegue" {
+            let controller = segue.destination as! PaymentAddViewController
+            controller.property = detailItem
+            controller.viewTitle = "New Income"
+            // * enhancement * move the following array into a property list or json file
+            controller.arrayOfCellData = [
+                cellData(cell: "Input", text: "Paid Amount")
+                ,cellData(cell: "Picker", text: "Date")
+                ,cellData(cell: "Picker", text: "Frequency")
+                ,cellData(cell: "Switch", text: "Annualized")
+                ,cellData(cell: "Picker", text: "Category")
+                ,cellData(cell: "Picker", text: "End Date")
+            ]
+            controller.arrayOfFrequencyPickerData = [
+                frequencyData(label: "Not Repeat", value: 0),
+                frequencyData(label: "Semi Monthly", value: 0.5),
+                frequencyData(label: "Monthly", value: 1),
+                frequencyData(label: "Semi Annually", value: 6),
+                frequencyData(label: "Annually", value: 12)
+            ]
+            controller.arrayOfCategoryData = [
+                categoryData(label: "Expense 1", value: 1),
+                categoryData(label: "Expense 2", value: 2),
+                categoryData(label: "Expense 3", value: 3),
+                categoryData(label: "Expense 4", value: 4)
+            ]
+        }
+        
+        if segue.identifier == "propertyRevenueTableSegue" {
+            let controller = segue.destination as! PaymentViewController
+            controller.property = detailItem
+            controller.viewTitle = "Income"
+            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            controller.dataArray = appDelegrate.revenueArray
+        }
+        
     }
 
     @objc func editProperty(){
@@ -96,6 +132,14 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     @objc func viewPaymentButtonPressed() {
         self.performSegue(withIdentifier: "propertyPaymentTableSegue", sender: self)
+    }
+    
+    @objc func addRevenueButtonPressed() {
+        self.performSegue(withIdentifier: "propertyAddRevenueSegue", sender: self)
+    }
+    
+    @objc func viewRevenueButtonPressed() {
+        self.performSegue(withIdentifier: "propertyRevenueTableSegue", sender: self)
     }
     
    // table view
@@ -114,6 +158,9 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             if (p.label == "Expense") {
                 cell.newButton.addTarget(self, action: #selector(addPaymentButtonPressed), for: .touchUpInside)
                 cell.detailButton.addTarget(self, action: #selector(viewPaymentButtonPressed), for: .touchUpInside)
+            } else if (p.label == "Income") {
+                cell.newButton.addTarget(self, action: #selector(addRevenueButtonPressed), for: .touchUpInside)
+                cell.detailButton.addTarget(self, action: #selector(viewRevenueButtonPressed), for: .touchUpInside)
             }
             return cell
         } else {
