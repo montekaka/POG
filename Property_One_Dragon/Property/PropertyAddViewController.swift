@@ -69,7 +69,6 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        
         view.addGestureRecognizer(tap)
         
         if let property = property {
