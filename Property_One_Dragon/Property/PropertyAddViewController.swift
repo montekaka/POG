@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PropertyAddViewController: UIViewController, UITextFieldDelegate {
     
@@ -33,7 +34,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
                  self.present(alert, animated: true, completion: nil)
                 return
             }
-            
+            Analytics.logEvent("CreatePropertyButtonClicked", parameters: nil)
         }
         
         // edit

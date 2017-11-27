@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+
 class PropertyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
     // var data:[Property] = []
@@ -16,10 +17,10 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     var newRowText:String = ""
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         // Do any additional setup after loading the view, typically from a nib.
         self.title = "Properties"
-    
+        
         // add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
