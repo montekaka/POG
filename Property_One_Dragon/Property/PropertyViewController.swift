@@ -13,9 +13,12 @@ import Firebase
 
 class PropertyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var table: UITableView!
-    // var data:[Property] = []
+    var data:[Property] = []
     var selectedRow:Int = -1
     var newRowText:String = ""
+    
+    var dbReference: DatabaseReference?
+    var dbHandle: DatabaseHandle?
 
     override func viewDidLoad() {
         super.viewDidLoad()        
@@ -27,31 +30,36 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButtonItem
         // load()
-        
-        // get data from firebase
         //let ref = Database.database().reference(withPath: "property-items")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         // to handle update info from new/edit view
-        super.viewWillAppear(animated)
-//        if selectedRow == -1 {
-//            return
-//        }
-//        
-//        // data[selectedRow].address = newRowText
-//
-//        if newRowText == "" {
-//            //data.remove(at: selectedRow)
-//
-//        }
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        if(appDelegrate.propertiesArray.count == 0){
-            self.performSegue(withIdentifier: "propertyAddSegue", sender: self)
-        }
+        super.viewWillAppear(animated)        
+        // retrive data from firebase for current user
+        let uid = Auth.auth().currentUser?.uid
+        self.dbReference = Database.database().reference()
+        self.dbHandle = self.dbReference?.child("users").child(uid!).child("properties").observe(.value, with: { snapshot in
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                for item in snapshots {
+                    if let propertyDictionary = item.value as? Dictionary<String, AnyObject> {
+                        // let key = item.key
+                        //print(propertyDictionary)
+                        let p = Property(address: propertyDictionary["address"] as! String, uid: propertyDictionary["addedByUser"] as! String)
+                        p?.totalIncome = propertyDictionary["income"] as? Double
+                        p?.totalExpense = propertyDictionary["expense"] as? Double
+                        self.data.append(p!)
+                    }
+                }
+                if (self.data.count == 0 ){
+                    self.performSegue(withIdentifier: "propertyAddSegue", sender: self)
+                }
+                self.table.reloadData()
+            }
+        })
         
-        table.reloadData()
         // save()
     }
     
@@ -73,26 +81,26 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        //data.remove(at: indexPath.row)
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        appDelegrate.propertiesArray.remove(at: indexPath.row)
+        
+        //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        //appDelegrate.propertiesArray.remove(at: indexPath.row)
+        data.remove(at: indexPath.row)
         table.deleteRows(at: [indexPath], with: .fade)
         // save()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegrate.propertiesArray.count
-        //return data.count
+        //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        //return appDelegrate.propertiesArray.count
+        return data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PropertyViewCustomCell
         
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        
-        let object = appDelegrate.propertiesArray[indexPath.row]
-        
+//        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+//        let object = appDelegrate.propertiesArray[indexPath.row]
+        let object = data[indexPath.row]
         cell.addressLabel!.text = object.address
 //        cell.revenueLabel!.text =  "$\(object.totalIncome ?? 0)"
 //        cell.expenseLabel!.text =  "$\(object.totalExpense ?? 0)"
@@ -130,8 +138,9 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
             selectedRow = table.indexPathForSelectedRow!.row
             detailView.masterView = self
             
-            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-            let object = appDelegrate.propertiesArray[selectedRow]
+            //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            //let object = appDelegrate.propertiesArray[selectedRow]
+            let object = data[selectedRow]
             detailView.detailItem = object
         }
 
