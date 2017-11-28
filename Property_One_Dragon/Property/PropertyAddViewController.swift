@@ -15,16 +15,29 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addressValue: UITextField!
     
     var property : Property?
+    // var currentUser: Any?
+    
+    var dbReference: DatabaseReference?
     
     @IBAction func addButtonPressed(sender : UIButton) {
-        // NSLog("Button pressed")
+        NSLog("Button pressed")
+        
+        // get current user
+        let currentUser = Auth.auth().currentUser
         
         if property == nil {
-            if let p = Property(address: addressValue.text!){
+            if let p = Property(address: addressValue.text!, uid: (currentUser?.uid)!){
                 property = p
-                //property?.setMortgagePayment(mortgagePayment: Double(mortgagaPayment.text!)!)
                 let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-                appDelegrate.propertiesArray.append(property!)
+                 appDelegrate.propertiesArray.append(property!)
+                
+                // save obj to firebase
+                dbReference = Database.database().reference()
+                let uid = currentUser?.uid
+                let dp = p.toAnyObject()
+                let propertyRef = self.dbReference?.child("users").child(uid!).child("properties")
+                propertyRef?.childByAutoId().setValue(dp)
+                
             } else {
                 
                 let alert = UIAlertController(title: "Error", message: "Error creating property", preferredStyle: .alert)
@@ -34,7 +47,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
                  self.present(alert, animated: true, completion: nil)
                 return
             }
-            Analytics.logEvent("CreatePropertyButtonClicked", parameters: nil)
+            //Analytics.logEvent("CreatePropertyButtonClicked", parameters: nil)
         }
         
         // edit
@@ -76,7 +89,6 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         if let property = property {
             addressValue.text = property.address
         }
-                
     }
     
     

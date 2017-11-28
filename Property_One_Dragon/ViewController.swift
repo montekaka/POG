@@ -11,6 +11,8 @@ import Firebase
 
 class ViewController: UIViewController {
 
+    var dbReference: DatabaseReference?
+    
     @IBAction func btnCreateUser(_ sender: Any) {
         if let email:String = txtEmail.text, let pass: String = txtPassword.text {
 
@@ -24,6 +26,10 @@ class ViewController: UIViewController {
                     self.txtAuthStatus.text = "Signed in as " + user.email!;
                     self.txtEmail.text = nil;
                     self.txtPassword.text = nil;
+                    
+                    // save user to database
+                    self.dbReference = Database.database().reference()
+                    self.dbReference?.child("users").child(user.uid).setValue(["uid":user.uid])
                 }
             }
             

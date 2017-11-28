@@ -13,6 +13,7 @@ class Payment {
     var date: Date?
     var amount: Double?
     var property_id: Int?
+    var uid: String?
     
     // optional
     var frequency: frequencyData?

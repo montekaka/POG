@@ -23,12 +23,14 @@ class Property {
     // private(set) var totalExpense: Double?
     var totalExpense: Double?
     var totalIncome: Double?
+    private(set) var uid: String?
     
     private(set) var id: Int?
     
-    init?(address: String){
+    init?(address: String, uid: String){
         do {
             try setAddress(address: address)
+            self.setUID(uid: uid)
             self.mortgagePayment = 0
             self.rentalIncome = 0
             self.totalIncome = 0
@@ -60,6 +62,10 @@ class Property {
             throw PropertyValidationError.InvalidAddress
         }
         self.address = address
+    }
+    
+    func setUID(uid: String) {
+        self.uid = uid;
     }
     
     func setMortgagePayment(mortgagePaymentText: String) throws {
@@ -106,6 +112,15 @@ class Property {
             tableCellData(label: "Expense", value: self.getExpenseText(), cellType: "CellWithButton")
         ]                
         return data
+    }
+    
+    func toAnyObject() -> Any {
+        return [
+            "address": self.address!,
+            "addedByUser": self.uid!,
+            "income": self.totalIncome!,
+            "expense": self.totalExpense!
+        ]
     }
     
     

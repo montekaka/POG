@@ -129,8 +129,7 @@
 				E5A0C4731FC8B74B00F55681 /* Property */,
 				E5A0C4721FC8B73700F55681 /* Payment */,
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
-				E5056D551FA19FE600441F02 /* Property.swift */,
-				E5C27FA51FA700D70002FC7A /* Payment.swift */,
+				E5ED69ED1FCBE73C00FC5E1C /* Models */,
 				E5A0C4701FC8AB0000F55681 /* StructCollection.swift */,
 				E5056D441F9EFDF000441F02 /* Assets.xcassets */,
 				E5056D461F9EFDF000441F02 /* LaunchScreen.storyboard */,
@@ -196,6 +195,15 @@
 			);
 			name = PaymentAddTableCell;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		E5ED69ED1FCBE73C00FC5E1C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E5056D551FA19FE600441F02 /* Property.swift */,
+				E5C27FA51FA700D70002FC7A /* Payment.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

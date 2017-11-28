@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 
 class PropertyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -26,6 +27,9 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButtonItem
         // load()
+        
+        // get data from firebase
+        //let ref = Database.database().reference(withPath: "property-items")
     }
     
     override func viewWillAppear(_ animated: Bool) {
