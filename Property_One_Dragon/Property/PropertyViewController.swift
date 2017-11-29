@@ -45,14 +45,8 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for item in snapshots {
-                    if let propertyDictionary = item.value as? Dictionary<String, AnyObject> {
-                        // let key = item.key
-                        //print(propertyDictionary)
-                        let p = Property(address: propertyDictionary["address"] as! String, uid: propertyDictionary["addedByUser"] as! String)
-                        p?.totalIncome = propertyDictionary["income"] as? Double
-                        p?.totalExpense = propertyDictionary["expense"] as? Double
-                        newItems.append(p!)
-                    }
+                    let p = Property(snapshot: item)
+                    newItems.append(p!)
                 }
                 if (newItems.count == 0 ){
                     self.performSegue(withIdentifier: "propertyAddSegue", sender: self)
