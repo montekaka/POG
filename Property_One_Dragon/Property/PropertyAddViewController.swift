@@ -48,7 +48,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         // edit
         do {
             try property!.setAddress(address: addressValue.text!)
-            
+            property?.ref?.updateChildValues(["address": addressValue.text!])            
         } catch let error as PropertyValidationError {
             var errorMsg = ""
             switch(error) {
