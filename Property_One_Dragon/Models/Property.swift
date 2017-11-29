@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 enum PropertyValidationError : Error {
     case InvalidAddress
@@ -18,11 +19,14 @@ class Property {
     private(set) var address: String?
     
     private(set) var mortgagePayment: Double?
-    private(set) var rentalIncome: Double?    
+    private(set) var rentalIncome: Double?
+    
+    
     //private(set) var totalIncome: Double?
     // private(set) var totalExpense: Double?
     var totalExpense: Double?
     var totalIncome: Double?
+    var ref: DatabaseReference?
     private(set) var uid: String?
     
     private(set) var id: Int?
@@ -38,9 +42,26 @@ class Property {
             let randomNum:UInt32 = arc4random_uniform(100)
             let someInt:Int = Int(randomNum)
             self.id = someInt
+            self.ref = nil
         } catch {
             return nil
         }
+    }
+    
+    init?(snapshot: DataSnapshot) {
+        let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
+        do {
+            try setAddress(address: snapshotValue!["address"] as! String)
+            self.setUID(uid: snapshotValue!["addedByUser"] as! String)
+            self.mortgagePayment = 0
+            self.rentalIncome = 0
+            self.totalIncome = snapshotValue!["income"] as? Double
+            self.totalExpense = snapshotValue!["expense"] as? Double
+            self.ref = snapshot.ref
+        } catch{
+            return nil
+        }
+        
     }
     
     func getIncomeText() -> String {

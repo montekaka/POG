@@ -11,29 +11,24 @@ import Firebase
 
 class PropertyAddViewController: UIViewController, UITextFieldDelegate {
     
-
+    
     @IBOutlet weak var addressValue: UITextField!
     
     var property : Property?
-    // var currentUser: Any?
-    
+    var currentUser: User?
     var dbReference: DatabaseReference?
     
     @IBAction func addButtonPressed(sender : UIButton) {
-        NSLog("Button pressed")
-        
-        // get current user
-        let currentUser = Auth.auth().currentUser
-        
+        //let currentUser = Auth.auth().currentUser
         if property == nil {
-            if let p = Property(address: addressValue.text!, uid: (currentUser?.uid)!){
+            if let p = Property(address: addressValue.text!, uid: (self.currentUser?.uid)!){
                 property = p
-                let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-                 appDelegrate.propertiesArray.append(property!)
+//                let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+//                 appDelegrate.propertiesArray.append(property!)
                 
                 // save obj to firebase
                 dbReference = Database.database().reference()
-                let uid = currentUser?.uid
+                let uid = self.currentUser?.uid
                 let dp = p.toAnyObject()
                 let propertyRef = self.dbReference?.child("users").child(uid!).child("properties")
                 propertyRef?.childByAutoId().setValue(dp)
@@ -53,6 +48,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         // edit
         do {
             try property!.setAddress(address: addressValue.text!)
+            
         } catch let error as PropertyValidationError {
             var errorMsg = ""
             switch(error) {
@@ -81,6 +77,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.currentUser = Auth.auth().currentUser
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         view.addGestureRecognizer(tap)

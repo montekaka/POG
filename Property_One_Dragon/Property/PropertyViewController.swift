@@ -36,11 +36,12 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         
         // to handle update info from new/edit view
-        super.viewWillAppear(animated)        
+        super.viewWillAppear(animated)
         // retrive data from firebase for current user
         let uid = Auth.auth().currentUser?.uid
         self.dbReference = Database.database().reference()
         self.dbHandle = self.dbReference?.child("users").child(uid!).child("properties").observe(.value, with: { snapshot in
+            var newItems: [Property] = []
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for item in snapshots {
@@ -50,12 +51,13 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
                         let p = Property(address: propertyDictionary["address"] as! String, uid: propertyDictionary["addedByUser"] as! String)
                         p?.totalIncome = propertyDictionary["income"] as? Double
                         p?.totalExpense = propertyDictionary["expense"] as? Double
-                        self.data.append(p!)
+                        newItems.append(p!)
                     }
                 }
-                if (self.data.count == 0 ){
+                if (newItems.count == 0 ){
                     self.performSegue(withIdentifier: "propertyAddSegue", sender: self)
                 }
+                self.data = newItems
                 self.table.reloadData()
             }
         })
