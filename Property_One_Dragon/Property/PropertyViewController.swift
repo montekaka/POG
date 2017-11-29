@@ -77,12 +77,10 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-        //appDelegrate.propertiesArray.remove(at: indexPath.row)
-        data.remove(at: indexPath.row)
-        table.deleteRows(at: [indexPath], with: .fade)
-        // save()
+        if editingStyle == .delete {
+            let p = data[indexPath.row]
+            p.ref?.removeValue()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -123,8 +121,6 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "propertyDetail", sender: nil)
-        
-        
     }
     
     
