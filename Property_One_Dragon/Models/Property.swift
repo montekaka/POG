@@ -65,7 +65,7 @@ class Property {
             self.mortgagePayment = 0
             self.rentalIncome = 0
             self.totalIncome = snapshotValue!["income"] as? Double
-            self.totalExpense = snapshotValue!["expense"] as? Double            
+            self.totalExpense = snapshotValue!["expense"] as? Double
 //            self.incomes = snapshotValue!["incomes"] as? [Payment]
 //            self.expenses = snapshotValue!["expenses"] as? [Payment]
 //            self.recurrent_expenses = snapshotValue!["recurrentExpenses"] as? [Payment]

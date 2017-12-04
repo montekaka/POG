@@ -81,16 +81,11 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         if(self.viewTitle == "New Income") {
             // Add new Income
+            self.addNewPayment(payment_type: "Incomes")
             //self.navigationController?.popViewController(animated: true)
         } else {
-            let uid = self.property?.uid
-            //let key = self.property!.ref!.child("Expenses").childByAutoId().key
-            let propertyKey = self.property!.ref!.key
-            let post = self.payment?.toAnyObject()
-            let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child("Expenses")
-            propertyRef?.childByAutoId().setValue(post)
-            self.navigationController?.popViewController(animated: true)
             // Add new Expense
+            self.addNewPayment(payment_type: "Expenses")
         }
     }
     
@@ -328,6 +323,17 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    
+    func addNewPayment(payment_type: String) {
+        // payment_type: Expense / Incomes
+        let uid = self.property?.uid
+        //let key = self.property!.ref!.child("Expenses").childByAutoId().key
+        let propertyKey = self.property!.ref!.key
+        let post = self.payment?.toAnyObject()
+        let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
+        propertyRef?.childByAutoId().setValue(post)
+        self.navigationController?.popViewController(animated: true)
+    }
     // end picker view
     /*
     // MARK: - Navigation

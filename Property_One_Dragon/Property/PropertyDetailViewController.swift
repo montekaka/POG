@@ -21,6 +21,8 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     var paymentData:[Payment] = []
     
     var arrayOfFrequencyPickerData: [frequencyData] = []
+    var arrayOfExpenseCategoryData: [categoryData] = []
+    var arrayOfIncomeCategoryData: [categoryData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,8 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         super.viewDidAppear(animated)
         self.propertyTableCells = (self.detailItem?.get())!
         self.getFrequenceFromFB()
+        self.getPaymentCategoryFromFB(payment_type: "expenseCategory")
+        self.getPaymentCategoryFromFB(payment_type: "incomeCategory")
         tableView.reloadData()
     }
 
@@ -68,13 +72,13 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", text: "End Date")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
-            
-            controller.arrayOfCategoryData = [
-                categoryData(label: "Expense 1", value: 1),
-                categoryData(label: "Expense 2", value: 2),
-                categoryData(label: "Expense 3", value: 3),
-                categoryData(label: "Expense 4", value: 4)
-            ]
+            controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData
+//            controller.arrayOfCategoryData = [
+//                categoryData(label: "Expense 1", value: 1),
+//                categoryData(label: "Expense 2", value: 2),
+//                categoryData(label: "Expense 3", value: 3),
+//                categoryData(label: "Expense 4", value: 4)
+//            ]
         }
         
         if segue.identifier == "propertyPaymentTableSegue" {
@@ -192,6 +196,29 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                     newItems.append(p)
                 }
                 self.arrayOfFrequencyPickerData = newItems;
+            }
+        })
+    }
+    
+    func getPaymentCategoryFromFB(payment_type:String){
+        // get payment category from firebase
+        // paymentType = "expenseCategory","incomeCategory"
+
+        _ = (self.dbReference?.child(payment_type))?.queryOrdered(byChild: "value").observe(.value, with: { snapshot in
+            var newItems: [categoryData] = []
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                for item in snapshots {
+                    let snapshotValue = item.value as? Dictionary<String, AnyObject>
+                    let p = categoryData(label: snapshotValue!["label"] as! String, value: snapshotValue!["value"] as! Float32)
+                    newItems.append(p)
+                }
+                if (payment_type == "expenseCategory") {
+                 self.arrayOfExpenseCategoryData = newItems;
+                } else if (payment_type == "incomeCategory") {
+                 self.arrayOfIncomeCategoryData = newItems;
+                }
+                
             }
         })
     }
