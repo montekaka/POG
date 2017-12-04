@@ -36,7 +36,8 @@ class Payment {
         return [
             "paidAmount": self.amount!,
             "paidDate": self.date!.timeIntervalSince1970, // get date = NSDate(timeIntervalSince1970: paidDate)
-            "paymentFrequencyCode": self.frequency!.code!
+            "paymentFrequencyCode": self.frequency!.code!,
+            "paymentCategoryCode": self.category!.code!
         ]
     }
     

@@ -104,12 +104,12 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             
-            controller.arrayOfCategoryData = [
-                categoryData(label: "Expense 1", value: 1),
-                categoryData(label: "Expense 2", value: 2),
-                categoryData(label: "Expense 3", value: 3),
-                categoryData(label: "Expense 4", value: 4)
-            ]
+//            controller.arrayOfCategoryData = [
+//                categoryData(label: "Expense 1", value: 1),
+//                categoryData(label: "Expense 2", value: 2),
+//                categoryData(label: "Expense 3", value: 3),
+//                categoryData(label: "Expense 4", value: 4)
+//            ]
         }
         
         if segue.identifier == "propertyRevenueTableSegue" {
@@ -210,7 +210,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for item in snapshots {
                     let snapshotValue = item.value as? Dictionary<String, AnyObject>
-                    let p = categoryData(label: snapshotValue!["label"] as! String, value: snapshotValue!["value"] as! Float32)
+                    let p = categoryData(label: snapshotValue!["label"] as! String, code: snapshotValue!["code"] as! String, value: snapshotValue!["value"] as! Float32)
                     newItems.append(p)
                 }
                 if (payment_type == "expenseCategory") {

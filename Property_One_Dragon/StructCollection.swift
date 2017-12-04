@@ -16,6 +16,7 @@ struct frequencyData {
 
 struct categoryData {
     let label: String!
+    let code: String!
     let value: Float32!
 }
 
