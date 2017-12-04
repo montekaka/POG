@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Firebase
 
 class PaymentAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    // firebase
+    var dbReference: DatabaseReference?
     
     @IBOutlet weak var tableView: UITableView!
     var property : Property?
@@ -73,27 +76,21 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         payment = r
         
         // create a new payment
-        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        self.dbReference = Database.database().reference()
+        //property.ref.child
+        
         if(self.viewTitle == "New Income") {
-            appDelegrate.revenueArray.append(payment!)
+            // Add new Income
+            //self.navigationController?.popViewController(animated: true)
         } else {
-            appDelegrate.receiptsArray.append(payment!)
-        }
-        // this should sit inside property instead its own, we will refactor it later on
-        
-        // add the new receipt cost to property expense -- this should move to receipt to handle it
-        let propertyArray = appDelegrate.propertiesArray.filter{
-            $0.id == property?.id
-        }
-        
-        if(propertyArray.count > 0 ){
-            if(self.viewTitle == "New Income") {
-                propertyArray[0].totalIncome = propertyArray[0].totalIncome! + (r?.amount)!
-            } else {
-                propertyArray[0].totalExpense = propertyArray[0].totalExpense! + (r?.amount)!
-            }
-            // after we successfully create the receipt, then go back
+            let uid = self.property?.uid
+            //let key = self.property!.ref!.child("Expenses").childByAutoId().key
+            let propertyKey = self.property!.ref!.key
+            let post = self.payment?.toAnyObject()
+            let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child("Expenses")
+            propertyRef?.childByAutoId().setValue(post)
             self.navigationController?.popViewController(animated: true)
+            // Add new Expense
         }
     }
     

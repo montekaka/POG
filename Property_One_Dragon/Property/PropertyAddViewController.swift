@@ -29,7 +29,7 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
                 // save obj to firebase
                 dbReference = Database.database().reference()
                 let uid = self.currentUser?.uid
-                let dp = p.toAnyObject()
+                let dp = p.toAnyObject()                
                 let propertyRef = self.dbReference?.child("users").child(uid!).child("properties")
                 propertyRef?.childByAutoId().setValue(dp)
                 

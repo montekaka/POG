@@ -10,6 +10,7 @@ import Foundation
 
 struct frequencyData {
     let label: String!
+    let code: String!
     let value: Float32!
 }
 

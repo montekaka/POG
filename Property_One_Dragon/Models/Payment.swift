@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class Payment {
     // must fill
@@ -17,9 +18,11 @@ class Payment {
     
     // optional
     var frequency: frequencyData?
+    
     var isAnnualized: Bool?
     var category: categoryData?
     var endDate: Date?
+    var ref: DatabaseReference?
     
     // list of avaiable values
     //private var data = [Receiptdata]()
@@ -27,6 +30,14 @@ class Payment {
     init?( amount: Double){
         // self.date = date
         self.amount = amount
+    }
+    
+    func toAnyObject() -> Any {
+        return [
+            "paidAmount": self.amount!,
+            "paidDate": self.date!.timeIntervalSince1970, // get date = NSDate(timeIntervalSince1970: paidDate)
+            "paymentFrequencyCode": self.frequency!.code!
+        ]
     }
     
     func get() -> [paymentData] {

@@ -8,15 +8,19 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class PropertyDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var masterView: PropertyViewController!
     @IBOutlet weak var tableView: UITableView!
     var selectedPropertyReceiptRow:Int = -1
+    var dbReference: DatabaseReference?
 
     var detailItem : Property?
     var propertyTableCells:[tableCellData] = []
     var paymentData:[Payment] = []
+    
+    var arrayOfFrequencyPickerData: [frequencyData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +36,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        self.dbReference = Database.database().reference()
         super.viewDidAppear(animated)
         self.propertyTableCells = (self.detailItem?.get())!
+        self.getFrequenceFromFB()
         tableView.reloadData()
     }
 
@@ -61,13 +67,8 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", text: "Category")
                 ,cellData(cell: "Picker", text: "End Date")
             ]
-            controller.arrayOfFrequencyPickerData = [
-                frequencyData(label: "Not Repeat", value: 0),
-                frequencyData(label: "Semi Monthly", value: 0.5),
-                frequencyData(label: "Monthly", value: 1),
-                frequencyData(label: "Semi Annually", value: 6),
-                frequencyData(label: "Annually", value: 12)
-            ]
+            controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
+            
             controller.arrayOfCategoryData = [
                 categoryData(label: "Expense 1", value: 1),
                 categoryData(label: "Expense 2", value: 2),
@@ -97,13 +98,8 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", text: "Category")
                 ,cellData(cell: "Picker", text: "End Date")
             ]
-            controller.arrayOfFrequencyPickerData = [
-                frequencyData(label: "Not Repeat", value: 0),
-                frequencyData(label: "Semi Monthly", value: 0.5),
-                frequencyData(label: "Monthly", value: 1),
-                frequencyData(label: "Semi Annually", value: 6),
-                frequencyData(label: "Annually", value: 12)
-            ]
+            controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
+            
             controller.arrayOfCategoryData = [
                 categoryData(label: "Expense 1", value: 1),
                 categoryData(label: "Expense 2", value: 2),
@@ -183,6 +179,22 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
     
+    func getFrequenceFromFB() {
+        // get frequency from firebase
+        
+        _ = (self.dbReference?.child("paymentFrequency"))?.queryOrdered(byChild: "value").observe(.value, with: { snapshot in
+            var newItems: [frequencyData] = []
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                for item in snapshots {
+                    let snapshotValue = item.value as? Dictionary<String, AnyObject>
+                    let p = frequencyData(label: snapshotValue!["label"] as! String, code: snapshotValue!["code"] as! String, value: snapshotValue!["value"] as! Float32)
+                    newItems.append(p)
+                }
+                self.arrayOfFrequencyPickerData = newItems;
+            }
+        })
+    }
     
     
     

@@ -90,12 +90,13 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PropertyViewCustomCell
+       // let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! PropertyViewCustomCell
+        let cell = Bundle.main.loadNibNamed("PropertyViewTableViewCell", owner: self, options: nil)?.first as! PropertyViewTableViewCell
         
 //        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
 //        let object = appDelegrate.propertiesArray[indexPath.row]
         let object = data[indexPath.row]
-        cell.addressLabel!.text = object.address
+        cell.address!.text = object.address
 //        cell.revenueLabel!.text =  "$\(object.totalIncome ?? 0)"
 //        cell.expenseLabel!.text =  "$\(object.totalExpense ?? 0)"
         cell.revenueLabel!.text = object.getIncomeText()
@@ -107,9 +108,9 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
                 (placemarks, error) -> Void in
                 if let firstPlacemark = placemarks?[0]{
                     let pm = MKPlacemark(placemark: firstPlacemark)
-                    cell.propertyMapView?.addAnnotation(pm)
+                    cell.mapView?.addAnnotation(pm)
                     let region = MKCoordinateRegionMakeWithDistance(pm.coordinate, 500, 500)
-                    cell.propertyMapView?.setRegion(region, animated: false)
+                    cell.mapView?.setRegion(region, animated: false)
                 }
             }
         }
@@ -123,6 +124,9 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegue(withIdentifier: "propertyDetail", sender: nil)
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {        
+        return 400
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "propertyDetail" {

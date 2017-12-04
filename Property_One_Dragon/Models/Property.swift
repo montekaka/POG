@@ -21,6 +21,11 @@ class Property {
     private(set) var mortgagePayment: Double?
     private(set) var rentalIncome: Double?
     
+    private(set) var expenses: [Payment]?
+    private(set) var incomes: [Payment]?
+    private(set) var recurrent_expenses: [Payment]?
+    private(set) var recurrent_incomes: [Payment]?
+    
     
     //private(set) var totalIncome: Double?
     // private(set) var totalExpense: Double?
@@ -43,6 +48,10 @@ class Property {
             let someInt:Int = Int(randomNum)
             self.id = someInt
             self.ref = nil
+//            self.incomes = []
+//            self.expenses = []
+//            self.recurrent_expenses = []
+//            self.recurrent_incomes = []
         } catch {
             return nil
         }
@@ -56,9 +65,13 @@ class Property {
             self.mortgagePayment = 0
             self.rentalIncome = 0
             self.totalIncome = snapshotValue!["income"] as? Double
-            self.totalExpense = snapshotValue!["expense"] as? Double
+            self.totalExpense = snapshotValue!["expense"] as? Double            
+//            self.incomes = snapshotValue!["incomes"] as? [Payment]
+//            self.expenses = snapshotValue!["expenses"] as? [Payment]
+//            self.recurrent_expenses = snapshotValue!["recurrentExpenses"] as? [Payment]
+//            self.recurrent_incomes = snapshotValue!["recurrentIncomes"] as? [Payment]
             self.ref = snapshot.ref
-        } catch{
+        } catch {
             return nil
         }
         
@@ -136,11 +149,16 @@ class Property {
     }
     
     func toAnyObject() -> Any {
+        // TO-DO: we should remove total income and expense
         return [
             "address": self.address!,
             "addedByUser": self.uid!,
             "income": self.totalIncome!,
             "expense": self.totalExpense!
+//            "incomes": self.incomes!,
+//            "expenses": self.expenses!,
+//            "recurrentIncomes": self.recurrent_incomes!,
+//            "recurrentExpenses": self.recurrent_expenses!
         ]
     }
     
