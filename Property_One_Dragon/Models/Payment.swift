@@ -8,7 +8,8 @@
 
 import Foundation
 import Firebase
-
+// TO-DO
+// 1. Make sure pay date is less than end date
 class Payment {
     // must fill
     var date: Date?
@@ -32,12 +33,22 @@ class Payment {
         self.amount = amount
     }
     
+    
     func toAnyObject() -> Any {
+        var annualizedPayment = false
+
+        if(self.isAnnualized == true){
+            annualizedPayment = true
+        }
+        print(self.endDate!.timeIntervalSince1970);
+        
         return [
             "paidAmount": self.amount!,
             "paidDate": self.date!.timeIntervalSince1970, // get date = NSDate(timeIntervalSince1970: paidDate)
             "paymentFrequencyCode": self.frequency!.code!,
-            "paymentCategoryCode": self.category!.code!
+            "paymentCategoryCode": self.category!.code!,
+            "paymentEndDate": self.endDate!.timeIntervalSince1970,
+            "annualizedPayment": annualizedPayment
         ]
     }
     

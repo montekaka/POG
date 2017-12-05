@@ -56,6 +56,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             r?.date = Date()
         }
         
+        if((self.endDate) != nil){
+            r?.endDate = self.endDate
+        } else {
+            r?.endDate = Date()
+        }
+        
         if((self.selectedFrequenceData) != nil){
             r?.frequency = self.selectedFrequenceData
         }
