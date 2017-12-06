@@ -10,10 +10,6 @@ import UIKit
 import Firebase
 
 class PaymentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    // firebase var
-    var dbReference: DatabaseReference?
-    var dbHandle: DatabaseHandle?
-    
     //var data: [String] = ["Row 1","Row 2","Row 3"]
     var selectedRow:Int = -1
     var property : Property?
@@ -35,6 +31,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //property?.ref
+        // retrieve data from firebase
         self.property?.ref?.child("Expenses").observe(.value, with: { snapshot in
             var newItems: [Payment] = []
             // let name:String? = snapshot.value as? String

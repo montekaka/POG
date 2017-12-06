@@ -34,11 +34,47 @@ class Payment {
     }
     
     init?(snapshot: DataSnapshot) {
+        let dbReference = Database.database().reference()
         let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
         // set values
         
         self.amount = snapshotValue!["paidAmount"] as? Double
         self.date = NSDate(timeIntervalSince1970: snapshotValue!["paidDate"] as! TimeInterval) as Date?
+        
+        if((snapshotValue!["paymentEndDate"]) != nil) {
+            self.endDate = NSDate(timeIntervalSince1970: snapshotValue!["paymentEndDate"] as! TimeInterval) as Date?
+        }
+        
+        if((snapshotValue!["paymentCategoryCode"]) != nil) {
+            let paymentCategoryCode = snapshotValue!["paymentCategoryCode"]
+            
+             dbReference.child("expenseCategory").child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
+                let snapValue = categorySnapshot.value as? NSDictionary
+                let label = snapValue!["label"] as? String ?? ""
+                let code = snapValue!["code"] as? String ?? ""
+                let value = snapValue!["value"] as? Float32
+                
+                self.category = categoryData(label: label, code: code, value: value)
+            })
+        }
+        
+        if((snapshotValue!["paymentFrequencyCode"]) != nil) {
+            let paymentCategoryCode = snapshotValue!["paymentFrequencyCode"]
+            
+            dbReference.child("paymentFrequency").child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
+                let snapValue = categorySnapshot.value as? NSDictionary
+                let label = snapValue!["label"] as? String ?? ""
+                let code = snapValue!["code"] as? String ?? ""
+                let value = snapValue!["value"] as? Float32
+                
+                self.frequency = frequencyData(label: label, code: code, value: value)
+            })
+        }
+    
+        
+        if((snapshotValue!["annualizedPayment"]) != nil) {
+            self.isAnnualized = snapshotValue!["annualizedPayment"] as? Bool
+        }
         
         self.ref = snapshot.ref
         
