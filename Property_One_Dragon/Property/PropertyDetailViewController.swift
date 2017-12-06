@@ -73,20 +73,14 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData
-//            controller.arrayOfCategoryData = [
-//                categoryData(label: "Expense 1", value: 1),
-//                categoryData(label: "Expense 2", value: 2),
-//                categoryData(label: "Expense 3", value: 3),
-//                categoryData(label: "Expense 4", value: 4)
-//            ]
         }
         
         if segue.identifier == "propertyPaymentTableSegue" {
             let controller = segue.destination as! PaymentViewController
             controller.property = detailItem
             controller.viewTitle = "Receipts"
-            let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-            controller.dataArray = appDelegrate.receiptsArray
+            //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+            //controller.dataArray = appDelegrate.receiptsArray
         }
         
         if segue.identifier == "propertyAddRevenueSegue" {

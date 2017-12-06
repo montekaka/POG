@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import Firebase
 
 class PaymentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    // firebase var
+    var dbReference: DatabaseReference?
+    var dbHandle: DatabaseHandle?
+    
     //var data: [String] = ["Row 1","Row 2","Row 3"]
     var selectedRow:Int = -1
     var property : Property?
     var viewTitle: String!
-    var dataArray: [Payment]!
-    
+    var dataArray:[Payment] = []
+
     
     @IBOutlet weak var table: UITableView!
     
@@ -30,14 +34,29 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        table.reloadData()
+        //property?.ref
+        self.property?.ref?.child("Expenses").observe(.value, with: { snapshot in
+            var newItems: [Payment] = []
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                for item in snapshots {
+                    let p = Payment(snapshot: item)
+                    newItems.append(p!)
+                }
+                self.dataArray = newItems
+                self.table.reloadData()
+            }
+        })
+        
+        // table.reloadData()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return data.count
 //        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
 //        return appDelegrate.receiptsArray.count
-        return dataArray.count
+       return dataArray.count
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

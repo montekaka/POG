@@ -33,6 +33,17 @@ class Payment {
         self.amount = amount
     }
     
+    init?(snapshot: DataSnapshot) {
+        let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
+        // set values
+        
+        self.amount = snapshotValue!["paidAmount"] as? Double
+        self.date = NSDate(timeIntervalSince1970: snapshotValue!["paidDate"] as! TimeInterval) as Date?
+        
+        self.ref = snapshot.ref
+        
+    }
+    
     
     func toAnyObject() -> Any {
         var annualizedPayment = false
