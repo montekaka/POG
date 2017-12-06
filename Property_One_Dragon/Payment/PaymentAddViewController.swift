@@ -270,7 +270,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             return 90
             
         } else if arrayOfCellData[indexPath.row].cell  == "Picker"  {
-            return 44
+            return 90
         }
         else if arrayOfCellData[indexPath.row].cell  == "Switch"  {
             return 44
