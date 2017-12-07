@@ -14,6 +14,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     var selectedRow:Int = -1
     var property : Property?
     var viewTitle: String!
+    var viewType: String!
     var dataArray:[Payment] = []
 
     
@@ -32,12 +33,19 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewWillAppear(animated)
         //property?.ref
         // retrieve data from firebase
-        self.property?.ref?.child("Expenses").observe(.value, with: { snapshot in
+        if(self.viewTitle == "Income") {
+            self.viewType = "Incomes"
+        } else if(self.viewTitle == "Expense"){
+            self.viewType = "Expenses"
+        } else {
+            self.viewType = "Other"
+        }
+        self.property?.ref?.child(self.viewType).observe(.value, with: { snapshot in
             var newItems: [Payment] = []
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for item in snapshots {
-                    let p = Payment(snapshot: item)
+                    let p = Payment(snapshot: item,paymentType: self.viewType)
                     newItems.append(p!)
                 }
                 self.dataArray = newItems
@@ -99,9 +107,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         self.performSegue(withIdentifier: "paymentAddSegue", sender: self)
     }
     
-    
-    
-
+ 
     /*
     // MARK: - Navigation
 

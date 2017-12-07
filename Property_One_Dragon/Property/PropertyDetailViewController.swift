@@ -57,7 +57,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! PropertyAddViewController
             controller.property = detailItem
         }
-        
+        // Expense
         if segue.identifier == "propertyAddPaymentSegue" {
             let controller = segue.destination as! PaymentAddViewController
             controller.property = detailItem
@@ -78,11 +78,11 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         if segue.identifier == "propertyPaymentTableSegue" {
             let controller = segue.destination as! PaymentViewController
             controller.property = detailItem
-            controller.viewTitle = "Receipts"
+            controller.viewTitle = "Expense"
             //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
             //controller.dataArray = appDelegrate.receiptsArray
         }
-        
+        // Revenue
         if segue.identifier == "propertyAddRevenueSegue" {
             let controller = segue.destination as! PaymentAddViewController
             controller.property = detailItem
@@ -97,6 +97,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", text: "End Date")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
+            controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData
             
 //            controller.arrayOfCategoryData = [
 //                categoryData(label: "Expense 1", value: 1),

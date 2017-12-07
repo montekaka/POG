@@ -207,7 +207,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         cell.TextField.inputAccessoryView = toolbar
         cell.TextField.inputView = categoryPickerView
-        cell.TextField.placeholder = "e.g. Expense 1"
+        if(self.viewTitle == "New Expense"){
+            cell.TextField.placeholder = "e.g. HOA"
+        } else {
+            cell.TextField.placeholder = "e.g. Rental Income"
+        }
+        
     }
     
 

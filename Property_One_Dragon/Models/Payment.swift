@@ -33,7 +33,7 @@ class Payment {
         self.amount = amount
     }
     
-    init?(snapshot: DataSnapshot) {
+    init?(snapshot: DataSnapshot, paymentType: String) {
         let dbReference = Database.database().reference()
         let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
         // set values
@@ -47,8 +47,11 @@ class Payment {
         
         if((snapshotValue!["paymentCategoryCode"]) != nil) {
             let paymentCategoryCode = snapshotValue!["paymentCategoryCode"]
-            
-             dbReference.child("expenseCategory").child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
+            var paymentCategory = "expenseCategory"
+            if( paymentType == "Incomes"){
+                paymentCategory = "incomeCategory"
+            }
+             dbReference.child(paymentCategory).child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
                 let snapValue = categorySnapshot.value as? NSDictionary
                 let label = snapValue!["label"] as? String ?? ""
                 let code = snapValue!["code"] as? String ?? ""
