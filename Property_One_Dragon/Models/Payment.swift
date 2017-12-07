@@ -33,6 +33,7 @@ class Payment {
         self.amount = amount
     }
     
+    
     init?(snapshot: DataSnapshot, paymentType: String) {
         let dbReference = Database.database().reference()
         let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
