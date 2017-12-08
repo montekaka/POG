@@ -174,7 +174,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         if (p.cellType == "CellWithButton") {
             return 100
         } else {
-            return 60
+            return 80
         }
     }
     
