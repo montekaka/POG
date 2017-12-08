@@ -8,7 +8,7 @@
 
 import Foundation
 import Firebase
-// TO-DO
+// TODO
 // 1. Make sure pay date is less than end date
 class Payment {
     // must fill

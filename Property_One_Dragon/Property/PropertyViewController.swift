@@ -99,8 +99,9 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.address!.text = object.address
 //        cell.revenueLabel!.text =  "$\(object.totalIncome ?? 0)"
 //        cell.expenseLabel!.text =  "$\(object.totalExpense ?? 0)"
-        cell.revenueLabel!.text = object.getIncomeText()
-        cell.expenseLabel!.text = object.getExpenseText()
+        cell.revenueLabel!.text = object.getPaymentTextLabel(paymentType: "Income")
+        cell.expenseLabel!.text = object.getPaymentTextLabel(paymentType: "Expense")
+        cell.profitLoss!.text = object.getPaymentTextLabel(paymentType: "ProfitLoss")
         // map 
         if let address = object.address {
             let geocoder = CLGeocoder()
