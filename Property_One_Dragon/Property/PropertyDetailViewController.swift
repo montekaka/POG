@@ -24,6 +24,11 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     var arrayOfExpenseCategoryData: [categoryData] = []
     var arrayOfIncomeCategoryData: [categoryData] = []
     
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.propertyTableCells = (self.detailItem?.get())!
@@ -38,8 +43,9 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.dbReference = Database.database().reference()
         super.viewDidAppear(animated)
+        
+        self.dbReference = Database.database().reference()
         self.propertyTableCells = (self.detailItem?.get())!
         self.getFrequenceFromFB()
         self.getPaymentCategoryFromFB(payment_type: "expenseCategory")

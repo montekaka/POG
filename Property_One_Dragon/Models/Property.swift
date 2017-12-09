@@ -94,6 +94,7 @@ class Property {
     
     func get() -> [tableCellData] {
         var data = [tableCellData]()
+        
         data = [
             tableCellData(label: "Address", value: self.address, cellType: "Text"),
             tableCellData(label: "Income", value: self.getPaymentTextLabel(paymentType: "Income"), cellType: "CellWithButton"),

@@ -20,6 +20,10 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     var dbReference: DatabaseReference?
     var dbHandle: DatabaseHandle?
 
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()        
         // Do any additional setup after loading the view, typically from a nib.
@@ -29,15 +33,19 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = editButtonItem
-        // load()
-        //let ref = Database.database().reference(withPath: "property-items")
+        
+        // retrive data from firebase for current user
+        self.configureDatabase()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         // to handle update info from new/edit view
-        super.viewWillAppear(animated)
-        // retrive data from firebase for current user
+        super.viewWillAppear(animated)        
+    }
+    
+    func configureDatabase(){
         let uid = Auth.auth().currentUser?.uid
         self.dbReference = Database.database().reference()
         self.dbHandle = self.dbReference?.child("users").child(uid!).child("properties").observe(.value, with: { snapshot in
@@ -56,7 +64,6 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         })
         
-        // save()
     }
     
     @objc func addNote(){

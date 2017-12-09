@@ -81,7 +81,7 @@ class Payment {
         }
         
         self.ref = snapshot.ref
-        
+        dbReference.removeAllObservers()
     }
     
     

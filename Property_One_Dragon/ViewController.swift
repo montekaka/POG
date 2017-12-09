@@ -13,6 +13,11 @@ class ViewController: UIViewController {
 
     var dbReference: DatabaseReference?
     
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
+    
     @IBAction func btnCreateUser(_ sender: Any) {
         if let email:String = txtEmail.text, let pass: String = txtPassword.text {
 
