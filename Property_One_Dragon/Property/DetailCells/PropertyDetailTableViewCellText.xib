@@ -25,7 +25,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPb-CK-oau">
-                        <rect key="frame" x="24" y="4" width="280" height="21"/>
+                        <rect key="frame" x="24" y="4" width="160" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -36,12 +36,25 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zOj-j6-YRZ">
+                        <rect key="frame" x="249" y="4" width="55" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="QBH-TB-ObX"/>
+                            <constraint firstAttribute="width" constant="55" id="SNo-m1-zzm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                        <state key="normal" title="Edit" backgroundImage="Rectangle">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="FPO-zz-29I" firstAttribute="top" secondItem="kPb-CK-oau" secondAttribute="bottom" constant="23" id="D6V-Oc-BZE"/>
                     <constraint firstAttribute="bottom" secondItem="FPO-zz-29I" secondAttribute="bottom" constant="10.5" id="ESg-HT-t0S"/>
-                    <constraint firstAttribute="trailing" secondItem="kPb-CK-oau" secondAttribute="trailing" constant="16" id="Wp5-pI-t5T"/>
+                    <constraint firstAttribute="trailing" secondItem="zOj-j6-YRZ" secondAttribute="trailing" constant="16" id="J28-Eg-Sf2"/>
                     <constraint firstItem="FPO-zz-29I" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="cGE-2x-ITO"/>
+                    <constraint firstItem="zOj-j6-YRZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="dRE-zf-z9a"/>
+                    <constraint firstItem="zOj-j6-YRZ" firstAttribute="leading" secondItem="kPb-CK-oau" secondAttribute="trailing" constant="65" id="dyB-an-lJq"/>
                     <constraint firstItem="kPb-CK-oau" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="msA-k8-8zH"/>
                     <constraint firstItem="kPb-CK-oau" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="sZT-En-c4J"/>
                     <constraint firstAttribute="trailing" secondItem="FPO-zz-29I" secondAttribute="trailing" constant="16" id="zYU-jE-cWg"/>
@@ -49,10 +62,14 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="editButton" destination="zOj-j6-YRZ" id="orR-hG-X2p"/>
                 <outlet property="label" destination="kPb-CK-oau" id="cya-PV-Qel"/>
                 <outlet property="value" destination="FPO-zz-29I" id="26A-Un-frf"/>
             </connections>
             <point key="canvasLocation" x="118" y="125"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Rectangle" width="55" height="21"/>
+    </resources>
 </document>

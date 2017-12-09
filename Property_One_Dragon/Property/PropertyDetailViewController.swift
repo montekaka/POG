@@ -39,8 +39,8 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         // Do any additional setup after loading the view.
         
         // add edit button
-        let editPropertyButton =  UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editProperty))
-        self.navigationItem.rightBarButtonItem = editPropertyButton
+//        let editPropertyButton =  UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editProperty))
+//        self.navigationItem.rightBarButtonItem = editPropertyButton
         
         // table view config
         self.configureDatabase()
@@ -173,6 +173,8 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             cell.label.text = propertyTableCells[indexPath.row].label
             cell.value.text = propertyTableCells[indexPath.row].value
             cell.selectionStyle = .none
+            // edit button
+            cell.editButton.addTarget(self, action: #selector(editProperty), for: .touchUpInside)
             return cell
         }
         
