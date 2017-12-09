@@ -146,6 +146,8 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
             //let object = appDelegrate.propertiesArray[selectedRow]
             let object = data[selectedRow]
             detailView.detailItem = object
+            detailView.uid = object.uid            
+            detailView.propertyID = object.ref?.key
         }
 
         
