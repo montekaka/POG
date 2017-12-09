@@ -230,12 +230,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     func configureDatabase(){
         if(self.propertyID != nil){
             self.getPropertyFromFB()
+        } else {
+            self.setupUILabels()
         }
-        self.propertyTableCells = (self.detailItem?.get())!
-        self.getFrequenceFromFB()
-        self.getPaymentCategoryFromFB(payment_type: "expenseCategory")
-        self.getPaymentCategoryFromFB(payment_type: "incomeCategory")
-        self.tableView.reloadData()
+        
     }
     
     func getPropertyFromFB(){
@@ -244,12 +242,16 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let item = snapshot as DataSnapshot
                 let p = Property(snapshot: item)
                 self.detailItem = p
-//                self.propertyTableCells = (self.detailItem?.get())!
-//                self.getFrequenceFromFB()
-//                self.getPaymentCategoryFromFB(payment_type: "expenseCategory")
-//                self.getPaymentCategoryFromFB(payment_type: "incomeCategory")
-//                self.tableView.reloadData()
+                self.setupUILabels()
         })
+    }
+    
+    func setupUILabels(){
+        self.propertyTableCells = (self.detailItem?.get())!
+        self.getFrequenceFromFB()
+        self.getPaymentCategoryFromFB(payment_type: "expenseCategory")
+        self.getPaymentCategoryFromFB(payment_type: "incomeCategory")
+        self.tableView.reloadData()
     }
     
     
