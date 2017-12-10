@@ -232,7 +232,17 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         if arrayOfCellData[indexPath.row].cell == "Input" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
-            self.billAmount = cell.TextField
+            // Paid Amount
+            if(arrayOfCellData[indexPath.row].text == "Paid Amount"){
+                self.billAmount = cell.TextField
+                // add icon to the input field
+                let moneyImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
+                moneyImageView.image = UIImage(named: "Money")
+                moneyImageView.contentMode = .center
+                cell.TextField.leftView = moneyImageView
+                cell.TextField.leftViewMode = .always
+            }
+            
             return cell
             
         } else if arrayOfCellData[indexPath.row].cell == "Switch" {
@@ -247,9 +257,23 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             if arrayOfCellData[indexPath.row].text == "Date" {
                 self.paidDateCell = cell
                 createPaidDatePicker(cell: cell)
+                // add icon to the input field
+                let calendarImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
+                calendarImageView.image = UIImage(named: "CalendarIcon")
+                calendarImageView.contentMode = .center
+                cell.TextField.leftView = calendarImageView
+                cell.TextField.leftViewMode = .always
+                
             } else if arrayOfCellData[indexPath.row].text == "End Date" {
                 self.endDateCell = cell
                 createEndDatePicker(cell: cell)
+                
+                // add icon to the input field
+                let calendarImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
+                calendarImageView.image = UIImage(named: "CalendarIcon")
+                calendarImageView.contentMode = .center
+                cell.TextField.leftView = calendarImageView
+                cell.TextField.leftViewMode = .always
             }
             else if arrayOfCellData[indexPath.row].text == "Frequency" {
                 self.fequencyPickerCell = cell

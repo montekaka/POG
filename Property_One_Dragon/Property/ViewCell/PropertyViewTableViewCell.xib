@@ -53,11 +53,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmU-bE-gQd">
-                                                <rect key="frame" x="145" y="8" width="112" height="64"/>
+                                                <rect key="frame" x="156.5" y="8" width="100.5" height="64"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="64" id="KnT-U0-WhA"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="50"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="45"/>
                                                 <color key="textColor" red="0.14117647059999999" green="0.61568627450000002" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>

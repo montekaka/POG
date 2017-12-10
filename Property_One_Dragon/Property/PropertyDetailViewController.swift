@@ -77,7 +77,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 cellData(cell: "Input", text: "Paid Amount")
                 ,cellData(cell: "Picker", text: "Date")
                 ,cellData(cell: "Picker", text: "Frequency")
-                ,cellData(cell: "Switch", text: "Annualized")
+                //,cellData(cell: "Switch", text: "Annualized")
                 ,cellData(cell: "Picker", text: "Category")
                 ,cellData(cell: "Picker", text: "End Date")
             ]
@@ -102,7 +102,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 cellData(cell: "Input", text: "Paid Amount")
                 ,cellData(cell: "Picker", text: "Date")
                 ,cellData(cell: "Picker", text: "Frequency")
-                ,cellData(cell: "Switch", text: "Annualized")
+                //,cellData(cell: "Switch", text: "Annualized")
                 ,cellData(cell: "Picker", text: "Category")
                 ,cellData(cell: "Picker", text: "End Date")
             ]

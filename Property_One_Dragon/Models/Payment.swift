@@ -86,20 +86,19 @@ class Payment {
     
     
     func toAnyObject() -> Any {
-        var annualizedPayment = false
+        //var annualizedPayment = false
 
-        if(self.isAnnualized == true){
-            annualizedPayment = true
-        }
-        print(self.endDate!.timeIntervalSince1970);
+//        if(self.isAnnualized == true){
+//            annualizedPayment = true
+//        }
         
         return [
             "paidAmount": self.amount!,
             "paidDate": self.date!.timeIntervalSince1970, // get date = NSDate(timeIntervalSince1970: paidDate)
             "paymentFrequencyCode": self.frequency!.code!,
             "paymentCategoryCode": self.category!.code!,
-            "paymentEndDate": self.endDate!.timeIntervalSince1970,
-            "annualizedPayment": annualizedPayment
+            //"annualizedPayment": annualizedPayment,
+            "paymentEndDate": self.endDate!.timeIntervalSince1970
         ]
     }
     
