@@ -76,10 +76,11 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.arrayOfCellData = [
                 cellData(cell: "Input", text: "Paid Amount")
                 ,cellData(cell: "Picker", text: "Date")
-                ,cellData(cell: "Picker", text: "Frequency")
                 //,cellData(cell: "Switch", text: "Annualized")
                 ,cellData(cell: "Picker", text: "Category")
+                ,cellData(cell: "Picker", text: "Frequency")
                 ,cellData(cell: "Picker", text: "End Date")
+                ,cellData(cell:"Button", text:"Save")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData
@@ -101,10 +102,11 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.arrayOfCellData = [
                 cellData(cell: "Input", text: "Paid Amount")
                 ,cellData(cell: "Picker", text: "Date")
-                ,cellData(cell: "Picker", text: "Frequency")
                 //,cellData(cell: "Switch", text: "Annualized")
                 ,cellData(cell: "Picker", text: "Category")
+                ,cellData(cell: "Picker", text: "Frequency")
                 ,cellData(cell: "Picker", text: "End Date")
+                ,cellData(cell:"Button", text:"Save")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData

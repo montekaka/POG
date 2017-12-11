@@ -20,6 +20,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var table: UITableView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = viewTitle

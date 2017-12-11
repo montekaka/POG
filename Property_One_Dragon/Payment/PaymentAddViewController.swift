@@ -22,29 +22,36 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     
     private var payment : Payment?
     private var billAmount: UITextField!
-    
+    // button
+    private var saveButtonCell: PaymentAddTableViewCellButton?
+    private var button: UIButton?
     // date picker
     private var paidDateField: UITextField!
     private var paidDate: Date?
-    private var paidDateCell: PaymentAddTableViewCellPicker?
+    private var paidDateCell: PaymentAddTableViewCellTextField?
     private let paidDatePicker = UIDatePicker()
 
     private var endDateField: UITextField!
     private var endDate: Date?
-    private var endDateCell: PaymentAddTableViewCellPicker?
+    private var endDateCell: PaymentAddTableViewCellTextField?
     private let endDatePicker = UIDatePicker()
     
     // picker view
     private var fequencyPickerView = UIPickerView()
-    private var fequencyPickerCell: PaymentAddTableViewCellPicker?
+    private var fequencyPickerCell: PaymentAddTableViewCellTextField?
     private var selectedFrequenceData: frequencyData?
     
     private var categoryPickerView = UIPickerView()
-    private var categoryPickerCell: PaymentAddTableViewCellPicker?
+    private var categoryPickerCell: PaymentAddTableViewCellTextField?
     private var selectedCategoryData: categoryData?
     
     // var isAnnualization
     private var AnnualizationCell: PaymentAddTableViewCellSwitch?
+    
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
     
     @objc func addButtonPressed() {
         
@@ -108,8 +115,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         self.title = self.viewTitle
         
         // add button
-        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))
-        self.navigationItem.rightBarButtonItem = addButton
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))
+//        self.navigationItem.rightBarButtonItem = addButton
         
         // add date picker
         // createPaidDatePicker()
@@ -128,7 +135,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         return false
     }
     // date picker
-    func createPaidDatePicker(cell: PaymentAddTableViewCellPicker){
+    func createPaidDatePicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
@@ -156,7 +163,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // end date date picker
-    func createEndDatePicker(cell: PaymentAddTableViewCellPicker){
+    func createEndDatePicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
@@ -184,7 +191,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // picker veiw
-    func createFrequencePicker(cell: PaymentAddTableViewCellPicker){
+    func createFrequencePicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -197,7 +204,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         cell.TextField.placeholder = "e.g. Monthly"
     }
     
-    func createCategoryPicker(cell: PaymentAddTableViewCellPicker){
+    func createCategoryPicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -250,8 +257,17 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
             self.AnnualizationCell = cell
             return cell
-        } else if arrayOfCellData[indexPath.row].cell == "Picker" {
-         let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellPicker", owner: self, options: nil)?.first as! PaymentAddTableViewCellPicker
+        } else if arrayOfCellData[indexPath.row].text == "Save" {
+            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellButton", owner: self, options: nil)?.first as! PaymentAddTableViewCellButton
+            self.saveButtonCell = cell
+            cell.button.setTitle(arrayOfCellData[indexPath.row].text, for: .normal)
+            cell.button.addTarget(self, action: #selector(addButtonPressed), for: UIControlEvents.touchUpInside)
+
+            return cell
+        }
+        
+        else if arrayOfCellData[indexPath.row].cell == "Picker" {
+         let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
             
             if arrayOfCellData[indexPath.row].text == "Date" {
@@ -282,7 +298,6 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 self.categoryPickerCell = cell
                 createCategoryPicker(cell: cell)
             }
-
             return cell
         }
         else {
@@ -303,7 +318,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
         else if arrayOfCellData[indexPath.row].cell  == "Switch"  {
             return 44
-        } else {
+        } else if arrayOfCellData[indexPath.row].cell  == "Button"  {
+            return 100
+        }
+        else {
             return 90
         }
     }

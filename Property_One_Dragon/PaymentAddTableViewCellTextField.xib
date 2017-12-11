@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Bold</string>
+        </array>
+        <array key="HelveticaNeueLights.ttc">
+            <string>HelveticaNeue-Light</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,22 +26,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AyW-JZ-7bu">
-                        <rect key="frame" x="8" y="45" width="304" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="InputFieldBackground" translatesAutoresizingMaskIntoConstraints="NO" id="AyW-JZ-7bu">
+                        <rect key="frame" x="8" y="44" width="304" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="nCG-Q2-fNK"/>
+                        </constraints>
                         <nil key="textColor"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhM-Di-cSD">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhM-Di-cSD">
                         <rect key="frame" x="8" y="10" width="304" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="FDk-IZ-zHY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.62352941176470589" green="0.65490196078431373" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="zhM-Di-cSD" secondAttribute="trailing" constant="8" id="6Bd-0f-uue"/>
+                    <constraint firstAttribute="trailing" secondItem="AyW-JZ-7bu" secondAttribute="trailing" constant="8" id="D5c-pB-CH7"/>
+                    <constraint firstItem="zhM-Di-cSD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ETx-7G-9UE"/>
+                    <constraint firstItem="AyW-JZ-7bu" firstAttribute="top" secondItem="zhM-Di-cSD" secondAttribute="bottom" constant="13" id="Oxh-X2-hLR"/>
+                    <constraint firstItem="AyW-JZ-7bu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="PsW-AO-IrS"/>
+                    <constraint firstAttribute="bottom" secondItem="AyW-JZ-7bu" secondAttribute="bottom" constant="5.5" id="o8m-Bd-k20"/>
+                    <constraint firstItem="zhM-Di-cSD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="sEk-dk-Gkp"/>
+                </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96470588235294119" green="0.97647058823529409" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="TextField" destination="AyW-JZ-7bu" id="bzj-bZ-cko"/>
                 <outlet property="TextFieldLabel" destination="zhM-Di-cSD" id="13r-IP-khz"/>
@@ -41,4 +63,7 @@
             <point key="canvasLocation" x="-843" y="-68"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="InputFieldBackground" width="335" height="41"/>
+    </resources>
 </document>
