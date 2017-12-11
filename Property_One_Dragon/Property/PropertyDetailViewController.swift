@@ -74,13 +74,13 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.viewTitle = "New Expense"
             // * enhancement * move the following array into a property list or json file
             controller.arrayOfCellData = [
-                cellData(cell: "Input", text: "Paid Amount")
-                ,cellData(cell: "Picker", text: "Date")
+                cellData(cell: "Input", code: "payment", label: "Amount")
+                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
                 //,cellData(cell: "Switch", text: "Annualized")
-                ,cellData(cell: "Picker", text: "Category")
-                ,cellData(cell: "Picker", text: "Frequency")
-                ,cellData(cell: "Picker", text: "End Date")
-                ,cellData(cell:"Button", text:"Save")
+                ,cellData(cell: "Picker", code: "category", label: "Category")
+                ,cellData(cell: "Picker", code: "freqency",  label: "Paid")
+                ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
+                ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData
@@ -100,13 +100,13 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.viewTitle = "New Income"
             // * enhancement * move the following array into a property list or json file
             controller.arrayOfCellData = [
-                cellData(cell: "Input", text: "Paid Amount")
-                ,cellData(cell: "Picker", text: "Date")
+                cellData(cell: "Input", code: "payment", label: "Rent Amount")
+                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
                 //,cellData(cell: "Switch", text: "Annualized")
-                ,cellData(cell: "Picker", text: "Category")
-                ,cellData(cell: "Picker", text: "Frequency")
-                ,cellData(cell: "Picker", text: "End Date")
-                ,cellData(cell:"Button", text:"Save")
+                ,cellData(cell: "Picker", code: "category", label: "Category")
+                ,cellData(cell: "Picker", code: "freqency",  label: "Rent paid")
+                ,cellData(cell: "Picker", code: "enddate", label: "Lease ends")
+                ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData

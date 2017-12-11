@@ -28,7 +28,8 @@ struct paymentData {
 
 struct cellData {
     let cell: String!
-    let text: String!
+    let code: String!
+    let label: String!
     
 }
 

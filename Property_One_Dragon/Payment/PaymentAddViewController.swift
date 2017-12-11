@@ -214,11 +214,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         cell.TextField.inputAccessoryView = toolbar
         cell.TextField.inputView = categoryPickerView
-        if(self.viewTitle == "New Expense"){
-            cell.TextField.placeholder = "e.g. HOA"
-        } else {
-            cell.TextField.placeholder = "e.g. Rental Income"
-        }
+        cell.TextField.placeholder = "Required"
+//        if(self.viewTitle == "New Expense"){
+//            cell.TextField.placeholder = "Required"
+//        } else {
+//            cell.TextField.placeholder = "e.g. Rental Income"
+//        }
         
     }
     
@@ -238,29 +239,26 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         if arrayOfCellData[indexPath.row].cell == "Input" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
-            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             // Paid Amount
-            if(arrayOfCellData[indexPath.row].text == "Paid Amount"){
+            if(arrayOfCellData[indexPath.row].code == "payment"){
                 self.billAmount = cell.TextField
+                cell.TextField.placeholder = "Required"
                 // add icon to the input field
-                let moneyImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
-                moneyImageView.image = UIImage(named: "Money")
-                moneyImageView.contentMode = .center
-                cell.TextField.leftView = moneyImageView
-                cell.TextField.leftViewMode = .always
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
             }
             
             return cell
             
         } else if arrayOfCellData[indexPath.row].cell == "Switch" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellSwitch", owner: self, options: nil)?.first as! PaymentAddTableViewCellSwitch
-            cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
+            cell.switchTextLabel.text = arrayOfCellData[indexPath.row].label
             self.AnnualizationCell = cell
             return cell
-        } else if arrayOfCellData[indexPath.row].text == "Save" {
+        } else if arrayOfCellData[indexPath.row].code == "savebutton" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellButton", owner: self, options: nil)?.first as! PaymentAddTableViewCellButton
             self.saveButtonCell = cell
-            cell.button.setTitle(arrayOfCellData[indexPath.row].text, for: .normal)
+            cell.button.setTitle(arrayOfCellData[indexPath.row].label, for: .normal)
             cell.button.addTarget(self, action: #selector(addButtonPressed), for: UIControlEvents.touchUpInside)
 
             return cell
@@ -268,41 +266,36 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         else if arrayOfCellData[indexPath.row].cell == "Picker" {
          let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
-            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             
-            if arrayOfCellData[indexPath.row].text == "Date" {
+            if arrayOfCellData[indexPath.row].code == "startdate" {
                 self.paidDateCell = cell
                 createPaidDatePicker(cell: cell)
                 // add icon to the input field
-                let calendarImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
-                calendarImageView.image = UIImage(named: "CalendarIcon")
-                calendarImageView.contentMode = .center
-                cell.TextField.leftView = calendarImageView
-                cell.TextField.leftViewMode = .always
+                self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
+                cell.TextField.placeholder = "Required"
                 
-            } else if arrayOfCellData[indexPath.row].text == "End Date" {
+            } else if arrayOfCellData[indexPath.row].code == "enddate" {
                 self.endDateCell = cell
                 createEndDatePicker(cell: cell)
-                
                 // add icon to the input field
-                let calendarImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
-                calendarImageView.image = UIImage(named: "CalendarIcon")
-                calendarImageView.contentMode = .center
-                cell.TextField.leftView = calendarImageView
-                cell.TextField.leftViewMode = .always
+                self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
             }
-            else if arrayOfCellData[indexPath.row].text == "Frequency" {
+            else if arrayOfCellData[indexPath.row].code == "freqency" {
                 self.fequencyPickerCell = cell
                 createFrequencePicker(cell: cell)
-            } else if arrayOfCellData[indexPath.row].text == "Category" {
+                self.inputFieldIconConfig(cell:cell, icon_name:"Frequency")
+                
+            } else if arrayOfCellData[indexPath.row].code == "category" {
                 self.categoryPickerCell = cell
                 createCategoryPicker(cell: cell)
+                self.inputFieldIconConfig(cell:cell, icon_name:"Category")
             }
             return cell
         }
         else {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
-            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             return cell
         }
         
@@ -387,6 +380,15 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         propertyRef?.childByAutoId().setValue(post)
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func inputFieldIconConfig(cell: PaymentAddTableViewCellTextField,icon_name: String ){
+        let calendarImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
+        calendarImageView.image = UIImage(named: icon_name)
+        calendarImageView.contentMode = .center
+        cell.TextField.leftView = calendarImageView
+        cell.TextField.leftViewMode = .always
+    }
+    
     // end picker view
     /*
     // MARK: - Navigation
