@@ -20,7 +20,10 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var table: UITableView!
     
-    
+//    deinit {
+//        // remove all firebase observers
+//        self.dbReference?.removeAllObservers()
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = viewTitle
@@ -73,6 +76,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "paymentTableCell")!
         cell.textLabel?.text = "\(object.amount ?? 0)"
+        //cell.imageView?.image = UIImage(named: (object.category?.code)!)
         
         return cell
     }

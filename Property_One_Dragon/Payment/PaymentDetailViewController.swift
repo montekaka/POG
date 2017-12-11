@@ -35,7 +35,7 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("PaymentDetailTableViewCellText", owner: self, options: nil)?.first as! PaymentDetailTableViewCellText
         cell.fieldLabel.text = paymentRecords[indexPath.row].label
-        cell.fieldValue.text = paymentRecords[indexPath.row].format
+        cell.fieldValue.text = paymentRecords[indexPath.row].format        
         return cell
     }
     

@@ -12,5 +12,6 @@ class PaymentDetailTableViewCellText: UITableViewCell {
 
     @IBOutlet weak var fieldLabel: UILabel!    
     @IBOutlet weak var fieldValue: UILabel!
+    @IBOutlet weak var paymentImage: UIImageView!
     
 }

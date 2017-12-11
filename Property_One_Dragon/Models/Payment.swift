@@ -117,7 +117,7 @@ class Payment {
         if ((self.date) != nil ) {
             let paidDateString = dateFormatter.string(from: self.date!)
             
-            data.append(paymentData(label: "Date", value: self.date, format: paidDateString))
+            data.append(paymentData(label: "Paid on", value: self.date, format: paidDateString))
         }
         if ((self.amount) != nil ) {
             let amountStr = currencyFormatter.string(from: self.amount! as NSNumber)
