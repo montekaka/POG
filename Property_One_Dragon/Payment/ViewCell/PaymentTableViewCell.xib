@@ -71,6 +71,7 @@
                     <constraint firstItem="nvz-CQ-STn" firstAttribute="centerX" secondItem="crm-gl-Vdj" secondAttribute="centerX" id="wuQ-Et-QNx"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.96470588239999999" green="0.97647058819999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="categoryImage" destination="8c6-Dy-MD5" id="gJ2-2U-pBz"/>

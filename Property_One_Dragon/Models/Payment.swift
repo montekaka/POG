@@ -139,28 +139,17 @@ class Payment {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
         
+        if ((self.amount) != nil ) {
+            let amountStr = currencyFormatter.string(from: self.amount! as NSNumber)
+            data.append(paymentData(label: "Amount", value: self.amount, format: amountStr))
+        }
+        
         if ((self.date) != nil ) {
             let paidDateString = dateFormatter.string(from: self.date!)
             
             data.append(paymentData(label: "Paid on", value: self.date, format: paidDateString))
         }
-        if ((self.amount) != nil ) {
-            let amountStr = currencyFormatter.string(from: self.amount! as NSNumber)
-            data.append(paymentData(label: "Amount", value: self.amount, format: amountStr))
-        }
-        if ((self.frequency) != nil ) {
-            
-            data.append(paymentData(label: "Frequency", value: self.frequency, format: self.frequency?.label))
-        }
-        if ((self.isAnnualized) != nil ) {
-            
-            var isAnnualizedStr = "No"
-            if(self.isAnnualized == true){
-               isAnnualizedStr = "Yes"
-            }
-            
-            data.append(paymentData(label: "Annualized the payment", value: self.isAnnualized, format: isAnnualizedStr))
-        }
+
         if ((self.category) != nil ) {
             data.append(paymentData(label: "Category", value: self.category, format: self.category?.label))
         }

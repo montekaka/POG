@@ -27,21 +27,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xes-VX-Mvp">
-                        <rect key="frame" x="216" y="6" width="94" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xes-VX-Mvp">
+                        <rect key="frame" x="255.5" y="11" width="44.5" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDc-ls-dzf">
-                        <rect key="frame" x="16" y="6" width="40" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDc-ls-dzf">
+                        <rect key="frame" x="10" y="11" width="40" height="21"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="eDc-ls-dzf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="1C4-yd-jFT"/>
+                    <constraint firstAttribute="trailing" secondItem="Xes-VX-Mvp" secondAttribute="trailing" constant="20" id="5aG-TN-XEN"/>
+                    <constraint firstItem="Xes-VX-Mvp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="Dci-QJ-ce5"/>
+                    <constraint firstItem="eDc-ls-dzf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="Jv8-om-ehi"/>
+                    <constraint firstItem="eDc-ls-dzf" firstAttribute="centerY" secondItem="Xes-VX-Mvp" secondAttribute="centerY" id="Mpe-wX-Fog"/>
+                    <constraint firstAttribute="bottom" secondItem="eDc-ls-dzf" secondAttribute="bottom" constant="11.5" id="jht-De-DoH"/>
+                    <constraint firstAttribute="bottom" secondItem="Xes-VX-Mvp" secondAttribute="bottom" constant="11.5" id="vyM-y4-w90"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
