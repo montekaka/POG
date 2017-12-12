@@ -90,6 +90,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! PaymentViewController
             controller.property = detailItem
             controller.viewTitle = "Expense"
+            
             //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
             //controller.dataArray = appDelegrate.receiptsArray
         }

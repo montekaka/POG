@@ -17,13 +17,16 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     var viewType: String!
     var dataArray:[Payment] = []
 
+    // firebase
+    var dbReference: DatabaseReference?
+    var dbHandle: DatabaseHandle?
     
     @IBOutlet weak var table: UITableView!
     
-//    deinit {
-//        // remove all firebase observers
-//        self.dbReference?.removeAllObservers()
-//    }
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = viewTitle
@@ -35,27 +38,9 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.dbReference = Database.database().reference()
         //property?.ref
-        // retrieve data from firebase
-        if(self.viewTitle == "Income") {
-            self.viewType = "Incomes"
-        } else if(self.viewTitle == "Expense"){
-            self.viewType = "Expenses"
-        } else {
-            self.viewType = "Other"
-        }
-        self.property?.ref?.child(self.viewType).observe(.value, with: { snapshot in
-            var newItems: [Payment] = []
-            // let name:String? = snapshot.value as? String
-            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
-                for item in snapshots {
-                    let p = Payment(snapshot: item,paymentType: self.viewType)
-                    newItems.append(p!)
-                }
-                self.dataArray = newItems
-                self.table.reloadData()
-            }
-        })
+        self.configData()
         
         // table.reloadData()
     }
@@ -74,14 +59,36 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         
         let object = dataArray[indexPath.row]
         
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "paymentTableCell")!
-        cell.textLabel?.text = "\(object.amount ?? 0)"
+        //let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "paymentTableCell")!
+        
+        let cell = Bundle.main.loadNibNamed("PaymentTableViewCell", owner: self, options: nil)?.first as! PaymentTableViewCell
+        
+        //cell.paidDateLabel.text = object.date
+        cell.paidDateLabel.text = object.getFormattedString(valueType: "paidDate")
+        cell.paymentAmountLabel.text = object.getFormattedString(valueType: "paidAmount")
+        
+        if (object.category != nil){
+            cell.categoryLabel.text = object.category?.label
+            cell.categoryImage?.image = UIImage(named: (object.category?.code)!)
+        } else {
+            cell.categoryLabel.text = object.categoryCode
+            self.getCategoryFromFB(payment: object, paymentType: self.viewTitle, cell: cell)
+        }
+        //cell.categoryImage?.image = UIImage(named: (object.category?.code)!)
+        
+        
+        //cell.textLabel?.text = "\(object.amount ?? 0)"
         //cell.imageView?.image = UIImage(named: (object.category?.code)!)
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "paymentDetailSegue", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -112,7 +119,51 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         self.performSegue(withIdentifier: "paymentAddSegue", sender: self)
     }
     
- 
+    func configData(){
+        // retrieve data from firebase
+        if(self.viewTitle == "Income") {
+            self.viewType = "Incomes"
+        } else if(self.viewTitle == "Expense"){
+            self.viewType = "Expenses"
+        } else {
+            self.viewType = "Other"
+        }
+        self.property?.ref?.child(self.viewType).observe(.value, with: { snapshot in
+            var newItems: [Payment] = []
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                for item in snapshots {
+                    let p = Payment(snapshot: item,paymentType: self.viewType)
+                    newItems.append(p!)
+                }
+                self.dataArray = newItems
+                self.table.reloadData()
+            }
+        })
+    }
+    
+    func getCategoryFromFB(payment: Payment, paymentType: String, cell: PaymentTableViewCell){
+        if((payment.categoryCode) != nil) {
+            
+            let paymentCategoryCode = payment.categoryCode
+            var paymentCategory = "expenseCategory"
+            if( paymentType == "Income"){
+                paymentCategory = "incomeCategory"
+            }
+            self.dbReference?.child(paymentCategory).child(paymentCategoryCode!).observe(.value, with: { (categorySnapshot) in
+                let snapValue = categorySnapshot.value as? NSDictionary
+                let label = snapValue!["label"] as? String ?? ""
+                let code = snapValue!["code"] as? String ?? ""
+//                let value = snapValue!["value"] as? Float32
+                
+                cell.categoryLabel.text = label
+                cell.imageView?.image = UIImage(named: code)
+                self.table.reloadData()
+//                self.category = categoryData(label: label, code: code, value: value)
+            })
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

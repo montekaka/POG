@@ -111,19 +111,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Pn-MH-GMt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.97647058823529409" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paymentTableCell" id="LU9-vY-gfl">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LU9-vY-gfl" id="aEE-w1-S8C">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="HwG-hW-6NY" kind="show" identifier="paymentDetailSegue" id="B8D-hW-dZD"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="dLa-mH-ze2" id="LND-eE-8cp"/>
                                     <outlet property="delegate" destination="dLa-mH-ze2" id="id5-PR-idd"/>
@@ -142,11 +129,12 @@
                     <connections>
                         <outlet property="table" destination="4Pn-MH-GMt" id="ine-fM-5GZ"/>
                         <segue destination="W0z-ff-k2p" kind="show" identifier="paymentAddSegue" id="fGg-wr-Y9W"/>
+                        <segue destination="HwG-hW-6NY" kind="show" identifier="paymentDetailSegue" id="55v-sG-sdj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFn-Xt-aYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3324" y="50.824587706146929"/>
+            <point key="canvasLocation" x="3378" y="51"/>
         </scene>
         <!--Payment Detail View Controller-->
         <scene sceneID="iMF-5y-dYf">
