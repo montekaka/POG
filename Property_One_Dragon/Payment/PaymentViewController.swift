@@ -29,28 +29,17 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = viewTitle
-//        let addReceiptButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addReceipt))
-//        self.navigationItem.rightBarButtonItem = addReceiptButton
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.title = viewTitle
         self.dbReference = Database.database().reference()
-        //property?.ref
         self.configData()
-        
-        // table.reloadData()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //return data.count
-//        let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-//        return appDelegrate.receiptsArray.count
        return dataArray.count
-
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,12 +63,6 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
             cell.categoryLabel.text = object.categoryCode
             self.getCategoryFromFB(payment: object, paymentType: self.viewTitle, cell: cell)
         }
-        //cell.categoryImage?.image = UIImage(named: (object.category?.code)!)
-        
-        
-        //cell.textLabel?.text = "\(object.amount ?? 0)"
-        //cell.imageView?.image = UIImage(named: (object.category?.code)!)
-        
         return cell
     }
     
@@ -91,23 +74,21 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         self.performSegue(withIdentifier: "paymentDetailSegue", sender: nil)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let p = dataArray[indexPath.row]
+            p.ref?.removeValue()
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "paymentDetailSegue" {
             let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
             selectedRow = table.indexPathForSelectedRow!.row
             detailView.masterView = self
-            
-            //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
-            //let object = appDelegrate.receiptsArray[selectedRow]
-            
             let object = dataArray[selectedRow]
             detailView.detailItem = object
-            
-            // print("\(object.amount ?? 0)")
         }
-        
-        
-        //detailView.setText(t: data[selectedRow].address!)
     }
     
     override func didReceiveMemoryWarning() {
