@@ -10,7 +10,12 @@ import UIKit
 
 class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var masterView: PaymentViewController!
-    var detailItem : Payment? 
+    var detailItem : Payment?
+    var property : Property?
+    
+    var arrayOfFrequencyPickerData: [frequencyData] = []
+    var arrayOfExpenseCategoryData: [categoryData] = []
+    var arrayOfIncomeCategoryData: [categoryData] = []
     
     @IBOutlet weak var tableView: UITableView!
     var paymentRecords: [paymentData] = []
@@ -21,6 +26,10 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
         // Do any additional setup after loading the view.
         // Remove extra empty cells in TableViewController
         tableView.tableFooterView = UIView()
+        
+        // add edit button
+        let editPaymentButton =  UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPayment))
+        self.navigationItem.rightBarButtonItem = editPaymentButton
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,6 +57,31 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "paymentEditSegue" {
+            let controller = segue.destination as! PaymentAddViewController
+            controller.property = self.property
+            controller.viewTitle = "New Expense"
+            // * enhancement * move the following array into a property list or json file
+            controller.arrayOfCellData = [
+                cellData(cell: "Input", code: "payment", label: "Amount")
+                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
+                //,cellData(cell: "Switch", text: "Annualized")
+                ,cellData(cell: "Picker", code: "category", label: "Category")
+                ,cellData(cell: "Picker", code: "freqency",  label: "Paid")
+                ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
+                ,cellData(cell:"Button", code: "savebutton", label:"Save")
+            ]
+            controller.payment = self.detailItem
+            controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
+            controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData // depends on income or expense            
+            
+        }
+    }
+    
+    @objc func editPayment(){
+        self.performSegue(withIdentifier: "paymentEditSegue", sender: self)
+    }
 
     /*
     // MARK: - Navigation

@@ -29,7 +29,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEy-TG-0DP">
-                        <rect key="frame" x="8" y="8" width="304" height="84"/>
+                        <rect key="frame" x="0.0" y="8" width="320" height="84"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8c6-Dy-MD5">
                                 <rect key="frame" x="12" y="12" width="60" height="60"/>
@@ -58,7 +58,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xd5-LD-Ngl">
-                                <rect key="frame" x="212" y="32" width="80" height="21"/>
+                                <rect key="frame" x="228" y="32" width="80" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="I8h-hQ-8XW"/>
                                     <constraint firstAttribute="width" constant="80" id="TVM-sn-LUf"/>
@@ -83,9 +83,9 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="zEy-TG-0DP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="EML-25-hyz"/>
+                    <constraint firstItem="zEy-TG-0DP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="EML-25-hyz"/>
                     <constraint firstItem="zEy-TG-0DP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="QqQ-GP-1Wg"/>
-                    <constraint firstAttribute="trailing" secondItem="zEy-TG-0DP" secondAttribute="trailing" constant="8" id="UyG-OF-FLt"/>
+                    <constraint firstAttribute="trailing" secondItem="zEy-TG-0DP" secondAttribute="trailing" id="UyG-OF-FLt"/>
                     <constraint firstAttribute="bottom" secondItem="8c6-Dy-MD5" secondAttribute="bottom" constant="19.5" id="ijn-Mt-SlX"/>
                     <constraint firstAttribute="bottom" secondItem="zEy-TG-0DP" secondAttribute="bottom" constant="7.5" id="r3z-e4-l8z"/>
                 </constraints>

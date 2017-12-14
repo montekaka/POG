@@ -16,6 +16,10 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     var viewTitle: String!
     var viewType: String!
     var dataArray:[Payment] = []
+    
+    var arrayOfFrequencyPickerData: [frequencyData] = []
+    var arrayOfExpenseCategoryData: [categoryData] = []
+    var arrayOfIncomeCategoryData: [categoryData] = []
 
     // firebase
     var dbReference: DatabaseReference?
@@ -85,6 +89,11 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         if segue.identifier == "paymentDetailSegue" {
             let detailView: PaymentDetailViewController = segue.destination as! PaymentDetailViewController
             selectedRow = table.indexPathForSelectedRow!.row
+            detailView.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
+            detailView.arrayOfExpenseCategoryData = self.arrayOfExpenseCategoryData
+            detailView.arrayOfIncomeCategoryData = self.arrayOfIncomeCategoryData
+            
+            detailView.property = self.property
             detailView.masterView = self
             let object = dataArray[selectedRow]
             detailView.detailItem = object

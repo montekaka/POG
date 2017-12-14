@@ -134,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFn-Xt-aYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3378" y="51"/>
+            <point key="canvasLocation" x="3377" y="149"/>
         </scene>
         <!--Payment Detail View Controller-->
         <scene sceneID="iMF-5y-dYf">
@@ -162,11 +162,12 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="sNR-wj-LJU" id="J4I-O9-650"/>
+                        <segue destination="W0z-ff-k2p" kind="show" identifier="paymentEditSegue" id="K7q-6i-H8e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTD-Ml-d6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4319.1999999999998" y="50.824587706146929"/>
+            <point key="canvasLocation" x="3377" y="954"/>
         </scene>
         <!--Payment Add View Controller-->
         <scene sceneID="wIK-Od-Ros">
@@ -198,7 +199,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nOy-PL-ncl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2542" y="954"/>
+            <point key="canvasLocation" x="2498" y="954"/>
         </scene>
         <!--Property View Controller-->
         <scene sceneID="NZf-50-mqQ">
@@ -387,7 +388,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bGh-ls-JYm"/>
-        <segue reference="fGg-wr-Y9W"/>
+        <segue reference="K7q-6i-H8e"/>
         <segue reference="3Zg-T6-vvl"/>
     </inferredMetricsTieBreakers>
 </document>
