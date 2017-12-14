@@ -148,6 +148,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         // paidDateField.inputView = paidDatePicker
         // format picker for date
         paidDatePicker.datePickerMode = .date
+        if ( self.payment != nil ) {
+            paidDatePicker.date = (payment?.date)!
+        }
+        
     }
     
     @objc func donePaidDatePickerPressed(){
@@ -159,6 +163,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let dateString = formatter.string(from: paidDatePicker.date)
         self.paidDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
+        
         self.view.endEditing(true)
     }
     
@@ -175,6 +180,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         //paidDateField.inputAccessoryView = toolbar
         // paidDateField.inputView = paidDatePicker
         // format picker for date
+        if ( self.payment != nil ) {
+            endDatePicker.date = (payment?.endDate)!
+        }
         endDatePicker.datePickerMode = .date
     }
     
