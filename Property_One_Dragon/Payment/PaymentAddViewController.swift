@@ -21,6 +21,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     var arrayOfCategoryData = [categoryData]()
     
     var payment : Payment?
+    private var isEditingViewController: Bool?
     private var billAmount: UITextField!
     // button
     private var saveButtonCell: PaymentAddTableViewCellButton?
@@ -54,29 +55,34 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     @objc func addButtonPressed() {
-        
-        let r = Payment(amount: Double(billAmount.text!)!)
+        var r: Payment!
+        if(self.isEditingViewController == true){
+            r = self.payment
+            r.amount = Double(billAmount.text!)
+        } else {
+            r = Payment(amount: Double(billAmount.text!)!)
+        }
         
         if((self.paidDate) != nil){
             r?.date = self.paidDate
         } else {
             r?.date = Date()
         }
-        
+
         if((self.endDate) != nil){
             r?.endDate = self.endDate
         } else {
             r?.endDate = Date()
         }
-        
+
         if((self.selectedFrequenceData) != nil){
             r?.frequency = self.selectedFrequenceData
         }
-        
+
         if((self.selectedCategoryData) != nil){
             r?.category = self.selectedCategoryData
         }
-        
+
         if property == nil {
         } else {
             r?.property_id = property?.id
@@ -86,12 +92,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             r?.isAnnualized = false
         }
-        payment = r
         
+        self.payment = r
+
         // create a new payment
         self.dbReference = Database.database().reference()
         //property.ref.child
-        
+
         if(self.viewTitle == "New Income") {
             // Add new Income
             self.addNewPayment(payment_type: "Incomes")
@@ -113,6 +120,11 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         // Do any additional setup after loading the view.
         self.title = self.viewTitle
+        if(self.payment == nil){
+            self.isEditingViewController = false
+        } else {
+            self.isEditingViewController = true 
+        }
         
         // add button
 //        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))
@@ -259,13 +271,14 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             // Paid Amount
             if(arrayOfCellData[indexPath.row].code == "payment"){
-                self.billAmount = cell.TextField
                 if(self.payment != nil){
+                    //self.billAmount = self.payment?.amount
                     cell.TextField.text = String(format:"%.2f", (self.payment?.amount)!)
                 } else {
                     cell.TextField.placeholder = "Required"
                     // add icon to the input field
                 }
+                self.billAmount = cell.TextField
                 self.inputFieldIconConfig(cell:cell, icon_name:"Money")
                 
             }
@@ -287,7 +300,6 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             
             if arrayOfCellData[indexPath.row].code == "startdate" {
-                self.paidDateCell = cell
                 
                 // add icon to the input field
                 self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
@@ -296,33 +308,36 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 } else {
                     cell.TextField.placeholder = "Required"
                 }
+                self.paidDateCell = cell
                 createPaidDatePicker(cell: cell)
                 
             } else if arrayOfCellData[indexPath.row].code == "enddate" {
-                self.endDateCell = cell
+                
                 // add icon to the input field
                 self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
                 if(self.payment != nil){
                     cell.TextField.text = self.payment?.getFormattedString(valueType: "paidEndDate")
                 }
+                self.endDateCell = cell
                 createEndDatePicker(cell: cell)
             }
             else if arrayOfCellData[indexPath.row].code == "freqency" {
-                self.fequencyPickerCell = cell
+                
                 self.inputFieldIconConfig(cell:cell, icon_name:"Frequency")
                 if(self.payment != nil){
                     let freq = self.payment?.frequency?.label
                     cell.TextField.text = freq
                 }
+                self.fequencyPickerCell = cell
                 createFrequencePicker(cell: cell)
                 
             } else if arrayOfCellData[indexPath.row].code == "category" {
-                self.categoryPickerCell = cell
                 self.inputFieldIconConfig(cell:cell, icon_name:"Category")
                 if(self.payment != nil){
                     let categoryLabel = self.payment?.category?.label
                     cell.TextField.text = categoryLabel
                 }
+                self.categoryPickerCell = cell
                 createCategoryPicker(cell: cell)
             }
             return cell
@@ -417,9 +432,15 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let uid = self.property?.uid
         //let key = self.property!.ref!.child("Expenses").childByAutoId().key
         let propertyKey = self.property!.ref!.key
-        let post = self.payment?.toAnyObject()
-        let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
-        propertyRef?.childByAutoId().setValue(post)
+        if (self.isEditingViewController == false) {
+            let post = self.payment?.toAnyObject()
+            let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
+            propertyRef?.childByAutoId().setValue(post)
+        } else {
+            let post = self.payment!.toAnyObject()
+            //print(post)
+            self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
