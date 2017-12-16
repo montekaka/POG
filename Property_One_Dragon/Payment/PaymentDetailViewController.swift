@@ -22,7 +22,6 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        paymentRecords = detailItem!.get()
         // Do any additional setup after loading the view.
         // Remove extra empty cells in TableViewController
         tableView.tableFooterView = UIView()
@@ -30,6 +29,11 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
         // add edit button
         let editPaymentButton =  UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editPayment))
         self.navigationItem.rightBarButtonItem = editPaymentButton
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,6 +85,17 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func editPayment(){
         self.performSegue(withIdentifier: "paymentEditSegue", sender: self)
+    }
+    
+    func configData(){
+        detailItem?.ref?.observe(.childChanged, with: { (snapshot) in
+            print("hi")
+            print(snapshot)
+//            let payment = Payment.init(snapshot: snapshot, paymentType: "expenseCategory") //incomeCategory
+//            self.paymentRecords = (payment?.get())!
+//            self.tableView.reloadData()
+        })
+        paymentRecords = detailItem!.get()
     }
 
     /*

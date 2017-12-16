@@ -274,11 +274,11 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 if(self.payment != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = String(format:"%.2f", (self.payment?.amount)!)
+                    self.billAmount = cell.TextField
                 } else {
                     cell.TextField.placeholder = "Required"
                     // add icon to the input field
                 }
-                self.billAmount = cell.TextField
                 self.inputFieldIconConfig(cell:cell, icon_name:"Money")
                 
             }
@@ -305,10 +305,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
                 if(self.payment != nil){
                     cell.TextField.text = self.payment?.getFormattedString(valueType: "paidDate")
+                    self.paidDate = self.payment?.date
+                    //self.paidDateField.text = cell.TextField.text
                 } else {
                     cell.TextField.placeholder = "Required"
                 }
                 self.paidDateCell = cell
+                
                 createPaidDatePicker(cell: cell)
                 
             } else if arrayOfCellData[indexPath.row].code == "enddate" {
@@ -317,8 +320,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
                 if(self.payment != nil){
                     cell.TextField.text = self.payment?.getFormattedString(valueType: "paidEndDate")
+                    self.endDate = self.payment?.endDate
                 }
                 self.endDateCell = cell
+                //self.endDateField.text = cell.TextField.text
                 createEndDatePicker(cell: cell)
             }
             else if arrayOfCellData[indexPath.row].code == "freqency" {
@@ -337,7 +342,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     let categoryLabel = self.payment?.category?.label
                     cell.TextField.text = categoryLabel
                 }
-                self.categoryPickerCell = cell
+//                self.categoryPickerCell = cell
                 createCategoryPicker(cell: cell)
             }
             return cell
