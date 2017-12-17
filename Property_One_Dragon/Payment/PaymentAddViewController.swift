@@ -57,10 +57,18 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     @objc func addButtonPressed() {
         var r: Payment!
         if(self.isEditingViewController == true){
+            // edit
             r = self.payment
             r.amount = Double(billAmount.text!)
         } else {
+            // new
             r = Payment(amount: Double(billAmount.text!)!)
+            
+            if property == nil {
+            } else {
+                r?.property_id = property?.id
+            }
+            // end new payment
         }
         
         if((self.paidDate) != nil){
@@ -68,29 +76,19 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             r?.date = Date()
         }
-
+        
         if((self.endDate) != nil){
             r?.endDate = self.endDate
         } else {
             r?.endDate = Date()
         }
-
+        
         if((self.selectedFrequenceData) != nil){
             r?.frequency = self.selectedFrequenceData
         }
-
+        
         if((self.selectedCategoryData) != nil){
             r?.category = self.selectedCategoryData
-        }
-
-        if property == nil {
-        } else {
-            r?.property_id = property?.id
-        }
-        if(self.AnnualizationCell?.switchValue == true) {
-            r?.isAnnualized = true
-        } else {
-            r?.isAnnualized = false
         }
         
         self.payment = r
@@ -342,7 +340,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     let categoryLabel = self.payment?.category?.label
                     cell.TextField.text = categoryLabel
                 }
-//                self.categoryPickerCell = cell
+                self.categoryPickerCell = cell
                 createCategoryPicker(cell: cell)
             }
             return cell
@@ -438,10 +436,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         //let key = self.property!.ref!.child("Expenses").childByAutoId().key
         let propertyKey = self.property!.ref!.key
         if (self.isEditingViewController == false) {
+            // new
             let post = self.payment?.toAnyObject()
             let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
             propertyRef?.childByAutoId().setValue(post)
         } else {
+            // edit
             let post = self.payment!.toAnyObject()
             //print(post)
             self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
