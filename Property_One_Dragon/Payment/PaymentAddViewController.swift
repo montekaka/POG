@@ -272,13 +272,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 if(self.payment != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = String(format:"%.2f", (self.payment?.amount)!)
-                    self.billAmount = cell.TextField
                 } else {
                     cell.TextField.placeholder = "Required"
                     // add icon to the input field
                 }
-                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
-                
+                self.billAmount = cell.TextField
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")                
             }
             
             return cell
