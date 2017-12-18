@@ -59,7 +59,24 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         if(self.isEditingViewController == true){
             // edit
             r = self.payment
-            r.amount = Double(billAmount.text!)
+            let bill_amount = Double(self.billAmount.text!)
+            //r.amount = Double(billAmount.text!)
+            
+            do {
+                try r!.setPaidAmount(amount: bill_amount!)
+            } catch let error as PaymentValidationError {
+                var errorMsg = ""
+                switch(error) {
+                    case .InvalidPayAmount:
+                        errorMsg = "Invalid amount"
+                }
+                let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch {
+                
+            }            
+            
         } else {
             // new
             r = Payment(amount: Double(billAmount.text!)!)
@@ -271,7 +288,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             if(arrayOfCellData[indexPath.row].code == "payment"){
                 if(self.payment != nil){
                     //self.billAmount = self.payment?.amount
-                    cell.TextField.text = String(format:"%.2f", (self.payment?.amount)!)
+                    cell.TextField.text = self.payment?.getPaidAmountText()
                 } else {
                     cell.TextField.placeholder = "Required"
                     // add icon to the input field

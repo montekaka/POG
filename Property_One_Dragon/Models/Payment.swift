@@ -8,12 +8,17 @@
 
 import Foundation
 import Firebase
+
+enum PaymentValidationError : Error {
+    case InvalidPayAmount
+}
+
 // TODO
 // 1. Make sure pay date is less than end date
 class Payment {
     // must fill
     var date: Date?
-    var amount: Double?
+    private var amount: Double?
     var property_id: Int?
     var uid: String?
     
@@ -31,8 +36,29 @@ class Payment {
     
     init?( amount: Double){
         // self.date = date
+        //self.amount = amount
+        do {
+            try setPaidAmount(amount: amount)
+        } catch {
+            return nil
+        }
+    }
+    
+    // list of set methods
+    func setPaidAmount(amount: Double) throws {
+        if(amount <= 0){
+            throw PaymentValidationError.InvalidPayAmount
+        }
         self.amount = amount
     }
+    
+    // end list of set methods
+    
+    // list of get methods
+    func getPaidAmountText() -> String{
+        return String(format:"%.2f", (self.amount)!)
+    }
+    // end
     
     
     init?(snapshot: DataSnapshot, paymentType: String) {
