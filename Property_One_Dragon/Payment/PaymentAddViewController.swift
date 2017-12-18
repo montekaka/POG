@@ -56,6 +56,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc func addButtonPressed() {
         var r: Payment!
+        // create a new payment
+        self.dbReference = Database.database().reference()
+        
         if(self.isEditingViewController == true){
             // edit
             r = self.payment
@@ -64,63 +67,70 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             
             do {
                 try r!.setPaidAmount(amount: bill_amount!)
+                
+                if((self.paidDate) != nil){
+                    //r?.date = self.paidDate
+                    try r.setPaidDate(paid_date: self.paidDate!)
+                } else {
+                    let paid_date = Date()
+                    try r.setPaidDate(paid_date: paid_date)
+                }
+                
+                try r!.setPaidDate(paid_date: self.paidDate!)
+                self.updatePayment(r:r)
             } catch let error as PaymentValidationError {
                 var errorMsg = ""
                 switch(error) {
                     case .InvalidPayAmount:
                         errorMsg = "Invalid amount"
+                    case .InvalidPaidDate:
+                        errorMsg = "Paid Date can't be later than payment end date"
                 }
                 let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } catch {
                 
-            }            
+            }
+            
+            
             
         } else {
             // new
-            r = Payment(amount: Double(billAmount.text!)!)
+            let bill_amount = Double(self.billAmount.text!) ?? 0
+            let paid_date = self.paidDate ?? Date()
             
-            if property == nil {
+            if let p = Payment(amount: bill_amount) {
+                r = p
+                let end_date = self.endDate ?? Date()
+                r.endDate = end_date
+                
+                do {
+                    try r!.setPaidAmount(amount: bill_amount)
+                    try r!.setPaidDate(paid_date: paid_date)
+                    self.updatePayment(r:r)
+                } catch let error as PaymentValidationError{
+                    var errorMsg = ""
+                    switch(error) {
+                    case .InvalidPayAmount:
+                        errorMsg = "Invalid Amount"
+                    case .InvalidPaidDate:
+                        errorMsg = "Invalid Date"
+                    }
+                    let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                } catch {
+                    
+                }
+                
             } else {
-                r?.property_id = property?.id
+                let alert = UIAlertController(title: "Error", message: "Error creating payment", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
             }
+            
             // end new payment
-        }
-        
-        if((self.paidDate) != nil){
-            r?.date = self.paidDate
-        } else {
-            r?.date = Date()
-        }
-        
-        if((self.endDate) != nil){
-            r?.endDate = self.endDate
-        } else {
-            r?.endDate = Date()
-        }
-        
-        if((self.selectedFrequenceData) != nil){
-            r?.frequency = self.selectedFrequenceData
-        }
-        
-        if((self.selectedCategoryData) != nil){
-            r?.category = self.selectedCategoryData
-        }
-        
-        self.payment = r
-
-        // create a new payment
-        self.dbReference = Database.database().reference()
-        //property.ref.child
-
-        if(self.viewTitle == "New Income") {
-            // Add new Income
-            self.addNewPayment(payment_type: "Incomes")
-            //self.navigationController?.popViewController(animated: true)
-        } else {
-            // Add new Expense
-            self.addNewPayment(payment_type: "Expenses")
         }
     }
     
@@ -176,7 +186,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         // format picker for date
         paidDatePicker.datePickerMode = .date
         if ( self.payment != nil ) {
-            paidDatePicker.date = (payment?.date)!
+            paidDatePicker.date = (payment?.getPaidDate())!
         }
         
     }
@@ -319,7 +329,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
                 if(self.payment != nil){
                     cell.TextField.text = self.payment?.getFormattedString(valueType: "paidDate")
-                    self.paidDate = self.payment?.date
+                    self.paidDate = self.payment?.getPaidDate()
                     //self.paidDateField.text = cell.TextField.text
                 } else {
                     cell.TextField.placeholder = "Required"
@@ -499,6 +509,41 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         return result
+    }
+    
+    func updatePayment(r: Payment){
+        
+        if self.property == nil {
+        } else {
+            r.property_id = property?.id
+        }
+        
+        if((self.endDate) != nil){
+            r.endDate = self.endDate
+        } else {
+            r.endDate = Date()
+        }
+        
+        if((self.selectedFrequenceData) != nil){
+            r.frequency = self.selectedFrequenceData
+        }
+        
+        if((self.selectedCategoryData) != nil){
+            r.category = self.selectedCategoryData
+        }
+        
+        self.payment = r
+        
+        //property.ref.child
+        
+        if(self.viewTitle == "New Income") {
+            // Add new Income
+            self.addNewPayment(payment_type: "Incomes")
+            //self.navigationController?.popViewController(animated: true)
+        } else {
+            // Add new Expense
+            self.addNewPayment(payment_type: "Expenses")
+        }
     }
     // end picker view
     /*

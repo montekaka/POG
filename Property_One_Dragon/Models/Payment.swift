@@ -11,13 +11,14 @@ import Firebase
 
 enum PaymentValidationError : Error {
     case InvalidPayAmount
+    case InvalidPaidDate
 }
 
 // TODO
 // 1. Make sure pay date is less than end date
 class Payment {
     // must fill
-    var date: Date?
+    private var date: Date?
     private var amount: Double?
     var property_id: Int?
     var uid: String?
@@ -49,14 +50,26 @@ class Payment {
         if(amount <= 0){
             throw PaymentValidationError.InvalidPayAmount
         }
-        self.amount = amount
+        self.amount = Double(amount)
+    }
+    
+    func setPaidDate(paid_date: Date) throws {
+        let date_diff = self.dateDiff(date_x: paid_date, date_y: self.endDate!)
+        if(date_diff > 0) {
+            throw PaymentValidationError.InvalidPaidDate
+        }
+        self.date = paid_date
     }
     
     // end list of set methods
     
     // list of get methods
     func getPaidAmountText() -> String{
-        return String(format:"%.2f", (self.amount)!)
+        return String(format:"%.2f", (self.amount ?? 0))
+    }
+    
+    func getPaidDate() -> Date {
+        return self.date!
     }
     // end
     
@@ -96,7 +109,7 @@ class Payment {
         }
     
         self.amount = snapshotValue!["paidAmount"] as? Double
-        self.date = NSDate(timeIntervalSince1970: snapshotValue!["paidDate"] as! TimeInterval) as Date?
+        self.date = NSDate(timeIntervalSince1970: snapshotValue!["paidDate"] as! TimeInterval) as Date
         self.categoryCode = snapshotValue!["paymentCategoryCode"] as? String
         
         if((snapshotValue!["paymentEndDate"]) != nil) {
@@ -165,20 +178,31 @@ class Payment {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
         
-        if ((self.amount) != nil ) {
-            let amountStr = currencyFormatter.string(from: self.amount! as NSNumber)
-            data.append(paymentData(label: "Amount", value: self.amount, format: amountStr))
-        }
         
-        if ((self.date) != nil ) {
-            let paidDateString = dateFormatter.string(from: self.date!)
-            
+        let amountStr = currencyFormatter.string(from: self.amount! as NSNumber)
+            data.append(paymentData(label: "Amount", value: self.amount, format: amountStr))
+        
+        
+        let paidDateString = dateFormatter.string(from: self.date!)
             data.append(paymentData(label: "Paid on", value: self.date, format: paidDateString))
-        }
+        
 
         if ((self.category) != nil ) {
             data.append(paymentData(label: "Category", value: self.category, format: self.category?.label))
         }
         return data
+    }
+    
+    func dateDiff(date_x: Date, date_y:Date) -> Int{
+        let calendar = Calendar.current
+        let year_x = calendar.component(.year, from: date_x)
+        let month_x = calendar.component(.month, from: date_x)
+        let day_x = calendar.component(.day, from: date_x)
+        
+        let year_y = calendar.component(.year, from: date_y)
+        let month_y = calendar.component(.month, from: date_y)
+        let day_y = calendar.component(.day, from: date_y)
+        
+        return (year_x - year_y) * 100 + (month_x - month_y) * 10 + (day_x - day_y)
     }
 }
