@@ -277,7 +277,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     // add icon to the input field
                 }
                 self.billAmount = cell.TextField
-                self.inputFieldIconConfig(cell:cell, icon_name:"Money")                
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
             }
             
             return cell
