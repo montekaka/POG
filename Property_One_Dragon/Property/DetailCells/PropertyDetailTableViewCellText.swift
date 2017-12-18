@@ -14,4 +14,5 @@ class PropertyDetailTableViewCellText: UITableViewCell {
     
     @IBOutlet weak var value: UILabel!
     
+    @IBOutlet weak var editButton: UIButton!
 }

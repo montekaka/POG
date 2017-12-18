@@ -31,6 +31,10 @@
 		E5A0C4781FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A0C4761FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib */; };
 		E5A0C47B1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A0C4791FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.swift */; };
 		E5A0C47C1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A0C47A1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib */; };
+		E5AA53211FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */; };
+		E5AA53221FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */; };
+		E5AA53261FDE70AF00A1FBE2 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA53241FDE70AF00A1FBE2 /* PaymentTableViewCell.swift */; };
+		E5AA53271FDE70AF00A1FBE2 /* PaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AA53251FDE70AF00A1FBE2 /* PaymentTableViewCell.xib */; };
 		E5B9DC5D1FAA36F3000C1999 /* PaymentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */; };
 		E5C27FA61FA700D70002FC7A /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA51FA700D70002FC7A /* Payment.swift */; };
 		E5C27FA81FA838600002FC7A /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA71FA838600002FC7A /* PaymentViewController.swift */; };
@@ -69,6 +73,10 @@
 		E5A0C4761FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PropertyDetailTableViewCellText.xib; sourceTree = "<group>"; };
 		E5A0C4791FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetailTableViewCellWithButton.swift; sourceTree = "<group>"; };
 		E5A0C47A1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PropertyDetailTableViewCellWithButton.xib; sourceTree = "<group>"; };
+		E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellButton.swift; sourceTree = "<group>"; };
+		E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentAddTableViewCellButton.xib; sourceTree = "<group>"; };
+		E5AA53241FDE70AF00A1FBE2 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
+		E5AA53251FDE70AF00A1FBE2 /* PaymentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentTableViewCell.xib; sourceTree = "<group>"; };
 		E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentDetailViewController.swift; sourceTree = "<group>"; };
 		E5C27FA51FA700D70002FC7A /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		E5C27FA71FA838600002FC7A /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				E5C27FA71FA838600002FC7A /* PaymentViewController.swift */,
+				E5AA53231FDE708900A1FBE2 /* ViewCell */,
 				E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */,
 				E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */,
 				E572FA971FC772D100DA23F1 /* PaymentDetailTableCell */,
@@ -188,6 +197,15 @@
 			path = DetailCells;
 			sourceTree = "<group>";
 		};
+		E5AA53231FDE708900A1FBE2 /* ViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E5AA53241FDE70AF00A1FBE2 /* PaymentTableViewCell.swift */,
+				E5AA53251FDE70AF00A1FBE2 /* PaymentTableViewCell.xib */,
+			);
+			path = ViewCell;
+			sourceTree = "<group>";
+		};
 		E5E7AD621FC602410076CC97 /* PaymentAddTableCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +215,8 @@
 				E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */,
 				E5083B6A1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift */,
 				E5083B6B1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib */,
+				E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */,
+				E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */,
 			);
 			name = PaymentAddTableCell;
 			path = ..;
@@ -283,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5AA53271FDE70AF00A1FBE2 /* PaymentTableViewCell.xib in Resources */,
 				E5056D481F9EFDF000441F02 /* LaunchScreen.storyboard in Resources */,
 				E5A0C47C1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib in Resources */,
 				E572FA961FC772BF00DA23F1 /* PaymentDetailTableViewCellText.xib in Resources */,
@@ -291,6 +312,7 @@
 				E5083B6D1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib in Resources */,
 				E5A0C4781FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib in Resources */,
 				E53853FC1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib in Resources */,
+				E5AA53221FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib in Resources */,
 				E5ED69EC1FCBBE6700FC5E1C /* GoogleService-Info.plist in Resources */,
 				E53854001FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib in Resources */,
 				E5056D431F9EFDF000441F02 /* Main.storyboard in Resources */,
@@ -364,10 +386,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5AA53211FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift in Sources */,
 				E5056D561FA19FE600441F02 /* Property.swift in Sources */,
 				E5A0C4711FC8AB0000F55681 /* StructCollection.swift in Sources */,
 				E5A0C4771FC8C2D000F55681 /* PropertyDetailTableViewCellText.swift in Sources */,
 				E5C27FA81FA838600002FC7A /* PaymentViewController.swift in Sources */,
+				E5AA53261FDE70AF00A1FBE2 /* PaymentTableViewCell.swift in Sources */,
 				E5056D541FA18AEC00441F02 /* PropertyDetailViewController.swift in Sources */,
 				E572FA951FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift in Sources */,
 				E5056D401F9EFDF000441F02 /* ViewController.swift in Sources */,

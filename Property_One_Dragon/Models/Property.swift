@@ -17,41 +17,25 @@ enum PropertyValidationError : Error {
 
 class Property {
     private(set) var address: String?
-    
-    private(set) var mortgagePayment: Double?
-    private(set) var rentalIncome: Double?
-    
-    private(set) var expenses: [Payment]?
-    private(set) var incomes: [Payment]?
-    private(set) var recurrent_expenses: [Payment]?
-    private(set) var recurrent_incomes: [Payment]?
-    
-    
-    //private(set) var totalIncome: Double?
-    // private(set) var totalExpense: Double?
-    var totalExpense: Double?
-    var totalIncome: Double?
     var ref: DatabaseReference?
     private(set) var uid: String?
     
     private(set) var id: Int?
-    
+    private(set) var totalExpense: Double?
+    private(set) var totalIncome: Double?
+    private(set) var profitMargin: Double?
+ 
     init?(address: String, uid: String){
         do {
             try setAddress(address: address)
             self.setUID(uid: uid)
-            self.mortgagePayment = 0
-            self.rentalIncome = 0
-            self.totalIncome = 0
-            self.totalExpense = 0
             let randomNum:UInt32 = arc4random_uniform(100)
             let someInt:Int = Int(randomNum)
             self.id = someInt
             self.ref = nil
-//            self.incomes = []
-//            self.expenses = []
-//            self.recurrent_expenses = []
-//            self.recurrent_incomes = []
+            self.totalExpense = 0
+            self.totalIncome = 0
+            self.profitMargin = self.getProfitMargin()
         } catch {
             return nil
         }
@@ -62,34 +46,40 @@ class Property {
         do {
             try setAddress(address: snapshotValue!["address"] as! String)
             self.setUID(uid: snapshotValue!["addedByUser"] as! String)
-            self.mortgagePayment = 0
-            self.rentalIncome = 0
-            self.totalIncome = snapshotValue!["income"] as? Double
-            self.totalExpense = snapshotValue!["expense"] as? Double
-//            self.incomes = snapshotValue!["incomes"] as? [Payment]
-//            self.expenses = snapshotValue!["expenses"] as? [Payment]
-//            self.recurrent_expenses = snapshotValue!["recurrentExpenses"] as? [Payment]
-//            self.recurrent_incomes = snapshotValue!["recurrentIncomes"] as? [Payment]
             self.ref = snapshot.ref
+            self.totalExpense = self.setTotalPayment(snapshotValue: snapshotValue!, paymentType: "Expenses")
+            self.totalIncome = self.setTotalPayment(snapshotValue: snapshotValue!, paymentType: "Incomes")
+            self.profitMargin = self.getProfitMargin()
+            
         } catch {
             return nil
         }
         
     }
     
-    func getIncomeText() -> String {
+    func getPaymentTextLabel(paymentType: String) -> String {
+        var amountStr: String?
+        amountStr = ""
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
-        let amountStr = currencyFormatter.string(from: self.totalIncome! as NSNumber)
+        if (paymentType == "Income") {
+            amountStr = currencyFormatter.string(from: self.totalIncome! as NSNumber)
+        } else if (paymentType == "Expense"){
+            amountStr = currencyFormatter.string(from: self.totalExpense! as NSNumber)
+        } else if (paymentType == "ProfitLoss"){
+            amountStr = currencyFormatter.string(from: self.profitMargin! as NSNumber)
+        }
+        
         return amountStr!
     }
     
-    func getExpenseText() -> String {
-        let currencyFormatter = NumberFormatter()
-        currencyFormatter.numberStyle = .currency
-        let amountStr = currencyFormatter.string(from: self.totalExpense! as NSNumber)
-        return amountStr!
-    }
+//    func getIncomeText() -> String {
+//        return self.getPaymentTextLabel(paymentType: "Income")
+//    }
+//
+//    func getExpenseText() -> String {
+//        return self.getPaymentTextLabel(paymentType: "Expense")
+//    }
     
     func setAddress(address: String) throws {
         if (address.count < 1 ){
@@ -102,63 +92,41 @@ class Property {
         self.uid = uid;
     }
     
-    func setMortgagePayment(mortgagePaymentText: String) throws {
-        let mortgagePayment: Double
-        if let _ = Double(mortgagePaymentText) {
-            mortgagePayment = Double(mortgagePaymentText)!
-            if (mortgagePayment < 0 ){
-                throw PropertyValidationError.InvalidMortgagePayment
-            } else {
-                
-            }
-        } else {
-            throw PropertyValidationError.InvalidMortgagePayment
-        }
-        self.totalExpense = self.totalExpense! - self.mortgagePayment!
-        self.mortgagePayment = mortgagePayment
-        self.totalExpense = self.totalExpense! + self.mortgagePayment!
-        
-    }
-
-    func setRentalIncome(rentalIncomeText: String) throws {
-        let rentalIncome: Double
-        if let _ = Double(rentalIncomeText) {
-            rentalIncome = Double(rentalIncomeText)!
-            if (rentalIncome < 0 ){
-                throw PropertyValidationError.InvalidRentalIncome
-            } else {
-                
-            }
-        } else {
-            throw PropertyValidationError.InvalidRentalIncome
-        }
-        
-        self.totalIncome = self.totalIncome! - self.rentalIncome!
-        self.rentalIncome = rentalIncome
-        self.totalIncome = self.totalIncome! + self.rentalIncome!
-    }
-    
     func get() -> [tableCellData] {
         var data = [tableCellData]()
+        
         data = [
             tableCellData(label: "Address", value: self.address, cellType: "Text"),
-            tableCellData(label: "Income", value: self.getIncomeText(), cellType: "CellWithButton"),
-            tableCellData(label: "Expense", value: self.getExpenseText(), cellType: "CellWithButton")
+            tableCellData(label: "Income", value: self.getPaymentTextLabel(paymentType: "Income"), cellType: "CellWithButton"),
+            tableCellData(label: "Expense", value: self.getPaymentTextLabel(paymentType: "Expense"), cellType: "CellWithButton")
         ]                
         return data
+    }
+    
+    func setTotalPayment(snapshotValue: Dictionary<String, AnyObject>, paymentType: String) -> Double {
+        var totalAmount: Double?
+        totalAmount = 0
+        let sp = snapshotValue[paymentType]
+        let payments = sp as? Dictionary<String, AnyObject>
+        if(payments != nil){
+            for payment in payments! {
+                totalAmount = totalAmount! + (payment.value["paidAmount"] as! Double)
+            }
+        }
+        return totalAmount!
+    }
+    
+    func getProfitMargin() -> Double {
+        var result: Double?
+        result = self.totalIncome! - self.totalExpense!
+        return result!
     }
     
     func toAnyObject() -> Any {
         // TO-DO: we should remove total income and expense
         return [
             "address": self.address!,
-            "addedByUser": self.uid!,
-            "income": self.totalIncome!,
-            "expense": self.totalExpense!
-//            "incomes": self.incomes!,
-//            "expenses": self.expenses!,
-//            "recurrentIncomes": self.recurrent_incomes!,
-//            "recurrentExpenses": self.recurrent_expenses!
+            "addedByUser": self.uid!
         ]
     }
     

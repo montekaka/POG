@@ -16,6 +16,9 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     var selectedPropertyReceiptRow:Int = -1
     var dbReference: DatabaseReference?
 
+    var uid: String?
+    var propertyID: String?
+    
     var detailItem : Property?
     var propertyTableCells:[tableCellData] = []
     var paymentData:[Payment] = []
@@ -24,27 +27,34 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     var arrayOfExpenseCategoryData: [categoryData] = []
     var arrayOfIncomeCategoryData: [categoryData] = []
     
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.propertyTableCells = (self.detailItem?.get())!
+        //self.propertyTableCells = (self.detailItem?.get())!
         // textView.becomeFirstResponder()
         // Do any additional setup after loading the view.
         
         // add edit button
-        let editPropertyButton =  UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editProperty))
-        self.navigationItem.rightBarButtonItem = editPropertyButton
+//        let editPropertyButton =  UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editProperty))
+//        self.navigationItem.rightBarButtonItem = editPropertyButton
         
         // table view config
+        self.configureDatabase()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.dbReference = Database.database().reference()
         super.viewDidAppear(animated)
-        self.propertyTableCells = (self.detailItem?.get())!
-        self.getFrequenceFromFB()
-        self.getPaymentCategoryFromFB(payment_type: "expenseCategory")
-        self.getPaymentCategoryFromFB(payment_type: "incomeCategory")
-        tableView.reloadData()
+        
+//        self.dbReference = Database.database().reference()
+//        self.propertyTableCells = (self.detailItem?.get())!
+//        self.getFrequenceFromFB()
+//        self.getPaymentCategoryFromFB(payment_type: "expenseCategory")
+//        self.getPaymentCategoryFromFB(payment_type: "incomeCategory")
+//        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,12 +74,13 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.viewTitle = "New Expense"
             // * enhancement * move the following array into a property list or json file
             controller.arrayOfCellData = [
-                cellData(cell: "Input", text: "Paid Amount")
-                ,cellData(cell: "Picker", text: "Date")
-                ,cellData(cell: "Picker", text: "Frequency")
-                ,cellData(cell: "Switch", text: "Annualized")
-                ,cellData(cell: "Picker", text: "Category")
-                ,cellData(cell: "Picker", text: "End Date")
+                cellData(cell: "Input", code: "payment", label: "Amount")
+                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
+                //,cellData(cell: "Switch", text: "Annualized")
+                ,cellData(cell: "Picker", code: "category", label: "Category")
+                ,cellData(cell: "Picker", code: "freqency",  label: "Paid")
+                ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
+                ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData
@@ -79,6 +90,9 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! PaymentViewController
             controller.property = detailItem
             controller.viewTitle = "Expense"
+            controller.arrayOfExpenseCategoryData = self.arrayOfExpenseCategoryData
+            controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
+            
             //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
             //controller.dataArray = appDelegrate.receiptsArray
         }
@@ -89,12 +103,13 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.viewTitle = "New Income"
             // * enhancement * move the following array into a property list or json file
             controller.arrayOfCellData = [
-                cellData(cell: "Input", text: "Paid Amount")
-                ,cellData(cell: "Picker", text: "Date")
-                ,cellData(cell: "Picker", text: "Frequency")
-                ,cellData(cell: "Switch", text: "Annualized")
-                ,cellData(cell: "Picker", text: "Category")
-                ,cellData(cell: "Picker", text: "End Date")
+                cellData(cell: "Input", code: "payment", label: "Rent Amount")
+                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
+                //,cellData(cell: "Switch", text: "Annualized")
+                ,cellData(cell: "Picker", code: "category", label: "Category")
+                ,cellData(cell: "Picker", code: "freqency",  label: "Rent paid")
+                ,cellData(cell: "Picker", code: "enddate", label: "Lease ends")
+                ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData
@@ -113,6 +128,9 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.viewTitle = "Income"
             let appDelegrate = UIApplication.shared.delegate as! AppDelegate
             controller.dataArray = appDelegrate.revenueArray
+            controller.arrayOfIncomeCategoryData = self.arrayOfIncomeCategoryData
+            controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
+            
         }
         
     }
@@ -163,6 +181,8 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             cell.label.text = propertyTableCells[indexPath.row].label
             cell.value.text = propertyTableCells[indexPath.row].value
             cell.selectionStyle = .none
+            // edit button
+            cell.editButton.addTarget(self, action: #selector(editProperty), for: .touchUpInside)
             return cell
         }
         
@@ -174,7 +194,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         if (p.cellType == "CellWithButton") {
             return 100
         } else {
-            return 60
+            return 80
         }
     }
     
@@ -198,7 +218,6 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     func getPaymentCategoryFromFB(payment_type:String){
         // get payment category from firebase
         // paymentType = "expenseCategory","incomeCategory"
-
         _ = (self.dbReference?.child(payment_type))?.queryOrdered(byChild: "value").observe(.value, with: { snapshot in
             var newItems: [categoryData] = []
             // let name:String? = snapshot.value as? String
@@ -218,6 +237,32 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         })
     }
     
+    func configureDatabase(){
+        if(self.propertyID != nil){
+            self.getPropertyFromFB()
+        } else {
+            self.setupUILabels()
+        }
+        
+    }
+    
+    func getPropertyFromFB(){
+        self.dbReference = Database.database().reference()
+        _ = self.dbReference?.child("users").child(uid!).child("properties").child(propertyID!).observe(DataEventType.value, with: {(snapshot) in
+            let item = snapshot as DataSnapshot
+                let p = Property(snapshot: item)
+                self.detailItem = p
+                self.setupUILabels()
+        })
+    }
+    
+    func setupUILabels(){
+        self.propertyTableCells = (self.detailItem?.get())!
+        self.getFrequenceFromFB()
+        self.getPaymentCategoryFromFB(payment_type: "expenseCategory")
+        self.getPaymentCategoryFromFB(payment_type: "incomeCategory")
+        self.tableView.reloadData()
+    }
     
     
     /*

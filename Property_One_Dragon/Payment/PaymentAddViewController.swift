@@ -20,35 +20,56 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
     
-    private var payment : Payment?
+    var payment : Payment?
+    private var isEditingViewController: Bool?
     private var billAmount: UITextField!
-    
+    // button
+    private var saveButtonCell: PaymentAddTableViewCellButton?
+    private var button: UIButton?
     // date picker
     private var paidDateField: UITextField!
     private var paidDate: Date?
-    private var paidDateCell: PaymentAddTableViewCellPicker?
+    private var paidDateCell: PaymentAddTableViewCellTextField?
     private let paidDatePicker = UIDatePicker()
 
     private var endDateField: UITextField!
     private var endDate: Date?
-    private var endDateCell: PaymentAddTableViewCellPicker?
+    private var endDateCell: PaymentAddTableViewCellTextField?
     private let endDatePicker = UIDatePicker()
     
     // picker view
     private var fequencyPickerView = UIPickerView()
-    private var fequencyPickerCell: PaymentAddTableViewCellPicker?
+    private var fequencyPickerCell: PaymentAddTableViewCellTextField?
     private var selectedFrequenceData: frequencyData?
     
     private var categoryPickerView = UIPickerView()
-    private var categoryPickerCell: PaymentAddTableViewCellPicker?
+    private var categoryPickerCell: PaymentAddTableViewCellTextField?
     private var selectedCategoryData: categoryData?
     
     // var isAnnualization
     private var AnnualizationCell: PaymentAddTableViewCellSwitch?
     
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
+    
     @objc func addButtonPressed() {
-        
-        let r = Payment(amount: Double(billAmount.text!)!)
+        var r: Payment!
+        if(self.isEditingViewController == true){
+            // edit
+            r = self.payment
+            r.amount = Double(billAmount.text!)
+        } else {
+            // new
+            r = Payment(amount: Double(billAmount.text!)!)
+            
+            if property == nil {
+            } else {
+                r?.property_id = property?.id
+            }
+            // end new payment
+        }
         
         if((self.paidDate) != nil){
             r?.date = self.paidDate
@@ -70,21 +91,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             r?.category = self.selectedCategoryData
         }
         
-        if property == nil {
-        } else {
-            r?.property_id = property?.id
-        }
-        if(self.AnnualizationCell?.switchValue == true) {
-            r?.isAnnualized = true
-        } else {
-            r?.isAnnualized = false
-        }
-        payment = r
-        
+        self.payment = r
+
         // create a new payment
         self.dbReference = Database.database().reference()
         //property.ref.child
-        
+
         if(self.viewTitle == "New Income") {
             // Add new Income
             self.addNewPayment(payment_type: "Incomes")
@@ -106,10 +118,15 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         // Do any additional setup after loading the view.
         self.title = self.viewTitle
+        if(self.payment == nil){
+            self.isEditingViewController = false
+        } else {
+            self.isEditingViewController = true 
+        }
         
         // add button
-        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))
-        self.navigationItem.rightBarButtonItem = addButton
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))
+//        self.navigationItem.rightBarButtonItem = addButton
         
         // add date picker
         // createPaidDatePicker()
@@ -128,7 +145,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         return false
     }
     // date picker
-    func createPaidDatePicker(cell: PaymentAddTableViewCellPicker){
+    func createPaidDatePicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
@@ -141,6 +158,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         // paidDateField.inputView = paidDatePicker
         // format picker for date
         paidDatePicker.datePickerMode = .date
+        if ( self.payment != nil ) {
+            paidDatePicker.date = (payment?.date)!
+        }
+        
     }
     
     @objc func donePaidDatePickerPressed(){
@@ -152,11 +173,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let dateString = formatter.string(from: paidDatePicker.date)
         self.paidDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
+        
         self.view.endEditing(true)
     }
     
     // end date date picker
-    func createEndDatePicker(cell: PaymentAddTableViewCellPicker){
+    func createEndDatePicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         // done button for toolbar
@@ -168,6 +190,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         //paidDateField.inputAccessoryView = toolbar
         // paidDateField.inputView = paidDatePicker
         // format picker for date
+        if ( self.payment != nil ) {
+            endDatePicker.date = (payment?.endDate)!
+        }
         endDatePicker.datePickerMode = .date
     }
     
@@ -184,7 +209,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // picker veiw
-    func createFrequencePicker(cell: PaymentAddTableViewCellPicker){
+    func createFrequencePicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -195,9 +220,17 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         cell.TextField.inputAccessoryView = toolbar
         cell.TextField.inputView = fequencyPickerView
         cell.TextField.placeholder = "e.g. Monthly"
+        
+        if(self.payment != nil){
+            let freq = self.payment?.frequency
+            //let id = self.arrayOfFrequencyPickerData.index
+            let id = self.findIdFromArray(item_name: "frequence", val_code: (freq?.code)!)
+            fequencyPickerView.selectRow(id, inComponent: 0, animated: false)
+        }
+        
     }
     
-    func createCategoryPicker(cell: PaymentAddTableViewCellPicker){
+    func createCategoryPicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -207,10 +240,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         cell.TextField.inputAccessoryView = toolbar
         cell.TextField.inputView = categoryPickerView
-        if(self.viewTitle == "New Expense"){
-            cell.TextField.placeholder = "e.g. HOA"
-        } else {
-            cell.TextField.placeholder = "e.g. Rental Income"
+        cell.TextField.placeholder = "Required"
+        if(self.payment != nil){
+            let c = self.payment?.category
+            //let id = self.arrayOfFrequencyPickerData.index
+            let id = self.findIdFromArray(item_name: "category", val_code: (c?.code)!)
+            categoryPickerView.selectRow(id, inComponent: 0, animated: false)
         }
         
     }
@@ -231,39 +266,94 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         if arrayOfCellData[indexPath.row].cell == "Input" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
-            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
-            self.billAmount = cell.TextField
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
+            // Paid Amount
+            if(arrayOfCellData[indexPath.row].code == "payment"){
+                if(self.payment != nil){
+                    //self.billAmount = self.payment?.amount
+                    cell.TextField.text = String(format:"%.2f", (self.payment?.amount)!)
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    // add icon to the input field
+                }
+                self.billAmount = cell.TextField
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
+            }
+            
             return cell
             
-        } else if arrayOfCellData[indexPath.row].cell == "Switch" {
-            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellSwitch", owner: self, options: nil)?.first as! PaymentAddTableViewCellSwitch
-            cell.switchTextLabel.text = arrayOfCellData[indexPath.row].text
-            self.AnnualizationCell = cell
-            return cell
-        } else if arrayOfCellData[indexPath.row].cell == "Picker" {
-         let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellPicker", owner: self, options: nil)?.first as! PaymentAddTableViewCellPicker
-            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
-            
-            if arrayOfCellData[indexPath.row].text == "Date" {
-                self.paidDateCell = cell
-                createPaidDatePicker(cell: cell)
-            } else if arrayOfCellData[indexPath.row].text == "End Date" {
-                self.endDateCell = cell
-                createEndDatePicker(cell: cell)
-            }
-            else if arrayOfCellData[indexPath.row].text == "Frequency" {
-                self.fequencyPickerCell = cell
-                createFrequencePicker(cell: cell)
-            } else if arrayOfCellData[indexPath.row].text == "Category" {
-                self.categoryPickerCell = cell
-                createCategoryPicker(cell: cell)
-            }
+        }
+        else if arrayOfCellData[indexPath.row].code == "savebutton" {
+            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellButton", owner: self, options: nil)?.first as! PaymentAddTableViewCellButton
+            self.saveButtonCell = cell
+            cell.button.setTitle(arrayOfCellData[indexPath.row].label, for: .normal)
+            cell.button.addTarget(self, action: #selector(addButtonPressed), for: UIControlEvents.touchUpInside)
 
             return cell
         }
+        
+        else if arrayOfCellData[indexPath.row].cell == "Picker" {
+         let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
+            
+            if arrayOfCellData[indexPath.row].code == "startdate" {
+                
+                // add icon to the input field
+                self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
+                if(self.payment != nil){
+                    cell.TextField.text = self.payment?.getFormattedString(valueType: "paidDate")
+                    self.paidDate = self.payment?.date
+                    //self.paidDateField.text = cell.TextField.text
+                } else {
+                    cell.TextField.placeholder = "Required"
+                }
+                self.paidDateCell = cell
+                
+                createPaidDatePicker(cell: cell)
+                
+            } else if arrayOfCellData[indexPath.row].code == "enddate" {
+                
+                // add icon to the input field
+                self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
+                if(self.payment != nil){
+                    cell.TextField.text = self.payment?.getFormattedString(valueType: "paidEndDate")
+                    self.endDate = self.payment?.endDate
+                }
+                self.endDateCell = cell
+                //self.endDateField.text = cell.TextField.text
+                createEndDatePicker(cell: cell)
+            }
+            else if arrayOfCellData[indexPath.row].code == "freqency" {
+                
+                self.inputFieldIconConfig(cell:cell, icon_name:"Frequency")
+                if(self.payment != nil){
+                    let freq = self.payment?.frequency?.label
+                    cell.TextField.text = freq
+                }
+                self.fequencyPickerCell = cell
+                createFrequencePicker(cell: cell)
+                
+            } else if arrayOfCellData[indexPath.row].code == "category" {
+                self.inputFieldIconConfig(cell:cell, icon_name:"Category")
+                if(self.payment != nil){
+                    let categoryLabel = self.payment?.category?.label
+                    cell.TextField.text = categoryLabel
+                }
+                self.categoryPickerCell = cell
+                createCategoryPicker(cell: cell)
+            }
+            return cell
+        }
+            //        else if arrayOfCellData[indexPath.row].cell == "Switch" {
+            //            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellSwitch", owner: self, options: nil)?.first as! PaymentAddTableViewCellSwitch
+            //            cell.switchTextLabel.text = arrayOfCellData[indexPath.row].label
+            //            self.AnnualizationCell = cell
+            //            return cell
+            //        }
+        // this should ever call
         else {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
-            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].text
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             return cell
         }
         
@@ -279,7 +369,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
         else if arrayOfCellData[indexPath.row].cell  == "Switch"  {
             return 44
-        } else {
+        } else if arrayOfCellData[indexPath.row].cell  == "Button"  {
+            return 100
+        }
+        else {
             return 90
         }
     }
@@ -327,6 +420,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             fequencyPickerCell?.TextField.text = arrayOfFrequencyPickerData[row].label
             self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
             fequencyPickerCell?.TextField.resignFirstResponder()
+            
         } else if (pickerView.tag == 2){
             categoryPickerCell?.TextField.text = arrayOfCategoryData[row].label
             self.selectedCategoryData = arrayOfCategoryData[row]
@@ -340,10 +434,54 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let uid = self.property?.uid
         //let key = self.property!.ref!.child("Expenses").childByAutoId().key
         let propertyKey = self.property!.ref!.key
-        let post = self.payment?.toAnyObject()
-        let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
-        propertyRef?.childByAutoId().setValue(post)
+        if (self.isEditingViewController == false) {
+            // new
+            let post = self.payment?.toAnyObject()
+            let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
+            propertyRef?.childByAutoId().setValue(post)
+        } else {
+            // edit
+            let post = self.payment!.toAnyObject()
+            //print(post)
+            self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
+        }
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func inputFieldIconConfig(cell: PaymentAddTableViewCellTextField,icon_name: String ){
+        let calendarImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
+        calendarImageView.image = UIImage(named: icon_name)
+        calendarImageView.contentMode = .center
+        cell.TextField.leftView = calendarImageView
+        cell.TextField.leftViewMode = .always
+    }
+    
+    func findIdFromArray(item_name: String, val_code: String) -> Int {
+        var result = -1;
+        //var arrayOfCellData = [cellData]()
+        //var arrayOfFrequencyPickerData = [frequencyData]()
+        //var arrayOfCategoryData = [categoryData]()
+        if (item_name == "frequence") {
+            let items = self.arrayOfFrequencyPickerData
+            var i = 0
+            for item in items {
+                if(item.code == val_code){
+                    result = i
+                }
+                i = i + 1
+            }
+        } else if (item_name == "category") {
+            let items = self.arrayOfCategoryData
+            var i = 0
+            for item in items {
+                if(item.code == val_code){
+                    result = i
+                }
+                i = i + 1
+            }
+        }
+        
+        return result
     }
     // end picker view
     /*
