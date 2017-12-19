@@ -12,6 +12,8 @@ import Firebase
 enum PaymentValidationError : Error {
     case InvalidPayAmount
     case InvalidPaidDate
+    case InvalidPaymentCategory
+    case InvalidPaymentFrequence
 }
 
 // TODO
@@ -24,11 +26,11 @@ class Payment {
     var uid: String?
     
     // optional
-    var frequency: frequencyData?
+    private var frequency: frequencyData?
+    private var category: categoryData?
     var categoryCode: String?
     
     var isAnnualized: Bool?
-    var category: categoryData?
     var endDate: Date?
     var ref: DatabaseReference?
     
@@ -60,6 +62,21 @@ class Payment {
         }
         self.date = paid_date
     }
+
+    func setPaymentCategory(category_item: categoryData?) throws {
+
+        if(category_item == nil){
+            throw PaymentValidationError.InvalidPaymentCategory
+        }
+        self.category = category_item
+    }
+    
+    func setPaymentFrequency(freq: frequencyData?) throws {
+        if(freq == nil){
+            throw PaymentValidationError.InvalidPaymentFrequence
+        }
+        self.frequency = freq
+    }
     
     // end list of set methods
     
@@ -71,6 +88,14 @@ class Payment {
     func getPaidDate() -> Date {
         return self.date!
     }
+    
+    func getPaymentFrquence() -> frequencyData? {
+        return self.frequency
+    }
+    func getPaymentCategory() -> categoryData? {
+        return self.category
+    }
+    
     // end
     
     

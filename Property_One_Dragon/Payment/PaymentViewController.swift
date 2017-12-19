@@ -59,10 +59,10 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         //cell.paidDateLabel.text = object.date
         cell.paidDateLabel.text = object.getFormattedString(valueType: "paidDate")
         cell.paymentAmountLabel.text = object.getFormattedString(valueType: "paidAmount")
-        
-        if (object.category != nil){
-            cell.categoryLabel.text = object.category?.label
-            cell.categoryImage?.image = UIImage(named: (object.category?.code)!)
+        let category_itme = object.getPaymentCategory()
+        if (category_itme != nil){
+            cell.categoryLabel.text = category_itme?.label
+            cell.categoryImage?.image = UIImage(named: (category_itme?.code)!)
         } else {
             cell.categoryLabel.text = object.categoryCode
             self.getCategoryFromFB(payment: object, paymentType: self.viewTitle, cell: cell)

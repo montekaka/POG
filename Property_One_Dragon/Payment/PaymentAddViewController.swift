@@ -64,6 +64,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             r = self.payment
             let bill_amount = Double(self.billAmount.text!) ?? 0
             let end_date = self.endDate ?? Date()
+            let selected_freq_data = self.selectedFrequenceData ?? self.payment?.getPaymentFrquence()
+            let selected_category_data = self.selectedCategoryData ?? self.payment?.getPaymentCategory()
             r.endDate = end_date
             //r.amount = Double(billAmount.text!)
             
@@ -79,6 +81,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 }
                 
                 try r!.setPaidDate(paid_date: self.paidDate!)
+                try r!.setPaymentFrequency(freq: selected_freq_data)
+                try r!.setPaymentCategory(category_item: selected_category_data)
                 self.updatePayment(r:r)
             } catch let error as PaymentValidationError {
                 var errorMsg = ""
@@ -87,6 +91,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                         errorMsg = "Invalid amount"
                     case .InvalidPaidDate:
                         errorMsg = "Paid Date can't be later than payment end date"
+                    case .InvalidPaymentFrequence:
+                        errorMsg = "Payment frequency is required"
+                    case .InvalidPaymentCategory:
+                        errorMsg = "Payment category is required"
                 }
                 let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
@@ -110,6 +118,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 do {
                     try r!.setPaidAmount(amount: bill_amount)
                     try r!.setPaidDate(paid_date: paid_date)
+                    try r!.setPaymentFrequency(freq: self.selectedFrequenceData)
+                    try r!.setPaymentCategory(category_item: self.selectedCategoryData)
+                    
                     self.updatePayment(r:r)
                 } catch let error as PaymentValidationError{
                     var errorMsg = ""
@@ -118,6 +129,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                         errorMsg = "Invalid Amount"
                     case .InvalidPaidDate:
                         errorMsg = "Invalid Date"
+                    case .InvalidPaymentFrequence:
+                        errorMsg = "Payment frequency is required"
+                    case .InvalidPaymentCategory:
+                        errorMsg = "Payment category is required"
                     }
                     let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
@@ -230,7 +245,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
-        self.endDate = self.endDatePicker.date
+//        self.endDate = self.endDatePicker.date
         let dateString = formatter.string(from: endDatePicker.date)
         self.endDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
@@ -251,7 +266,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         cell.TextField.placeholder = "e.g. Monthly"
         
         if(self.payment != nil){
-            let freq = self.payment?.frequency
+            let freq = self.payment?.getPaymentFrquence()
             //let id = self.arrayOfFrequencyPickerData.index
             let id = self.findIdFromArray(item_name: "frequence", val_code: (freq?.code)!)
             fequencyPickerView.selectRow(id, inComponent: 0, animated: false)
@@ -271,7 +286,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         cell.TextField.inputView = categoryPickerView
         cell.TextField.placeholder = "Required"
         if(self.payment != nil){
-            let c = self.payment?.category
+            //let c = self.payment?.category
+            let c = self.payment?.getPaymentCategory()
             //let id = self.arrayOfFrequencyPickerData.index
             let id = self.findIdFromArray(item_name: "category", val_code: (c?.code)!)
             categoryPickerView.selectRow(id, inComponent: 0, animated: false)
@@ -356,8 +372,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 
                 self.inputFieldIconConfig(cell:cell, icon_name:"Frequency")
                 if(self.payment != nil){
-                    let freq = self.payment?.frequency?.label
-                    cell.TextField.text = freq
+                    let freq = self.payment?.getPaymentFrquence()
+                    let freq_label = freq?.label
+                    cell.TextField.text = freq_label
                 }
                 self.fequencyPickerCell = cell
                 createFrequencePicker(cell: cell)
@@ -365,7 +382,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             } else if arrayOfCellData[indexPath.row].code == "category" {
                 self.inputFieldIconConfig(cell:cell, icon_name:"Category")
                 if(self.payment != nil){
-                    let categoryLabel = self.payment?.category?.label
+                    //let categoryLabel = self.payment?.category?.label
+                    let categoryLabel = self.payment?.getPaymentCategory()?.label
                     cell.TextField.text = categoryLabel
                 }
                 self.categoryPickerCell = cell
@@ -526,13 +544,15 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             r.endDate = Date()
         }
         
-        if((self.selectedFrequenceData) != nil){
-            r.frequency = self.selectedFrequenceData
-        }
-        
-        if((self.selectedCategoryData) != nil){
-            r.category = self.selectedCategoryData
-        }
+//        if((self.selectedFrequenceData) != nil){
+//            r.frequency = self.selectedFrequenceData
+//
+//        }
+//
+//        if((self.selectedCategoryData) != nil){
+//            //r.category = self.selectedCategoryData
+//            r.setPaymentCategory(category_item: self.selectedCategoryData!)
+//        }
         
         self.payment = r
         
