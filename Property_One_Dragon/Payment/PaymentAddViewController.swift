@@ -62,11 +62,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         if(self.isEditingViewController == true){
             // edit
             r = self.payment
-            let bill_amount = Double(self.billAmount.text!)
+            let bill_amount = Double(self.billAmount.text!) ?? 0
+            let end_date = self.endDate ?? Date()
+            r.endDate = end_date
             //r.amount = Double(billAmount.text!)
             
             do {
-                try r!.setPaidAmount(amount: bill_amount!)
+                try r!.setPaidAmount(amount: bill_amount)
                 
                 if((self.paidDate) != nil){
                     //r?.date = self.paidDate
