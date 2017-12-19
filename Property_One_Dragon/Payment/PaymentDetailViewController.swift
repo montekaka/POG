@@ -100,14 +100,15 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func configData(){
+        paymentRecords = detailItem!.get()
         detailItem?.ref?.observe(.childChanged, with: { (snapshot) in
-            print("hi")
-            print(snapshot)
+            print("hello")
+//            let payment = Payment.init(snapshot: snapshot, paymentType: self.viewType!) //Expenses
 //            let payment = Payment.init(snapshot: snapshot, paymentType: "expenseCategory") //incomeCategory
 //            self.paymentRecords = (payment?.get())!
 //            self.tableView.reloadData()
         })
-        paymentRecords = detailItem!.get()
+        
     }
 
     /*

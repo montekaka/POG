@@ -105,32 +105,11 @@ class Payment {
         // set values
         
         if((snapshotValue!["paymentCategoryCode"]) != nil) {
-
-            let paymentCategoryCode = snapshotValue!["paymentCategoryCode"]
-            var paymentCategory = "expenseCategory"
-            if( paymentType == "Incomes"){
-                paymentCategory = "incomeCategory"
-            }
-             dbReference.child(paymentCategory).child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
-                let snapValue = categorySnapshot.value as? NSDictionary
-                let label = snapValue!["label"] as? String ?? ""
-                let code = snapValue!["code"] as? String ?? ""
-                let value = snapValue!["value"] as? Float32
-                self.category = categoryData(label: label, code: code, value: value)
-            })
+            self.setupCategoryData(snapshotValue: snapshotValue!,paymentType: paymentType,dbReference: dbReference)
         }
 
         if((snapshotValue!["paymentFrequencyCode"]) != nil) {
-            let paymentCategoryCode = snapshotValue!["paymentFrequencyCode"]
-
-            dbReference.child("paymentFrequency").child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
-                let snapValue = categorySnapshot.value as? NSDictionary
-                let label = snapValue!["label"] as? String ?? ""
-                let code = snapValue!["code"] as? String ?? ""
-                let value = snapValue!["value"] as? Float32
-
-                self.frequency = frequencyData(label: label, code: code, value: value)
-            })
+            self.setupFrequenceData(snapshotValue: snapshotValue!,paymentType: paymentType,dbReference: dbReference)
         }
     
         self.amount = snapshotValue!["paidAmount"] as? Double
@@ -229,5 +208,35 @@ class Payment {
         let day_y = calendar.component(.day, from: date_y)
         
         return (year_x - year_y) * 100 + (month_x - month_y) * 10 + (day_x - day_y)
+    }
+    
+    func setupCategoryData(snapshotValue: Dictionary<String, AnyObject>, paymentType: String, dbReference: DatabaseReference) {
+        let paymentCategoryCode = snapshotValue["paymentCategoryCode"]
+        var paymentCategory = "expenseCategory"
+        if( paymentType == "Incomes"){
+            paymentCategory = "incomeCategory"
+        }
+        dbReference.child(paymentCategory).child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
+        let snapValue = categorySnapshot.value as? NSDictionary
+        let label = snapValue!["label"] as? String ?? ""
+        let code = snapValue!["code"] as? String ?? ""
+        let value = snapValue!["value"] as? Float32
+        self.category = categoryData(label: label, code: code, value: value)
+        })
+    }
+    
+    func setupFrequenceData(snapshotValue: Dictionary<String, AnyObject>, paymentType: String, dbReference: DatabaseReference) {
+
+        let paymentCategoryCode = snapshotValue["paymentFrequencyCode"]
+        
+        dbReference.child("paymentFrequency").child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
+            let snapValue = categorySnapshot.value as? NSDictionary
+            let label = snapValue!["label"] as? String ?? ""
+            let code = snapValue!["code"] as? String ?? ""
+            let value = snapValue!["value"] as? Float32
+            
+            self.frequency = frequencyData(label: label, code: code, value: value)
+        })
+        
     }
 }
