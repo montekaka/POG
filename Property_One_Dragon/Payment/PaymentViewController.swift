@@ -14,7 +14,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     var selectedRow:Int = -1
     var property : Property?
     var viewTitle: String!
-    var viewType: String!
+    var viewType: String! // "Incomes", "Expenses"
     var dataArray:[Payment] = []
     
     var arrayOfFrequencyPickerData: [frequencyData] = []
@@ -92,9 +92,11 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
             detailView.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             detailView.arrayOfExpenseCategoryData = self.arrayOfExpenseCategoryData
             detailView.arrayOfIncomeCategoryData = self.arrayOfIncomeCategoryData
+            detailView.viewType = self.viewType
             
             detailView.property = self.property
             detailView.masterView = self
+            detailView.viewType = self.viewType
             let object = dataArray[selectedRow]
             detailView.detailItem = object
         }
@@ -105,9 +107,9 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         // Dispose of any resources that can be recreated.
     }
     
-    func addReceipt(){
-        self.performSegue(withIdentifier: "paymentAddSegue", sender: self)
-    }
+//    func addReceipt(){
+//        self.performSegue(withIdentifier: "paymentAddSegue", sender: self)
+//    }
     
     func configData(){
         // retrieve data from firebase

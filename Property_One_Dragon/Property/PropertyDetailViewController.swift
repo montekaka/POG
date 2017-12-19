@@ -82,6 +82,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
                 ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
+            controller.viewType = "Expenses"
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData
         }
@@ -111,6 +112,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", code: "enddate", label: "Lease ends")
                 ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
+            controller.viewType = "Incomes"
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData
             

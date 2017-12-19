@@ -12,6 +12,7 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     var masterView: PaymentViewController!
     var detailItem : Payment?
     var property : Property?
+    var viewType: String?
     
     var arrayOfFrequencyPickerData: [frequencyData] = []
     var arrayOfExpenseCategoryData: [categoryData] = []
@@ -65,7 +66,6 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
         if segue.identifier == "paymentEditSegue" {
             let controller = segue.destination as! PaymentAddViewController
             controller.property = self.property
-            controller.viewTitle = "New Expense"
             // * enhancement * move the following array into a property list or json file
             controller.arrayOfCellData = [
                 cellData(cell: "Input", code: "payment", label: "Amount")
@@ -76,9 +76,21 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
                 ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
                 ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
+            
+            
             controller.payment = self.detailItem
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
-            controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData // depends on income or expense            
+            controller.viewType = self.viewType
+            if(self.viewType == "Expenses"){
+                controller.viewTitle = "Edit Expense"
+                controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData // depends on income or expense
+            } else if(self.viewType == "Incomes") {
+                controller.viewTitle = "Edit Income"
+                controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData // depends on income or expense
+            } else {
+                print("Something went wrong in payment detail view controller")
+            }
+
             
         }
     }

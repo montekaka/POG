@@ -16,6 +16,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     var property : Property?
     var viewTitle: String!
+    var viewType: String!
     var arrayOfCellData = [cellData]()
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
@@ -168,14 +169,6 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             self.isEditingViewController = true 
         }
         
-        // add button
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(addButtonPressed))
-//        self.navigationItem.rightBarButtonItem = addButton
-        
-        // add date picker
-        // createPaidDatePicker()
-        
-        // Remove extra empty cells in TableViewController    
         tableView.tableFooterView = UIView()
         
     }
@@ -544,28 +537,17 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             r.endDate = Date()
         }
         
-//        if((self.selectedFrequenceData) != nil){
-//            r.frequency = self.selectedFrequenceData
-//
-//        }
-//
-//        if((self.selectedCategoryData) != nil){
-//            //r.category = self.selectedCategoryData
-//            r.setPaymentCategory(category_item: self.selectedCategoryData!)
-//        }
-        
         self.payment = r
-        
-        //property.ref.child
-        
-        if(self.viewTitle == "New Income") {
-            // Add new Income
-            self.addNewPayment(payment_type: "Incomes")
-            //self.navigationController?.popViewController(animated: true)
-        } else {
-            // Add new Expense
-            self.addNewPayment(payment_type: "Expenses")
-        }
+        self.addNewPayment(payment_type: self.viewType)
+//
+//        if(self.viewType == "Incomes") {
+//            // Add new Income
+//            self.addNewPayment(payment_type: "Incomes")
+//            //self.navigationController?.popViewController(animated: true)
+//        } else {
+//            // Add new Expense
+//            self.addNewPayment(payment_type: "Expenses")
+//        }
     }
     // end picker view
     /*
