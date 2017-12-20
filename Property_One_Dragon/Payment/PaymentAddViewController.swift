@@ -469,25 +469,6 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    func addNewPayment(payment_type: String) {
-        // payment_type: Expense / Incomes
-        let uid = self.property?.uid
-        //let key = self.property!.ref!.child("Expenses").childByAutoId().key
-        let propertyKey = self.property!.ref!.key
-        if (self.isEditingViewController == false) {
-            // new
-            let post = self.payment?.toAnyObject()
-            let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
-            propertyRef?.childByAutoId().setValue(post)
-        } else {
-            // edit
-            let post = self.payment!.toAnyObject()
-            //print(post)
-            self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
-        }
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     func inputFieldIconConfig(cell: PaymentAddTableViewCellTextField,icon_name: String ){
         let calendarImageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: cell.TextField!.frame.size.height))
         calendarImageView.image = UIImage(named: icon_name)
@@ -539,15 +520,25 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         self.payment = r
         self.addNewPayment(payment_type: self.viewType)
-//
-//        if(self.viewType == "Incomes") {
-//            // Add new Income
-//            self.addNewPayment(payment_type: "Incomes")
-//            //self.navigationController?.popViewController(animated: true)
-//        } else {
-//            // Add new Expense
-//            self.addNewPayment(payment_type: "Expenses")
-//        }
+    }
+    
+    func addNewPayment(payment_type: String) {
+        // payment_type: Expense / Incomes
+        let uid = self.property?.uid
+        //let key = self.property!.ref!.child("Expenses").childByAutoId().key
+        let propertyKey = self.property!.ref!.key
+        if (self.isEditingViewController == false) {
+            // new
+            let post = self.payment?.toAnyObject()
+            let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
+            propertyRef?.childByAutoId().setValue(post)
+        } else {
+            // edit
+            let post = self.payment!.toAnyObject()
+            //print(post)
+            self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     // end picker view
     /*

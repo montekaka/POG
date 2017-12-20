@@ -109,7 +109,7 @@ class Payment {
         }
 
         if((snapshotValue!["paymentFrequencyCode"]) != nil) {
-            self.setupFrequenceData(snapshotValue: snapshotValue!,paymentType: paymentType,dbReference: dbReference)
+            self.setupFrequenceData(snapshotValue: snapshotValue!, dbReference: dbReference)
         }
     
         self.amount = snapshotValue!["paidAmount"] as? Double
@@ -225,18 +225,41 @@ class Payment {
         })
     }
     
-    func setupFrequenceData(snapshotValue: Dictionary<String, AnyObject>, paymentType: String, dbReference: DatabaseReference) {
+    func setupFrequenceData(snapshotValue: Dictionary<String, AnyObject>, dbReference: DatabaseReference) {
 
         let paymentCategoryCode = snapshotValue["paymentFrequencyCode"]
         
-        dbReference.child("paymentFrequency").child(paymentCategoryCode as! String).observe(.value, with: { (categorySnapshot) in
-            let snapValue = categorySnapshot.value as? NSDictionary
+        dbReference.child("paymentFrequency").child(paymentCategoryCode as! String).observe(.value, with: { (freqSnapshot) in
+            let snapValue = freqSnapshot.value as? NSDictionary
             let label = snapValue!["label"] as? String ?? ""
             let code = snapValue!["code"] as? String ?? ""
             let value = snapValue!["value"] as? Float32
             
             self.frequency = frequencyData(label: label, code: code, value: value)
         })
+    }
+    
+    func update(viewType: String, snapshotValue: Dictionary<String, AnyObject>?, dbReference: DatabaseReference){
         
+        for(key, value) in snapshotValue! {
+            let k = key
+            //print(k)
+            if(k == "paidAmount"){
+                self.amount = value as? Double ?? 0
+            }
+            if(k == "paidDate") {
+                self.date = NSDate(timeIntervalSince1970: value as! TimeInterval) as Date?
+            }
+            if(k == "paymentEndDate") {
+                self.endDate = NSDate(timeIntervalSince1970: value as! TimeInterval) as Date?
+            }
+            if(k == "paymentFrequencyCode") {
+                self.setupFrequenceData(snapshotValue: snapshotValue!, dbReference: dbReference)
+            }
+            if(k == "paymentCategoryCode") {
+                self.setupCategoryData(snapshotValue: snapshotValue!, paymentType: viewType, dbReference: dbReference)
+            }
+            
+        }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var masterView: PaymentViewController!
@@ -20,7 +21,14 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBOutlet weak var tableView: UITableView!
     var paymentRecords: [paymentData] = []
-
+    
+    // firebase
+    var dbReference: DatabaseReference?
+    deinit {
+        // remove all firebase observers
+        self.dbReference?.removeAllObservers()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -100,13 +108,13 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func configData(){
+        self.dbReference = Database.database().reference()
         paymentRecords = detailItem!.get()
         detailItem?.ref?.observe(.childChanged, with: { (snapshot) in
-            print("hello")
-//            let payment = Payment.init(snapshot: snapshot, paymentType: self.viewType!) //Expenses
-//            let payment = Payment.init(snapshot: snapshot, paymentType: "expenseCategory") //incomeCategory
-//            self.paymentRecords = (payment?.get())!
-//            self.tableView.reloadData()
+            let sp: [String: AnyObject] = [snapshot.key: snapshot.value as AnyObject]
+            self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
+            self.paymentRecords = (self.detailItem?.get())!
+            self.tableView.reloadData()
         })
         
     }
