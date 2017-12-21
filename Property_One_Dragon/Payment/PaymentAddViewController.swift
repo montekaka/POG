@@ -321,6 +321,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             return cell
             
         }
+        else if arrayOfCellData[indexPath.row].cell == "Action" {
+            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextView", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextView
+            cell.notesLabel.text = arrayOfCellData[indexPath.row].label
+            cell.notesActionButton.titleLabel?.text = "Add"
+            cell.notesActionButton.addTarget(self, action: #selector(self.addPaymentNotes), for: .touchUpInside)
+            return cell
+        }
         else if arrayOfCellData[indexPath.row].code == "savebutton" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellButton", owner: self, options: nil)?.first as! PaymentAddTableViewCellButton
             self.saveButtonCell = cell
@@ -390,7 +397,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             //            self.AnnualizationCell = cell
             //            return cell
             //        }
-        // this should ever call
+        // this should never call
         else {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
@@ -540,6 +547,11 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @objc func addPaymentNotes(){
+        self.performSegue(withIdentifier: "paymentNotesAddSegue", sender: self)
+    }
+    
     // end picker view
     /*
     // MARK: - Navigation

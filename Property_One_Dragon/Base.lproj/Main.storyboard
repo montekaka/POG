@@ -169,6 +169,42 @@
             </objects>
             <point key="canvasLocation" x="3377" y="954"/>
         </scene>
+        <!--Payment Detail Text View Controller-->
+        <scene sceneID="93r-TQ-JQa">
+            <objects>
+                <viewController id="m0P-MD-PVQ" customClass="PaymentDetailTextViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lMv-xV-cy0"/>
+                        <viewControllerLayoutGuide type="bottom" id="cnS-jE-bvT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rKR-24-hFI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Db5-GM-JP1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Db5-GM-JP1" secondAttribute="trailing" id="L79-af-7rS"/>
+                            <constraint firstItem="cnS-jE-bvT" firstAttribute="top" secondItem="Db5-GM-JP1" secondAttribute="bottom" id="NkU-JF-qLw"/>
+                            <constraint firstItem="Db5-GM-JP1" firstAttribute="leading" secondItem="rKR-24-hFI" secondAttribute="leading" id="UGj-FU-xwf"/>
+                            <constraint firstItem="Db5-GM-JP1" firstAttribute="top" secondItem="rKR-24-hFI" secondAttribute="top" id="oSr-5q-GZD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="Db5-GM-JP1" id="pF2-mY-2RZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CZO-d3-63H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2497" y="1737"/>
+        </scene>
         <!--Payment Add View Controller-->
         <scene sceneID="wIK-Od-Ros">
             <objects>
@@ -195,6 +231,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="yuC-US-1R8" id="a9g-XF-5Xd"/>
+                        <segue destination="m0P-MD-PVQ" kind="show" identifier="paymentNotesAddSegue" id="Lyq-oV-1dP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nOy-PL-ncl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -388,7 +425,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="bGh-ls-JYm"/>
-        <segue reference="fGg-wr-Y9W"/>
+        <segue reference="K7q-6i-H8e"/>
         <segue reference="3Zg-T6-vvl"/>
     </inferredMetricsTieBreakers>
 </document>

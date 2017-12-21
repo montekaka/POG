@@ -80,6 +80,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", code: "category", label: "Category")
                 ,cellData(cell: "Picker", code: "freqency",  label: "Paid")
                 ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
+                ,cellData(cell: "Action", code: "text", label: "Notes")
                 ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
             controller.viewType = "Expenses"
@@ -110,6 +111,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 ,cellData(cell: "Picker", code: "category", label: "Category")
                 ,cellData(cell: "Picker", code: "freqency",  label: "Rent paid")
                 ,cellData(cell: "Picker", code: "enddate", label: "Lease ends")
+                ,cellData(cell: "Action", code: "Text", label: "Notes")
                 ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
             controller.viewType = "Incomes"

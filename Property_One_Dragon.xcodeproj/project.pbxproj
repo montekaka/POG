@@ -39,6 +39,9 @@
 		E5C27FA61FA700D70002FC7A /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA51FA700D70002FC7A /* Payment.swift */; };
 		E5C27FA81FA838600002FC7A /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA71FA838600002FC7A /* PaymentViewController.swift */; };
 		E5C27FAA1FA838700002FC7A /* PaymentAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */; };
+		E5C4A6031FEB781E00F08092 /* PaymentDetailTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4A6021FEB781E00F08092 /* PaymentDetailTextViewController.swift */; };
+		E5C4A6061FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4A6041FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift */; };
+		E5C4A6071FEB833D00F08092 /* PaymentAddTableViewCellTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5C4A6051FEB833D00F08092 /* PaymentAddTableViewCellTextView.xib */; };
 		E5ED69EC1FCBBE6700FC5E1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E5ED69EB1FCBBE6600FC5E1C /* GoogleService-Info.plist */; };
 		E5ED69F01FCFDA9E00FC5E1C /* PropertyViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ED69EE1FCFDA9E00FC5E1C /* PropertyViewTableViewCell.swift */; };
 		E5ED69F11FCFDA9E00FC5E1C /* PropertyViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5ED69EF1FCFDA9E00FC5E1C /* PropertyViewTableViewCell.xib */; };
@@ -81,6 +84,9 @@
 		E5C27FA51FA700D70002FC7A /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		E5C27FA71FA838600002FC7A /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddViewController.swift; sourceTree = "<group>"; };
+		E5C4A6021FEB781E00F08092 /* PaymentDetailTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailTextViewController.swift; sourceTree = "<group>"; };
+		E5C4A6041FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellTextView.swift; sourceTree = "<group>"; };
+		E5C4A6051FEB833D00F08092 /* PaymentAddTableViewCellTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentAddTableViewCellTextView.xib; sourceTree = "<group>"; };
 		E5ED69EB1FCBBE6600FC5E1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5ED69EE1FCFDA9E00FC5E1C /* PropertyViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyViewTableViewCell.swift; sourceTree = "<group>"; };
 		E5ED69EF1FCFDA9E00FC5E1C /* PropertyViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PropertyViewTableViewCell.xib; sourceTree = "<group>"; };
@@ -167,6 +173,7 @@
 				E5AA53231FDE708900A1FBE2 /* ViewCell */,
 				E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */,
 				E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */,
+				E5C4A6021FEB781E00F08092 /* PaymentDetailTextViewController.swift */,
 				E572FA971FC772D100DA23F1 /* PaymentDetailTableCell */,
 				E5E7AD621FC602410076CC97 /* PaymentAddTableCell */,
 			);
@@ -217,6 +224,8 @@
 				E5083B6B1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib */,
 				E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */,
 				E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */,
+				E5C4A6041FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift */,
+				E5C4A6051FEB833D00F08092 /* PaymentAddTableViewCellTextView.xib */,
 			);
 			name = PaymentAddTableCell;
 			path = ..;
@@ -307,6 +316,7 @@
 				E5056D481F9EFDF000441F02 /* LaunchScreen.storyboard in Resources */,
 				E5A0C47C1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib in Resources */,
 				E572FA961FC772BF00DA23F1 /* PaymentDetailTableViewCellText.xib in Resources */,
+				E5C4A6071FEB833D00F08092 /* PaymentAddTableViewCellTextView.xib in Resources */,
 				E5ED69F11FCFDA9E00FC5E1C /* PropertyViewTableViewCell.xib in Resources */,
 				E5056D451F9EFDF000441F02 /* Assets.xcassets in Resources */,
 				E5083B6D1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib in Resources */,
@@ -402,11 +412,13 @@
 				E5C27FAA1FA838700002FC7A /* PaymentAddViewController.swift in Sources */,
 				E5056D521F9F000B00441F02 /* PropertyViewController.swift in Sources */,
 				E5056D3E1F9EFDF000441F02 /* AppDelegate.swift in Sources */,
+				E5C4A6061FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift in Sources */,
 				E5083B6C1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift in Sources */,
 				E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */,
 				E5A0C47B1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.swift in Sources */,
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,
 				E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */,
+				E5C4A6031FEB781E00F08092 /* PaymentDetailTextViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
