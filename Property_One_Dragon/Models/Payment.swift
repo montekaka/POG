@@ -32,6 +32,7 @@ class Payment {
     
     var isAnnualized: Bool?
     var endDate: Date?
+    var paymentNotes:String?
     var ref: DatabaseReference?
     
     // list of avaiable values
@@ -124,6 +125,10 @@ class Payment {
             self.isAnnualized = snapshotValue!["annualizedPayment"] as? Bool
         }
         
+        if((snapshotValue!["paymentNotes"]) != nil) {
+            self.paymentNotes = snapshotValue!["paymentNotes"] as? String
+        }
+        
         self.ref = snapshot.ref
         
         dbReference.removeAllObservers()
@@ -137,14 +142,19 @@ class Payment {
 //            annualizedPayment = true
 //        }
         
-        return [
+        var result = [
             "paidAmount": self.amount!,
             "paidDate": self.date!.timeIntervalSince1970, // get date = NSDate(timeIntervalSince1970: paidDate)
             "paymentFrequencyCode": self.frequency!.code!,
             "paymentCategoryCode": self.category!.code!,
             //"annualizedPayment": annualizedPayment,
             "paymentEndDate": self.endDate!.timeIntervalSince1970
-        ]
+            ] as [String : Any]
+        
+        if((self.paymentNotes) != nil){
+            result["paymentNotes"] = self.paymentNotes!            
+        }
+        return result
     }
     
     func getFormattedString(valueType:String) -> String{
@@ -194,6 +204,14 @@ class Payment {
         if ((self.category) != nil ) {
             data.append(paymentData(label: "Category", value: self.category, format: self.category?.label))
         }
+        
+        if ((self.paymentNotes) != nil ) {
+            data.append(paymentData(label: "Payment Notes", value: self.paymentNotes, format: "text"))
+        }
+        
+//        if((self.paymentNotes) != nil){
+//            data.append(paymentData(label: "Category", value: self.category, format: self.category?.label))
+//        }
         return data
     }
     

@@ -120,6 +120,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 r = p
                 let end_date = self.endDate ?? Date()
                 r.endDate = end_date
+                if(self.paymentNotes != nil) {
+                    r.paymentNotes = self.paymentNotes
+                }
 
                 do {
                     try r!.setPaidAmount(amount: bill_amount)
