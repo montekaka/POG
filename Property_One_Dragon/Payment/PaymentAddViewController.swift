@@ -47,6 +47,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     private var categoryPickerCell: PaymentAddTableViewCellTextField?
     private var selectedCategoryData: categoryData?
     
+    // notes
+    var paymentNotes: String?
+
     // var isAnnualization
     private var AnnualizationCell: PaymentAddTableViewCellSwitch?
     
@@ -55,11 +58,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         self.dbReference?.removeAllObservers()
     }
     
+    
     @objc func addButtonPressed() {
+        
         var r: Payment!
         // create a new payment
         self.dbReference = Database.database().reference()
-        
+
         if(self.isEditingViewController == true){
             // edit
             r = self.payment
@@ -69,10 +74,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             let selected_category_data = self.selectedCategoryData ?? self.payment?.getPaymentCategory()
             r.endDate = end_date
             //r.amount = Double(billAmount.text!)
-            
+
             do {
                 try r!.setPaidAmount(amount: bill_amount)
-                
+
                 if((self.paidDate) != nil){
                     //r?.date = self.paidDate
                     try r.setPaidDate(paid_date: self.paidDate!)
@@ -80,7 +85,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     let paid_date = Date()
                     try r.setPaidDate(paid_date: paid_date)
                 }
-                
+
                 try r!.setPaidDate(paid_date: self.paidDate!)
                 try r!.setPaymentFrequency(freq: selected_freq_data)
                 try r!.setPaymentCategory(category_item: selected_category_data)
@@ -101,27 +106,27 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             } catch {
-                
+
             }
-            
-            
-            
+
+
+
         } else {
             // new
             let bill_amount = Double(self.billAmount.text!) ?? 0
             let paid_date = self.paidDate ?? Date()
-            
+
             if let p = Payment(amount: bill_amount) {
                 r = p
                 let end_date = self.endDate ?? Date()
                 r.endDate = end_date
-                
+
                 do {
                     try r!.setPaidAmount(amount: bill_amount)
                     try r!.setPaidDate(paid_date: paid_date)
                     try r!.setPaymentFrequency(freq: self.selectedFrequenceData)
                     try r!.setPaymentCategory(category_item: self.selectedCategoryData)
-                    
+
                     self.updatePayment(r:r)
                 } catch let error as PaymentValidationError{
                     var errorMsg = ""
@@ -139,15 +144,15 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 } catch {
-                    
+
                 }
-                
+
             } else {
                 let alert = UIAlertController(title: "Error", message: "Error creating payment", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
-            
+
             // end new payment
         }
     }
@@ -168,7 +173,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             self.isEditingViewController = true 
         }
-        
+
         tableView.tableFooterView = UIView()
         
     }
@@ -513,18 +518,17 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func updatePayment(r: Payment){
-        
         if self.property == nil {
         } else {
             r.property_id = property?.id
         }
-        
+
         if((self.endDate) != nil){
             r.endDate = self.endDate
         } else {
             r.endDate = Date()
         }
-        
+
         self.payment = r
         self.addNewPayment(payment_type: self.viewType)
     }
@@ -551,6 +555,14 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     @objc func addPaymentNotes(){
         self.performSegue(withIdentifier: "paymentNotesAddSegue", sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "paymentNotesAddSegue" {
+            let notesView: PaymentDetailTextViewController = segue.destination as! PaymentDetailTextViewController
+            notesView.paymentAddViewController = self
+        }
+    }
+    
     
     // end picker view
     /*

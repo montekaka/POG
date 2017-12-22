@@ -8,17 +8,22 @@
 
 // UITextView Tutorial to hide keyboard
 // https://www.youtube.com/watch?time_continue=181&v=oienPcLcbkA
+// pass data back to AddViewController
+// https://stackoverflow.com/questions/28476036/passing-variable-back-to-parent-in-swift
 import UIKit
 
 class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var textView: UITextView!
+    weak var paymentAddViewController : PaymentAddViewController?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
         //self.textView.resignFirstResponder()
     }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textView.delegate = self
@@ -27,7 +32,9 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillHide, object: nil)
-        
+        // Save Button
+        let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
+        self.navigationItem.rightBarButtonItem = saveTextButton
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -58,6 +65,10 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    @objc func saveText(){
+        self.paymentAddViewController?.paymentNotes = self.textView.text
+        self.navigationController?.popViewController(animated: true)
+    }
 
     /*
     // MARK: - Navigation

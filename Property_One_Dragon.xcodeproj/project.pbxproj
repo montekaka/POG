@@ -171,8 +171,8 @@
 			children = (
 				E5C27FA71FA838600002FC7A /* PaymentViewController.swift */,
 				E5AA53231FDE708900A1FBE2 /* ViewCell */,
-				E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */,
 				E5B9DC5C1FAA36F3000C1999 /* PaymentDetailViewController.swift */,
+				E5C27FA91FA838700002FC7A /* PaymentAddViewController.swift */,
 				E5C4A6021FEB781E00F08092 /* PaymentDetailTextViewController.swift */,
 				E572FA971FC772D100DA23F1 /* PaymentDetailTableCell */,
 				E5E7AD621FC602410076CC97 /* PaymentAddTableCell */,
