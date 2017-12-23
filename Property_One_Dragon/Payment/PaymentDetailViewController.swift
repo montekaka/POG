@@ -29,6 +29,8 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
         self.dbReference?.removeAllObservers()
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -43,6 +45,8 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.configData()
+        // Along with auto layout, these are the keys for enabling variable cell height
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,16 +59,38 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = Bundle.main.loadNibNamed("PaymentDetailTableViewCellText", owner: self, options: nil)?.first as! PaymentDetailTableViewCellText
-        cell.fieldLabel.text = paymentRecords[indexPath.row].label
-        cell.fieldValue.text = paymentRecords[indexPath.row].format        
-        return cell
+        let paymentRecord = paymentRecords[indexPath.row]
+        
+        if( paymentRecord.label == "Payment Notes"){
+            let cell = Bundle.main.loadNibNamed("PaymentDetailTableViewCellNotes", owner: self, options: nil)?.first as! PaymentDetailTableViewCellNotes
+            cell.noteLabel.text = paymentRecord.value as? String
+            cell.noteTitle.text = paymentRecord.label
+            return cell
+        } else {
+            let cell = Bundle.main.loadNibNamed("PaymentDetailTableViewCellText", owner: self, options: nil)?.first as! PaymentDetailTableViewCellText
+            cell.fieldLabel.text = paymentRecord.label
+            cell.fieldValue.text = paymentRecord.format
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+        let paymentRecord = paymentRecords[indexPath.row]
+        if( paymentRecord.label == "Payment Notes"){
+            return 56
+        } else {
+            return 44
+        }
+        
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let paymentRecord = paymentRecords[indexPath.row]
+        if (paymentRecord.label == "Payment Notes") {
+            self.performSegue(withIdentifier: "paymentDetailNoteShowSegue", sender: nil)
+        }
+        
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -98,8 +124,10 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
             } else {
                 print("Something went wrong in payment detail view controller")
             }
-
-            
+        }
+        if segue.identifier == "paymentDetailNoteShowSegue" {
+            let controller = segue.destination as! PaymentDetailTextViewController
+            controller.payment = self.detailItem
         }
     }
     
@@ -115,6 +143,8 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
             self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
             self.paymentRecords = (self.detailItem?.get())!
             self.tableView.reloadData()
+            self.tableView.estimatedRowHeight = 44.0
+            self.tableView.rowHeight = UITableViewAutomaticDimension
         })
         
     }

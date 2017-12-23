@@ -164,6 +164,7 @@
                     <connections>
                         <outlet property="tableView" destination="sNR-wj-LJU" id="J4I-O9-650"/>
                         <segue destination="W0z-ff-k2p" kind="show" identifier="paymentEditSegue" id="K7q-6i-H8e"/>
+                        <segue destination="m0P-MD-PVQ" kind="show" identifier="paymentDetailNoteShowSegue" id="K1m-zU-fJe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTD-Ml-d6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -427,6 +428,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="bGh-ls-JYm"/>
         <segue reference="K7q-6i-H8e"/>
+        <segue reference="K1m-zU-fJe"/>
         <segue reference="3Zg-T6-vvl"/>
     </inferredMetricsTieBreakers>
 </document>

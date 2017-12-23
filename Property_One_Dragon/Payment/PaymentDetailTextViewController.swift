@@ -16,6 +16,7 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var textView: UITextView!
     weak var paymentAddViewController : PaymentAddViewController?
+    var payment: Payment?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -27,6 +28,9 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textView.delegate = self
+        if(payment != nil){
+            self.textView.text = payment?.paymentNotes 
+        }
         
         // to hide keyboards
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
