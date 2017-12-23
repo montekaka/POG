@@ -16,7 +16,7 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var textView: UITextView!
     weak var paymentAddViewController : PaymentAddViewController?
-    var payment: Payment?
+    var payment: Payment? // if we have payment then it's edit mode
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -70,7 +70,15 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func saveText(){
-        self.paymentAddViewController?.paymentNotes = self.textView.text
+        if(payment != nil) {
+            // edit
+            self.payment?.paymentNotes = self.textView.text
+            let post = self.payment!.toAnyObject()
+            self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
+        } else {
+            // new
+            self.paymentAddViewController?.paymentNotes = self.textView.text
+        }
         self.navigationController?.popViewController(animated: true)
     }
 
