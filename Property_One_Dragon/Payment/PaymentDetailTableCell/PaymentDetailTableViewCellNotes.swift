@@ -13,5 +13,6 @@ class PaymentDetailTableViewCellNotes: UITableViewCell {
     @IBOutlet weak var noteTitle: UILabel!
     @IBOutlet weak var noteLabel: UILabel!
     
+    @IBOutlet weak var noteViewMoreButton: UIButton!
     
 }

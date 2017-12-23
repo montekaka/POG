@@ -65,6 +65,7 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
             let cell = Bundle.main.loadNibNamed("PaymentDetailTableViewCellNotes", owner: self, options: nil)?.first as! PaymentDetailTableViewCellNotes
             cell.noteLabel.text = paymentRecord.value as? String
             cell.noteTitle.text = paymentRecord.label
+            cell.noteViewMoreButton.addTarget(self, action: #selector(viewMoreNoteButtonPressed), for: .touchUpInside)
             return cell
         } else {
             let cell = Bundle.main.loadNibNamed("PaymentDetailTableViewCellText", owner: self, options: nil)?.first as! PaymentDetailTableViewCellText
@@ -77,19 +78,19 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let paymentRecord = paymentRecords[indexPath.row]
         if( paymentRecord.label == "Payment Notes"){
-            return 56
+            return 90
         } else {
             return 44
         }
         
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let paymentRecord = paymentRecords[indexPath.row]
-        if (paymentRecord.label == "Payment Notes") {
-            self.performSegue(withIdentifier: "paymentDetailNoteShowSegue", sender: nil)
-        }
-        
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let paymentRecord = paymentRecords[indexPath.row]
+//        if (paymentRecord.label == "Payment Notes") {
+//            self.performSegue(withIdentifier: "paymentDetailNoteShowSegue", sender: nil)
+//        }
+//
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -133,6 +134,10 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     @objc func editPayment(){
         self.performSegue(withIdentifier: "paymentEditSegue", sender: self)
+    }
+    
+    @objc func viewMoreNoteButtonPressed() {
+        self.performSegue(withIdentifier: "paymentDetailNoteShowSegue", sender: self)
     }
     
     func configData(){
