@@ -37,6 +37,9 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillHide, object: nil)
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
         // Save Button
         self.configRightBarButton()
     }
@@ -69,6 +72,22 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func configRightBarButton(){
+        if(self.savingButton == true){
+            self.setupSavingButton()
+        } else {
+            let editTextButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editTextViewButtonPressed))
+            self.navigationItem.rightBarButtonItem = editTextButton
+        }
+    }
+    
+    func setupSavingButton(){
+        let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
+        self.navigationItem.rightBarButtonItem = saveTextButton
+        self.textView.isEditable = true
+        self.textView.becomeFirstResponder()
+    }
+    
     @objc func saveText(){
         if(payment != nil) {
             // edit
@@ -81,15 +100,12 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         }
         self.navigationController?.popViewController(animated: true)
     }
-    func configRightBarButton(){
-        if(self.savingButton == true){
-            let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
-            self.navigationItem.rightBarButtonItem = saveTextButton
-        } else {
-            let editTextButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(saveText))
-            self.navigationItem.rightBarButtonItem = editTextButton
-        }
+    
+    @objc func editTextViewButtonPressed(){
+        self.setupSavingButton()
     }
+    
+
     /*
     // MARK: - Navigation
 
