@@ -10,8 +10,6 @@ import UIKit
 
 class PaymentAddTableViewCellTextView: UITableViewCell {
 
-    @IBOutlet weak var notesLabel: UILabel!
-    
     @IBOutlet weak var notesActionButton: UIButton!
     
 }

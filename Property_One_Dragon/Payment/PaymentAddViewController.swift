@@ -331,7 +331,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
         else if arrayOfCellData[indexPath.row].cell == "Action" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextView", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextView
-            cell.notesLabel.text = arrayOfCellData[indexPath.row].label
+//            cell.notesLabel.text = arrayOfCellData[indexPath.row].label
             cell.notesActionButton.titleLabel?.text = "Add"
             cell.notesActionButton.addTarget(self, action: #selector(self.addPaymentNotes), for: .touchUpInside)
             return cell
@@ -425,10 +425,12 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         else if arrayOfCellData[indexPath.row].cell  == "Switch"  {
             return 44
         } else if arrayOfCellData[indexPath.row].cell  == "Button"  {
-            return 100
+            return 70
+        } else if arrayOfCellData[indexPath.row].cell == "Action"{
+            return 70
         }
         else {
-            return 90
+            return 70
         }
     }
     
