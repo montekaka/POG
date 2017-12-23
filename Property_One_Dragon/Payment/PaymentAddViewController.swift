@@ -565,6 +565,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         if segue.identifier == "paymentNotesAddSegue" {
             let notesView: PaymentDetailTextViewController = segue.destination as! PaymentDetailTextViewController
             notesView.paymentAddViewController = self
+            notesView.savingButton = true
         }
     }
     

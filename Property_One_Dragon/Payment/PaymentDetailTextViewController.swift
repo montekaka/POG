@@ -17,6 +17,7 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var textView: UITextView!
     weak var paymentAddViewController : PaymentAddViewController?
     var payment: Payment? // if we have payment then it's edit mode
+    var savingButton: Bool?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -37,8 +38,7 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillHide, object: nil)
         // Save Button
-        let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
-        self.navigationItem.rightBarButtonItem = saveTextButton
+        self.configRightBarButton()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -81,7 +81,15 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         }
         self.navigationController?.popViewController(animated: true)
     }
-
+    func configRightBarButton(){
+        if(self.savingButton == true){
+            let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
+            self.navigationItem.rightBarButtonItem = saveTextButton
+        } else {
+            let editTextButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(saveText))
+            self.navigationItem.rightBarButtonItem = editTextButton
+        }
+    }
     /*
     // MARK: - Navigation
 
