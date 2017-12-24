@@ -44,9 +44,7 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.configData()
-        // Along with auto layout, these are the keys for enabling variable cell height
-
+        self.configData()        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -109,6 +107,7 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
                 ,cellData(cell: "Picker", code: "category", label: "Category")
                 ,cellData(cell: "Picker", code: "freqency",  label: "Paid")
                 ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
+                ,cellData(cell: "Action", code: "text", label: "Notes")
                 ,cellData(cell:"Button", code: "savebutton", label:"Save")
             ]
             
@@ -142,16 +141,21 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     func configData(){
         self.dbReference = Database.database().reference()
-        paymentRecords = detailItem!.get()
+        self.paymentRecords = detailItem!.get()
+        
         detailItem?.ref?.observe(.childChanged, with: { (snapshot) in
             let sp: [String: AnyObject] = [snapshot.key: snapshot.value as AnyObject]
             self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
             self.paymentRecords = (self.detailItem?.get())!
             self.tableView.reloadData()
-            self.tableView.estimatedRowHeight = 44.0
-            self.tableView.rowHeight = UITableViewAutomaticDimension
         })
         
+        detailItem?.ref?.observe(.childAdded, with: {(snapshot) in
+            let sp: [String: AnyObject] = [snapshot.key: snapshot.value as AnyObject]
+            self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
+            self.paymentRecords = (self.detailItem?.get())!
+            self.tableView.reloadData()
+        })
     }
 
     /*

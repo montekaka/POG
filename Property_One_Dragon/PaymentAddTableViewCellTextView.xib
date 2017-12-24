@@ -27,7 +27,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNy-bB-IlH">
                         <rect key="frame" x="22" y="10" width="275" height="50"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                        <state key="normal" title="Add Note" backgroundImage="BlueButton">
+                        <state key="normal" backgroundImage="BlueButton">
                             <color key="titleColor" red="0.96470588239999999" green="0.97647058819999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>

@@ -32,12 +32,6 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         if(payment != nil){
             self.textView.text = payment?.paymentNotes 
         }
-        
-        // to hide keyboards
-        NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(PaymentDetailTextViewController.updateTextView(notification: )), name: Notification.Name.UIKeyboardWillHide, object: nil)
-
     }
     override func viewWillAppear(_ animated: Bool) {
         // Save Button
@@ -85,6 +79,7 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
         self.navigationItem.rightBarButtonItem = saveTextButton
         self.textView.isEditable = true
+        self.setupDoneButtonToKeyboard()
         self.textView.becomeFirstResponder()
     }
     
@@ -94,10 +89,12 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
             self.payment?.paymentNotes = self.textView.text
             let post = self.payment!.toAnyObject()
             self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
+            self.paymentAddViewController?.paymentNotes = self.textView.text
         } else {
             // new
             self.paymentAddViewController?.paymentNotes = self.textView.text
         }
+        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -105,6 +102,20 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         self.setupSavingButton()
     }
     
+    @objc func hideKeyboard(){
+        // to hide keyboards
+        self.textView.endEditing(true)
+    }
+    
+    func setupDoneButtonToKeyboard(){
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideKeyboard))
+        
+        toolbarDone.setItems([done], animated: false)
+        self.textView.inputAccessoryView = toolbarDone
+    }
 
     /*
     // MARK: - Navigation

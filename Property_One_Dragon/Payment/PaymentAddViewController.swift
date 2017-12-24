@@ -73,6 +73,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             let selected_freq_data = self.selectedFrequenceData ?? self.payment?.getPaymentFrquence()
             let selected_category_data = self.selectedCategoryData ?? self.payment?.getPaymentCategory()
             r.endDate = end_date
+            if(self.paymentNotes != nil) {
+                r.paymentNotes = self.paymentNotes
+            }
             //r.amount = Double(billAmount.text!)
 
             do {
@@ -332,7 +335,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         else if arrayOfCellData[indexPath.row].cell == "Action" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextView", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextView
 //            cell.notesLabel.text = arrayOfCellData[indexPath.row].label
-            cell.notesActionButton.titleLabel?.text = "Add"
+            //cell.notesActionButton.titleLabel?.text = "Add"
+            let buttonTitle = self.paymentNoteActionButtonTitle()
+            cell.notesActionButton.setTitle(buttonTitle, for: .normal)
             cell.notesActionButton.addTarget(self, action: #selector(self.addPaymentNotes), for: .touchUpInside)
             return cell
         }
@@ -566,9 +571,31 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             let notesView: PaymentDetailTextViewController = segue.destination as! PaymentDetailTextViewController
             notesView.paymentAddViewController = self
             notesView.savingButton = true
+            if(self.isEditNote() == true){
+                notesView.payment = self.payment
+            }
         }
     }
     
+    func paymentNoteActionButtonTitle() -> String{
+        var buttonTitle = "New notes"
+        if(self.isEditNote() == true){
+            // editing
+            buttonTitle = "Edit notes"
+        }
+        return buttonTitle
+    }
+    
+    func isEditNote() -> Bool {
+        var result = false
+        let payment_note = self.payment?.paymentNotes
+        let paymentNoteLenght = payment_note?.count ?? 0
+        
+        if(self.isEditingViewController! == true && paymentNoteLenght > 0){
+            result = true
+        }
+        return result
+    }
     
     // end picker view
     /*
