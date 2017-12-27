@@ -20,6 +20,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     var arrayOfCellData = [cellData]()
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
+    private var currentTextField: UITextField!
     
     var payment : Payment?
     private var isEditingViewController: Bool?
@@ -325,6 +326,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     cell.TextField.placeholder = "Required"
                     // add icon to the input field
                 }
+                cell.TextField.keyboardType = UIKeyboardType.decimalPad
+                self.setupDoneButtonToKeyboard(textfield: cell.TextField)
                 self.billAmount = cell.TextField
                 self.inputFieldIconConfig(cell:cell, icon_name:"Money")
             }
@@ -595,6 +598,21 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             result = true
         }
         return result
+    }
+    
+    func setupDoneButtonToKeyboard(textfield: UITextField){
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        self.currentTextField = textfield
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideKeyboard))
+        toolbarDone.setItems([done], animated: false)
+        
+        textfield.inputAccessoryView = toolbarDone
+    }
+    
+    @objc func hideKeyboard(){
+        // to hide keyboards
+        self.currentTextField.resignFirstResponder()
     }
     
     // end picker view
