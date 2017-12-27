@@ -20,7 +20,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     var arrayOfCellData = [cellData]()
     var arrayOfFrequencyPickerData = [frequencyData]()
     var arrayOfCategoryData = [categoryData]()
-    private var currentTextField: UITextField!
+    private var paymentTextField: UITextField!
+    private var frequencyTextField: UITextField!
+    private var categoryTextField: UITextField!
     
     var payment : Payment?
     private var isEditingViewController: Bool?
@@ -43,10 +45,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     private var fequencyPickerView = UIPickerView()
     private var fequencyPickerCell: PaymentAddTableViewCellTextField?
     private var selectedFrequenceData: frequencyData?
+    private var selectedFrequenceId: Int!
+    
     
     private var categoryPickerView = UIPickerView()
     private var categoryPickerCell: PaymentAddTableViewCellTextField?
     private var selectedCategoryData: categoryData?
+    private var selectedCategoryId: Int!
     
     // notes
     var paymentNotes: String?
@@ -269,6 +274,8 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         cell.TextField.inputAccessoryView = toolbar
         cell.TextField.inputView = fequencyPickerView
         cell.TextField.placeholder = "e.g. Monthly"
+        // done button config
+        self.setupDoneButtonToFrequecyKeyboard(textfield: cell.TextField)
         
         if(self.payment != nil){
             let freq = self.payment?.getPaymentFrquence()
@@ -290,6 +297,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         cell.TextField.inputAccessoryView = toolbar
         cell.TextField.inputView = categoryPickerView
         cell.TextField.placeholder = "Required"
+        
+        self.setupDoneButtonToCategoryKeyboard(textfield: cell.TextField)
+        
         if(self.payment != nil){
             //let c = self.payment?.category
             let c = self.payment?.getPaymentCategory()
@@ -328,7 +338,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
-                self.setupDoneButtonToKeyboard(textfield: cell.TextField)
+                self.setupDoneButtonToPaymentKeyboard(textfield: cell.TextField)
                 self.billAmount = cell.TextField
                 self.inputFieldIconConfig(cell:cell, icon_name:"Money")
             }
@@ -483,11 +493,14 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (pickerView.tag == 1) {
+            self.selectedFrequenceId = row
             fequencyPickerCell?.TextField.text = arrayOfFrequencyPickerData[row].label
             self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
             fequencyPickerCell?.TextField.resignFirstResponder()
             
         } else if (pickerView.tag == 2){
+            
+            self.selectedCategoryId = row
             categoryPickerCell?.TextField.text = arrayOfCategoryData[row].label
             self.selectedCategoryData = arrayOfCategoryData[row]
             categoryPickerCell?.TextField.resignFirstResponder()
@@ -517,6 +530,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 }
                 i = i + 1
             }
+            self.selectedFrequenceId = result;
         } else if (item_name == "category") {
             let items = self.arrayOfCategoryData
             var i = 0
@@ -526,6 +540,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 }
                 i = i + 1
             }
+            self.selectedCategoryId = result;
         }
         
         return result
@@ -601,19 +616,68 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         return result
     }
     
-    func setupDoneButtonToKeyboard(textfield: UITextField){
+    
+    // done button setup
+    
+    // 1. Payment Keyboard
+    func setupDoneButtonToPaymentKeyboard(textfield: UITextField){
         let toolbarDone = UIToolbar.init()
         toolbarDone.sizeToFit()
-        self.currentTextField = textfield
-        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideKeyboard))
+        self.paymentTextField = textfield
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hidePaymentKeyboard))
         toolbarDone.setItems([done], animated: false)
         
         textfield.inputAccessoryView = toolbarDone
     }
     
-    @objc func hideKeyboard(){
+    @objc func hidePaymentKeyboard(){
         // to hide keyboards
-        self.currentTextField.resignFirstResponder()
+        self.paymentTextField.resignFirstResponder()
+    }
+    
+    // 2. Category Picker
+    func setupDoneButtonToCategoryKeyboard(textfield: UITextField){
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        self.categoryTextField = textfield
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideCategoryPicker))
+        toolbarDone.setItems([done], animated: false)
+        
+        textfield.inputAccessoryView = toolbarDone
+    }
+    
+    @objc func hideCategoryPicker(){
+        // to hide keyboards
+        if(self.selectedCategoryId == nil){
+            self.selectedCategoryId = 0;
+        }
+        let row = self.selectedCategoryId!
+        //print(row)
+        self.categoryTextField.text = arrayOfCategoryData[row].label
+        self.selectedCategoryData = arrayOfCategoryData[row]
+        self.categoryTextField.resignFirstResponder()
+    }
+    // 3. Frequency Picker
+    func setupDoneButtonToFrequecyKeyboard(textfield: UITextField){
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        self.frequencyTextField = textfield
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideFrequecyPicker))
+        toolbarDone.setItems([done], animated: false)
+        
+        textfield.inputAccessoryView = toolbarDone
+    }
+    
+    @objc func hideFrequecyPicker(){
+        // to hide keyboards
+        if(self.selectedFrequenceId == nil){
+            self.selectedFrequenceId = 0;
+        }
+        let row = self.selectedFrequenceId!
+        //print(row)
+        self.frequencyTextField.text = arrayOfFrequencyPickerData[row].label
+        self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
+        self.frequencyTextField.resignFirstResponder()
     }
     
     // end picker view
