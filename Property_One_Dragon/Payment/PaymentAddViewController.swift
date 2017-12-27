@@ -324,6 +324,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                     cell.TextField.text = self.payment?.getPaidAmountText()
                 } else {
                     cell.TextField.placeholder = "Required"
+                    cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
