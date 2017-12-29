@@ -18,6 +18,9 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
     var currentUser: User?
     var dbReference: DatabaseReference?
     
+    @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func addButtonPressed(sender : UIButton) {
         //let currentUser = Auth.auth().currentUser
         if property == nil {
