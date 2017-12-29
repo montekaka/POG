@@ -37,6 +37,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
         self.title = viewTitle
         self.dbReference = Database.database().reference()
         self.configData()

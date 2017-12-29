@@ -65,13 +65,9 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
             
         } catch {
         }
-//        if let p = Property(address: addressField.text!) {
-//            print("Created a property: \(p.address ?? "gg")")
-//        } else {
-//            print("Error creating property")
-//        }
-        
-        self.navigationController?.popViewController(animated: true)
+        // going back to the property view
+        //self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
         
     }
 
@@ -88,6 +84,9 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
     
     @objc func dismissKeyboard(){
         view.endEditing(true)

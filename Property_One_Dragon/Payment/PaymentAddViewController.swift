@@ -169,7 +169,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()        

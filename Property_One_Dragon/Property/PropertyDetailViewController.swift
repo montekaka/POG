@@ -32,6 +32,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         self.dbReference?.removeAllObservers()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.propertyTableCells = (self.detailItem?.get())!

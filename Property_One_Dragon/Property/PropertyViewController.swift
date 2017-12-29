@@ -32,7 +32,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         // add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
-        self.navigationItem.leftBarButtonItem = editButtonItem
+        //self.navigationItem.leftBarButtonItem = editButtonItem
         
         // retrive data from firebase for current user
         self.configureDatabase()
@@ -42,7 +42,8 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         
         // to handle update info from new/edit view
-        super.viewWillAppear(animated)        
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func configureDatabase(){
