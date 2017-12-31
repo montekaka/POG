@@ -33,6 +33,8 @@
 		E5A0C47C1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A0C47A1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib */; };
 		E5A782CC1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A782CA1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.swift */; };
 		E5A782CD1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A782CB1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.xib */; };
+		E5A782D11FF6F84000C4C71D /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A782CF1FF6F84000C4C71D /* ProfileSettingViewController.swift */; };
+		E5A782D51FF9828F00C4C71D /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A782D41FF9828F00C4C71D /* HomePageViewController.swift */; };
 		E5AA53211FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */; };
 		E5AA53221FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */; };
 		E5AA53261FDE70AF00A1FBE2 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA53241FDE70AF00A1FBE2 /* PaymentTableViewCell.swift */; };
@@ -80,6 +82,9 @@
 		E5A0C47A1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PropertyDetailTableViewCellWithButton.xib; sourceTree = "<group>"; };
 		E5A782CA1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailTableViewCellNotes.swift; sourceTree = "<group>"; };
 		E5A782CB1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentDetailTableViewCellNotes.xib; sourceTree = "<group>"; };
+		E5A782CF1FF6F84000C4C71D /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
+		E5A782D31FF8C1E700C4C71D /* Property_One_Dragon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Property_One_Dragon.entitlements; sourceTree = "<group>"; };
+		E5A782D41FF9828F00C4C71D /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellButton.swift; sourceTree = "<group>"; };
 		E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentAddTableViewCellButton.xib; sourceTree = "<group>"; };
 		E5AA53241FDE70AF00A1FBE2 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,8 +151,9 @@
 		E5056D3C1F9EFDF000441F02 /* Property_One_Dragon */ = {
 			isa = PBXGroup;
 			children = (
+				E5A782D31FF8C1E700C4C71D /* Property_One_Dragon.entitlements */,
 				E5056D3D1F9EFDF000441F02 /* AppDelegate.swift */,
-				E5056D3F1F9EFDF000441F02 /* ViewController.swift */,
+				E5A782CE1FF6226000C4C71D /* UserAuth */,
 				E5A0C4731FC8B74B00F55681 /* Property */,
 				E5A0C4721FC8B73700F55681 /* Payment */,
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
@@ -208,6 +214,16 @@
 				E5A0C47A1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib */,
 			);
 			path = DetailCells;
+			sourceTree = "<group>";
+		};
+		E5A782CE1FF6226000C4C71D /* UserAuth */ = {
+			isa = PBXGroup;
+			children = (
+				E5056D3F1F9EFDF000441F02 /* ViewController.swift */,
+				E5A782CF1FF6F84000C4C71D /* ProfileSettingViewController.swift */,
+				E5A782D41FF9828F00C4C71D /* HomePageViewController.swift */,
+			);
+			path = UserAuth;
 			sourceTree = "<group>";
 		};
 		E5AA53231FDE708900A1FBE2 /* ViewCell */ = {
@@ -290,8 +306,14 @@
 				TargetAttributes = {
 					E5056D391F9EFDF000441F02 = {
 						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 7C7HF43335;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -423,8 +445,10 @@
 				E5C4A6061FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift in Sources */,
 				E5083B6C1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift in Sources */,
 				E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */,
+				E5A782D51FF9828F00C4C71D /* HomePageViewController.swift in Sources */,
 				E5A0C47B1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.swift in Sources */,
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,
+				E5A782D11FF6F84000C4C71D /* ProfileSettingViewController.swift in Sources */,
 				E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */,
 				E5C4A6031FEB781E00F08092 /* PaymentDetailTextViewController.swift in Sources */,
 			);
@@ -562,6 +586,7 @@
 			baseConfigurationReference = 29961CF744516238C7BCC217 /* Pods-Property_One_Dragon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7C7HF43335;
 				INFOPLIST_FILE = Property_One_Dragon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bruinSquare.Property-One-Dragon";
@@ -576,6 +601,7 @@
 			baseConfigurationReference = 2334945973566B9BE5F1B79B /* Pods-Property_One_Dragon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7C7HF43335;
 				INFOPLIST_FILE = Property_One_Dragon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bruinSquare.Property-One-Dragon";

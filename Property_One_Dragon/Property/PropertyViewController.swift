@@ -27,7 +27,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()        
         // Do any additional setup after loading the view, typically from a nib.
-        self.title = "Properties"
+        self.title = "Property"
         
         // add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))

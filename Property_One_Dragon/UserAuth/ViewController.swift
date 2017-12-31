@@ -35,6 +35,8 @@ class ViewController: UIViewController {
                     // save user to database
                     self.dbReference = Database.database().reference()
                     self.dbReference?.child("users").child(user.uid).setValue(["uid":user.uid])
+                    
+                    self.performSegue(withIdentifier: "signInToAppSegue", sender: self)
                 }
             }
             
@@ -55,6 +57,8 @@ class ViewController: UIViewController {
                     self.txtAuthStatus.text = "Signed in as " + user.email!;
                     self.txtEmail.text = nil;
                     self.txtPassword.text = nil;
+                    
+                    self.performSegue(withIdentifier: "signInToAppSegue", sender: self)
                 }
             }
             
@@ -73,8 +77,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var txtEmail: UITextField!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
+        super.viewDidLoad()        
         // Do any additional setup after loading the view, typically from a nib.
         
         // Check if user is signed in, if so then update status text
@@ -85,6 +88,9 @@ class ViewController: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
