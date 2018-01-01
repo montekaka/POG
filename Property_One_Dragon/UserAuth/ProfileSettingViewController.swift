@@ -31,6 +31,7 @@ class ProfileSettingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.setup()        
         self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     override func didReceiveMemoryWarning() {

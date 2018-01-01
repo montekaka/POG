@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct frequencyData {
     let label: String!
@@ -37,4 +38,13 @@ struct tableCellData {
     let label: String!
     let value: String!
     let cellType: String!
+}
+
+
+func inputFieldIconConfig(textField: UITextField,icon_name: String ){
+    let imageView = UIImageView(frame: CGRect(x:0, y: 0, width:50, height: textField.frame.size.height))
+    imageView.image = UIImage(named: icon_name)
+    imageView.contentMode = .center
+    textField.leftView = imageView
+    textField.leftViewMode = .always
 }

@@ -23,14 +23,18 @@ class HomePageViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         if let _ = Auth.auth().currentUser {
             print("sign in")
-            self.performSegue(withIdentifier: "homeToAppSegua", sender: self)
+            self.performSegue(withIdentifier: "homePageToAppSegue", sender: self)
         } else {
             print("not sign in")
         }
     }
-    
+
 
     /*
     // MARK: - Navigation

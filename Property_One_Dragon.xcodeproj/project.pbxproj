@@ -35,6 +35,7 @@
 		E5A782CD1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A782CB1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.xib */; };
 		E5A782D11FF6F84000C4C71D /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A782CF1FF6F84000C4C71D /* ProfileSettingViewController.swift */; };
 		E5A782D51FF9828F00C4C71D /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A782D41FF9828F00C4C71D /* HomePageViewController.swift */; };
+		E5A782D91FFA079000C4C71D /* UserSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A782D81FFA079000C4C71D /* UserSignUpViewController.swift */; };
 		E5AA53211FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */; };
 		E5AA53221FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */; };
 		E5AA53261FDE70AF00A1FBE2 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA53241FDE70AF00A1FBE2 /* PaymentTableViewCell.swift */; };
@@ -85,6 +86,7 @@
 		E5A782CF1FF6F84000C4C71D /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		E5A782D31FF8C1E700C4C71D /* Property_One_Dragon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Property_One_Dragon.entitlements; sourceTree = "<group>"; };
 		E5A782D41FF9828F00C4C71D /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
+		E5A782D81FFA079000C4C71D /* UserSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignUpViewController.swift; sourceTree = "<group>"; };
 		E5AA531F1FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellButton.swift; sourceTree = "<group>"; };
 		E5AA53201FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentAddTableViewCellButton.xib; sourceTree = "<group>"; };
 		E5AA53241FDE70AF00A1FBE2 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				E5056D3F1F9EFDF000441F02 /* ViewController.swift */,
 				E5A782CF1FF6F84000C4C71D /* ProfileSettingViewController.swift */,
 				E5A782D41FF9828F00C4C71D /* HomePageViewController.swift */,
+				E5A782D81FFA079000C4C71D /* UserSignUpViewController.swift */,
 			);
 			path = UserAuth;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				E5C4A6061FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift in Sources */,
 				E5083B6C1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift in Sources */,
 				E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */,
+				E5A782D91FFA079000C4C71D /* UserSignUpViewController.swift in Sources */,
 				E5A782D51FF9828F00C4C71D /* HomePageViewController.swift in Sources */,
 				E5A0C47B1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.swift in Sources */,
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,

@@ -18,31 +18,6 @@ class ViewController: UIViewController {
         self.dbReference?.removeAllObservers()
     }
     
-    @IBAction func btnCreateUser(_ sender: Any) {
-        if let email:String = txtEmail.text, let pass: String = txtPassword.text {
-
-            Auth.auth().createUser(withEmail: email, password: pass) {
-                (user, error) in
-                if let error = error {
-                    self.txtAuthStatus.text = error.localizedDescription;
-                }
-                
-                if let user = user {
-                    self.txtAuthStatus.text = "Signed in as " + user.email!;
-                    self.txtEmail.text = nil;
-                    self.txtPassword.text = nil;
-                    
-                    // save user to database
-                    self.dbReference = Database.database().reference()
-                    self.dbReference?.child("users").child(user.uid).setValue(["uid":user.uid])
-                    
-                    self.performSegue(withIdentifier: "signInToAppSegue", sender: self)
-                }
-            }
-            
-        }
-    }
-    
     
     @IBAction func btnSignIn(_ sender: Any) {
         if let email:String = txtEmail.text, let pass: String = txtPassword.text {
@@ -64,13 +39,6 @@ class ViewController: UIViewController {
             
         }
     }
-    @IBAction func btnSignOut(_ sender: Any) {
-        try! Auth.auth().signOut();
-        
-        self.txtAuthStatus.text = "Signed Out";
-        self.txtEmail.text = nil;
-        self.txtPassword.text = nil;
-    }
     
     @IBOutlet weak var txtAuthStatus: UILabel!
     @IBOutlet weak var txtPassword: UITextField!
@@ -84,18 +52,20 @@ class ViewController: UIViewController {
         if let user = Auth.auth().currentUser {
             self.txtAuthStatus.text = "Signed in as " + user.email!;
         } else {
-            self.txtAuthStatus.text = "Signed Out";
+            self.txtAuthStatus.text = "";
         }
+        // setup text field icon
+        inputFieldIconConfig(textField: self.txtEmail, icon_name: "Email")
+        inputFieldIconConfig(textField: self.txtPassword, icon_name: "Password")
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        //self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
