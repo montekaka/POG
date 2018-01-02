@@ -38,7 +38,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                 <connections>
                                     <outlet property="delegate" destination="EB2-VR-C40" id="71b-tR-6AX"/>
                                 </connections>
@@ -141,7 +141,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="53h-iY-yWy"/>
                                 </connections>
@@ -163,8 +163,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="D20-u0-I3l"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.96470588239999999" green="0.97647058819999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WQ0-Fh-EJu">
@@ -724,7 +724,7 @@
         <image name="User" width="152" height="152"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2fB-7d-VyD"/>
+        <segue reference="ETM-sr-5Yu"/>
         <segue reference="0WM-px-7qa"/>
         <segue reference="i2I-Zi-YwS"/>
         <segue reference="Lyq-oV-1dP"/>
