@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class UserSignUpViewController: UIViewController {
+class UserSignUpViewController: UIViewController, UITextFieldDelegate {
     var dbReference: DatabaseReference?
     
     @IBOutlet weak var txtAuthStatus: UILabel!
@@ -30,6 +30,10 @@ class UserSignUpViewController: UIViewController {
         inputFieldIconConfig(textField: self.txtEmail, icon_name: "Email")
         inputFieldIconConfig(textField: self.txtPassword, icon_name: "Password")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.txtEmail.becomeFirstResponder()
+    }
 
 //    override func viewWillAppear(_ animated: Bool) {
 //        self.navigationController?.setNavigationBarHidden(false, animated: false)
@@ -42,6 +46,20 @@ class UserSignUpViewController: UIViewController {
     
     
     @IBAction func btnCreateUser(_ sender: Any) {
+        self.userSignUp()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.txtEmail {
+            self.txtPassword.becomeFirstResponder()
+        } else {
+            self.txtPassword.resignFirstResponder()
+            self.userSignUp()
+        }
+        return true
+    }
+    
+    func userSignUp() {
         if let email:String = txtEmail.text, let pass: String = txtPassword.text {
             
             Auth.auth().createUser(withEmail: email, password: pass) {
@@ -65,7 +83,6 @@ class UserSignUpViewController: UIViewController {
             
         }
     }
-
     /*
     // MARK: - Navigation
 

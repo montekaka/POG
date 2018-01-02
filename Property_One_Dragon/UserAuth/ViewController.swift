@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     var dbReference: DatabaseReference?
     
@@ -20,24 +20,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func btnSignIn(_ sender: Any) {
-        if let email:String = txtEmail.text, let pass: String = txtPassword.text {
-            
-            Auth.auth().signIn(withEmail: email, password: pass) {
-                (user, error) in
-                if let error = error {
-                    self.txtAuthStatus.text = error.localizedDescription;
-                }
-                
-                if let user = user {
-                    self.txtAuthStatus.text = "Signed in as " + user.email!;
-                    self.txtEmail.text = nil;
-                    self.txtPassword.text = nil;
-                    
-                    self.performSegue(withIdentifier: "signInToAppSegue", sender: self)
-                }
-            }
-            
-        }
+        self.userSignIn()
     }
     
     @IBOutlet weak var txtAuthStatus: UILabel!
@@ -59,12 +42,46 @@ class ViewController: UIViewController {
         inputFieldIconConfig(textField: self.txtPassword, icon_name: "Password")
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        //self.navigationController?.setNavigationBarHidden(true, animated: false)
+    override func viewDidAppear(_ animated: Bool) {
+        self.txtEmail.becomeFirstResponder()
     }
+    
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.txtEmail {
+            self.txtPassword.becomeFirstResponder()
+        } else {
+            self.txtPassword.resignFirstResponder()
+            self.userSignIn()
+        }
+        return true
+    }
+    
+    func userSignIn() {
+        if let email:String = txtEmail.text, let pass: String = txtPassword.text {
+            
+            Auth.auth().signIn(withEmail: email, password: pass) {
+                (user, error) in
+                if let error = error {
+                    self.txtAuthStatus.text = error.localizedDescription;
+                }
+                
+                if let user = user {
+                    self.txtAuthStatus.text = "Signed in as " + user.email!;
+                    self.txtEmail.text = nil;
+                    self.txtPassword.text = nil;
+                    
+                    self.performSegue(withIdentifier: "signInToAppSegue", sender: self)
+                }
+            }
+            
+        }
     }
 
 }

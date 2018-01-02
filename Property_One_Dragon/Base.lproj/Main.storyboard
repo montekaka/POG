@@ -39,6 +39,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
+                                <connections>
+                                    <outlet property="delegate" destination="EB2-VR-C40" id="71b-tR-6AX"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" background="LoginTextField" translatesAutoresizingMaskIntoConstraints="NO" id="hCa-Bw-d8c">
                                 <rect key="frame" x="10" y="170" width="355" height="30"/>
@@ -48,6 +51,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="EB2-VR-C40" id="Htv-8d-vaS"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P3D-gG-VJG">
                                 <rect key="frame" x="26" y="513" width="323" height="44"/>
@@ -136,6 +142,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="53h-iY-yWy"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" background="LoginTextField" translatesAutoresizingMaskIntoConstraints="NO" id="l1g-vm-fFL">
                                 <rect key="frame" x="26" y="170" width="323" height="30"/>
@@ -145,6 +154,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="YJw-IT-2xg"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C10-UW-OIn">
                                 <rect key="frame" x="26" y="220" width="343" height="60"/>
@@ -712,12 +724,12 @@
         <image name="User" width="152" height="152"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ETM-sr-5Yu"/>
+        <segue reference="2fB-7d-VyD"/>
         <segue reference="0WM-px-7qa"/>
         <segue reference="i2I-Zi-YwS"/>
         <segue reference="Lyq-oV-1dP"/>
         <segue reference="3Zg-T6-vvl"/>
-        <segue reference="wml-8J-moG"/>
+        <segue reference="Xtl-6R-XX6"/>
         <segue reference="aYE-Ez-HKl"/>
     </inferredMetricsTieBreakers>
 </document>
