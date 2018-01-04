@@ -482,7 +482,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         if (self.isEditingViewController == false) {
             // new
             var post = self.payment?.toAnyObject()
-            if((self.payment?.isRecurrentPayment) != nil){
+            if(self.payment?.isRecurrentPayment())!{
                 // create both payment and recurrent payment
                 let repeatPaymentRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child("recurrent").child(payment_type)
                 
