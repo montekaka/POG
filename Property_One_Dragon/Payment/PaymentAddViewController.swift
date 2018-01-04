@@ -481,7 +481,19 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let propertyKey = self.property!.ref!.key
         if (self.isEditingViewController == false) {
             // new
-            let post = self.payment?.toAnyObject()
+            var post = self.payment?.toAnyObject()
+            if((self.payment?.isRecurrentPayment) != nil){
+                // create both payment and recurrent payment
+                let repeatPaymentRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child("recurrent").child(payment_type)
+                
+                let postRepeatPaymentRef = repeatPaymentRef?.childByAutoId()
+                postRepeatPaymentRef?.setValue(post)
+                let rpid = postRepeatPaymentRef?.key
+                self.payment?.setRecurrentPaymentID(key: rpid!)
+                post = self.payment?.toAnyObject()
+                
+            }
+            // create payment
             let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
             propertyRef?.childByAutoId().setValue(post)
         } else {

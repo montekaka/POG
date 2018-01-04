@@ -34,7 +34,7 @@ class Payment {
     var endDate: Date?
     var paymentNotes:String?
     var ref: DatabaseReference?
-    private var repeatPaymentID: String?
+    private var recurrentPaymentID: String?
     
     // list of avaiable values
     //private var data = [Receiptdata]()
@@ -135,6 +135,9 @@ class Payment {
         dbReference.removeAllObservers()
     }
     
+    func setRecurrentPaymentID(key: String){
+        self.recurrentPaymentID = key
+    }
 
     func toAnyObject() -> Any {
         //var annualizedPayment = false
@@ -154,6 +157,9 @@ class Payment {
         
         if((self.paymentNotes) != nil){
             result["paymentNotes"] = self.paymentNotes!            
+        }
+        if((self.recurrentPaymentID) != nil){
+            result["recurrentPaymentID"] = self.recurrentPaymentID!
         }
         return result
     }
@@ -256,6 +262,15 @@ class Payment {
             
             self.frequency = frequencyData(label: label, code: code, value: value)
         })
+    }
+    
+    func isRecurrentPayment() -> Bool {
+        var result = false
+        let frequence_value = self.frequency?.code
+        if( frequence_value != "noRepeat" ){
+            result = true
+        }
+        return result
     }
     
     func update(viewType: String, snapshotValue: Dictionary<String, AnyObject>?, dbReference: DatabaseReference){
