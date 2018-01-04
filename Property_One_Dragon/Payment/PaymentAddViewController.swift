@@ -67,105 +67,15 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc func addButtonPressed() {
         
-        var r: Payment!
         // create a new payment
         self.dbReference = Database.database().reference()
 
         if(self.isEditingViewController == true){
             // edit
-            r = self.payment
-            let bill_amount = Double(self.billAmount.text!) ?? 0
-            let end_date = self.endDate ?? Date()
-            let selected_freq_data = self.selectedFrequenceData ?? self.payment?.getPaymentFrquence()
-            let selected_category_data = self.selectedCategoryData ?? self.payment?.getPaymentCategory()
-            r.endDate = end_date
-            if(self.paymentNotes != nil) {
-                r.paymentNotes = self.paymentNotes
-            }
-            //r.amount = Double(billAmount.text!)
-
-            do {
-                try r!.setPaidAmount(amount: bill_amount)
-
-                if((self.paidDate) != nil){
-                    //r?.date = self.paidDate
-                    try r.setPaidDate(paid_date: self.paidDate!)
-                } else {
-                    let paid_date = Date()
-                    try r.setPaidDate(paid_date: paid_date)
-                }
-
-                try r!.setPaidDate(paid_date: self.paidDate!)
-                try r!.setPaymentFrequency(freq: selected_freq_data)
-                try r!.setPaymentCategory(category_item: selected_category_data)
-                self.updatePayment(r:r)
-            } catch let error as PaymentValidationError {
-                var errorMsg = ""
-                switch(error) {
-                    case .InvalidPayAmount:
-                        errorMsg = "Invalid amount"
-                    case .InvalidPaidDate:
-                        errorMsg = "Paid Date can't be later than payment end date"
-                    case .InvalidPaymentFrequence:
-                        errorMsg = "Payment frequency is required"
-                    case .InvalidPaymentCategory:
-                        errorMsg = "Payment category is required"
-                }
-                let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            } catch {
-
-            }
-
-
-
+            self.editPayment()
         } else {
             // new
-            let bill_amount = Double(self.billAmount.text!) ?? 0
-            let paid_date = self.paidDate ?? Date()
-
-            if let p = Payment(amount: bill_amount) {
-                r = p
-                let end_date = self.endDate ?? Date()
-                r.endDate = end_date
-                if(self.paymentNotes != nil) {
-                    r.paymentNotes = self.paymentNotes
-                }
-
-                do {
-                    try r!.setPaidAmount(amount: bill_amount)
-                    try r!.setPaidDate(paid_date: paid_date)
-                    try r!.setPaymentFrequency(freq: self.selectedFrequenceData)
-                    try r!.setPaymentCategory(category_item: self.selectedCategoryData)
-
-                    self.updatePayment(r:r)
-                } catch let error as PaymentValidationError{
-                    var errorMsg = ""
-                    switch(error) {
-                    case .InvalidPayAmount:
-                        errorMsg = "Invalid Amount"
-                    case .InvalidPaidDate:
-                        errorMsg = "Invalid Date"
-                    case .InvalidPaymentFrequence:
-                        errorMsg = "Payment frequency is required"
-                    case .InvalidPaymentCategory:
-                        errorMsg = "Payment category is required"
-                    }
-                    let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                } catch {
-
-                }
-
-            } else {
-                let alert = UIAlertController(title: "Error", message: "Error creating payment", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
-
-            // end new payment
+            self.createPayment()
         }
     }
     
@@ -680,6 +590,103 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         self.frequencyTextField.text = arrayOfFrequencyPickerData[row].label
         self.selectedFrequenceData = arrayOfFrequencyPickerData[row]
         self.frequencyTextField.resignFirstResponder()
+    }
+    // create new payment
+    func createPayment(){
+        var r: Payment!
+        let bill_amount = Double(self.billAmount.text!) ?? 0
+        let paid_date = self.paidDate ?? Date()
+        
+        if let p = Payment(amount: bill_amount) {
+            r = p
+            let end_date = self.endDate ?? Date()
+            r.endDate = end_date
+            if(self.paymentNotes != nil) {
+                r.paymentNotes = self.paymentNotes
+            }
+            
+            do {
+                try r!.setPaidAmount(amount: bill_amount)
+                try r!.setPaidDate(paid_date: paid_date)
+                try r!.setPaymentFrequency(freq: self.selectedFrequenceData)
+                try r!.setPaymentCategory(category_item: self.selectedCategoryData)
+                
+                self.updatePayment(r:r)
+            } catch let error as PaymentValidationError{
+                var errorMsg = ""
+                switch(error) {
+                case .InvalidPayAmount:
+                    errorMsg = "Invalid Amount"
+                case .InvalidPaidDate:
+                    errorMsg = "Invalid Date"
+                case .InvalidPaymentFrequence:
+                    errorMsg = "Payment frequency is required"
+                case .InvalidPaymentCategory:
+                    errorMsg = "Payment category is required"
+                }
+                let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } catch {
+                
+            }
+            
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Error creating payment", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    
+    // update
+    func editPayment(){
+        var r: Payment!
+        r = self.payment
+        let bill_amount = Double(self.billAmount.text!) ?? 0
+        let end_date = self.endDate ?? Date()
+        let selected_freq_data = self.selectedFrequenceData ?? self.payment?.getPaymentFrquence()
+        let selected_category_data = self.selectedCategoryData ?? self.payment?.getPaymentCategory()
+        r.endDate = end_date
+        if(self.paymentNotes != nil) {
+            r.paymentNotes = self.paymentNotes
+        }
+        //r.amount = Double(billAmount.text!)
+        
+        do {
+            try r!.setPaidAmount(amount: bill_amount)
+            
+            if((self.paidDate) != nil){
+                //r?.date = self.paidDate
+                try r.setPaidDate(paid_date: self.paidDate!)
+            } else {
+                let paid_date = Date()
+                try r.setPaidDate(paid_date: paid_date)
+            }
+            
+            try r!.setPaidDate(paid_date: self.paidDate!)
+            try r!.setPaymentFrequency(freq: selected_freq_data)
+            try r!.setPaymentCategory(category_item: selected_category_data)
+            self.updatePayment(r:r)
+        } catch let error as PaymentValidationError {
+            var errorMsg = ""
+            switch(error) {
+            case .InvalidPayAmount:
+                errorMsg = "Invalid amount"
+            case .InvalidPaidDate:
+                errorMsg = "Paid Date can't be later than payment end date"
+            case .InvalidPaymentFrequence:
+                errorMsg = "Payment frequency is required"
+            case .InvalidPaymentCategory:
+                errorMsg = "Payment category is required"
+            }
+            let alert = UIAlertController(title: "Error", message: errorMsg, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } catch {
+        }
+
     }
     
     // end picker view

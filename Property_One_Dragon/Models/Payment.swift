@@ -34,6 +34,7 @@ class Payment {
     var endDate: Date?
     var paymentNotes:String?
     var ref: DatabaseReference?
+    private var repeatPaymentID: String?
     
     // list of avaiable values
     //private var data = [Receiptdata]()
