@@ -36,7 +36,9 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // retrive data from firebase for current user
         self.configureDatabase()
-        
+        print("hello world")
+        let printdate = NSDate(timeIntervalSince1970: 1515130758.577705 ) as Date?
+        print(printdate)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -300,7 +300,7 @@
         <!--Payment View Controller-->
         <scene sceneID="HrA-cl-NT7">
             <objects>
-                <viewController id="dLa-mH-ze2" customClass="PaymentViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="dLa-mH-ze2" customClass="PaymentViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VZE-jq-XT5"/>
                         <viewControllerLayoutGuide type="bottom" id="l4i-kY-Vmy"/>
@@ -310,20 +310,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Pn-MH-GMt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.97647058823529409" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="dLa-mH-ze2" id="LND-eE-8cp"/>
                                     <outlet property="delegate" destination="dLa-mH-ze2" id="id5-PR-idd"/>
                                 </connections>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PzE-Jf-d3o">
+                                <rect key="frame" x="16" y="72" width="343" height="29"/>
+                                <segments>
+                                    <segment title="Payment"/>
+                                    <segment title="Recurrent"/>
+                                </segments>
+                                <connections>
+                                    <action selector="switchTableViewAction:" destination="dLa-mH-ze2" eventType="valueChanged" id="4zg-WH-O4o"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="PzE-Jf-d3o" firstAttribute="trailing" secondItem="aj7-CA-2bA" secondAttribute="trailingMargin" id="7Q9-Tn-NUJ"/>
+                            <constraint firstItem="PzE-Jf-d3o" firstAttribute="leading" secondItem="aj7-CA-2bA" secondAttribute="leadingMargin" id="BUr-9X-38K"/>
                             <constraint firstAttribute="trailing" secondItem="4Pn-MH-GMt" secondAttribute="trailing" id="HEg-JT-F50"/>
+                            <constraint firstItem="4Pn-MH-GMt" firstAttribute="top" secondItem="PzE-Jf-d3o" secondAttribute="bottom" constant="8" id="NjW-yK-9B9"/>
                             <constraint firstItem="l4i-kY-Vmy" firstAttribute="top" secondItem="4Pn-MH-GMt" secondAttribute="bottom" id="ONm-he-goV"/>
+                            <constraint firstItem="PzE-Jf-d3o" firstAttribute="top" secondItem="VZE-jq-XT5" secondAttribute="bottom" constant="8" id="PNJ-fh-HFB"/>
                             <constraint firstItem="4Pn-MH-GMt" firstAttribute="leading" secondItem="aj7-CA-2bA" secondAttribute="leading" id="XhB-eX-e31"/>
-                            <constraint firstItem="4Pn-MH-GMt" firstAttribute="top" secondItem="aj7-CA-2bA" secondAttribute="top" id="yA0-eU-lXa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="FDG-Po-ugx"/>
@@ -730,7 +743,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="ETM-sr-5Yu"/>
         <segue reference="0WM-px-7qa"/>
-        <segue reference="i2I-Zi-YwS"/>
+        <segue reference="fGg-wr-Y9W"/>
         <segue reference="Lyq-oV-1dP"/>
         <segue reference="3Zg-T6-vvl"/>
         <segue reference="Xtl-6R-XX6"/>

@@ -11,19 +11,29 @@ import Firebase
 
 class PaymentViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     //var data: [String] = ["Row 1","Row 2","Row 3"]
+  
     var selectedRow:Int = -1
     var property : Property?
     var viewTitle: String!
     var viewType: String! // "Incomes", "Expenses"
     var dataArray:[Payment] = []
+    var tableViewPickID: Int?
+    var repeatPayment: Bool?
     
     var arrayOfFrequencyPickerData: [frequencyData] = []
     var arrayOfExpenseCategoryData: [categoryData] = []
     var arrayOfIncomeCategoryData: [categoryData] = []
-
+    
     // firebase
     var dbReference: DatabaseReference?
     var dbHandle: DatabaseHandle?
+    
+    @IBAction func switchTableViewAction(_ sender: UISegmentedControl) {
+        self.tableViewPickID = sender.selectedSegmentIndex
+        self.configData()
+    }
+    
+
     
     @IBOutlet weak var table: UITableView!
     
@@ -37,6 +47,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableViewPickID = 0
         self.tabBarController?.tabBar.isHidden = true
         self.title = viewTitle
         self.dbReference = Database.database().reference()
@@ -98,6 +109,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
             detailView.property = self.property
             detailView.masterView = self
             detailView.viewType = self.viewType
+            detailView.repeatPayment = self.repeatPayment
             let object = dataArray[selectedRow]
             detailView.detailItem = object
         }
@@ -121,7 +133,34 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             self.viewType = "Other"
         }
+        if(self.tableViewPickID == 0){
+            self.repeatPayment = false
+            self.configPaymentData()
+        }
+        else {
+            self.repeatPayment = true
+            self.configRecurrentPaymentData()
+        }
+
+    }
+    
+    func configPaymentData(){
         self.property?.ref?.child(self.viewType).observe(.value, with: { snapshot in
+            var newItems: [Payment] = []
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+            for item in snapshots {
+                let p = Payment(snapshot: item,paymentType: self.viewType)
+                newItems.append(p!)
+            }
+            self.dataArray = newItems
+            self.table.reloadData()
+            }
+        })
+    }
+    
+    func configRecurrentPaymentData(){
+        self.property?.ref?.child("recurrent").child(self.viewType).observe(.value, with: { snapshot in
             var newItems: [Payment] = []
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {

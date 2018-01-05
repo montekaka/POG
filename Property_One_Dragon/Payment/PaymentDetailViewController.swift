@@ -14,6 +14,7 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     var detailItem : Payment?
     var property : Property?
     var viewType: String?
+    var repeatPayment: Bool?
     
     var arrayOfFrequencyPickerData: [frequencyData] = []
     var arrayOfExpenseCategoryData: [categoryData] = []
@@ -134,19 +135,19 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     func configData(){
         self.dbReference = Database.database().reference()
-        self.paymentRecords = detailItem!.get(repeatPayment: false)
+        self.paymentRecords = detailItem!.get(repeatPayment: self.repeatPayment!)
         
         detailItem?.ref?.observe(.childChanged, with: { (snapshot) in
             let sp: [String: AnyObject] = [snapshot.key: snapshot.value as AnyObject]
             self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
-            self.paymentRecords = (self.detailItem?.get(repeatPayment: false))!
+            self.paymentRecords = (self.detailItem?.get(repeatPayment: self.repeatPayment!))!
             self.tableView.reloadData()
         })
         
         detailItem?.ref?.observe(.childAdded, with: {(snapshot) in
             let sp: [String: AnyObject] = [snapshot.key: snapshot.value as AnyObject]
             self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
-            self.paymentRecords = (self.detailItem?.get(repeatPayment: false))!
+            self.paymentRecords = (self.detailItem?.get(repeatPayment: self.repeatPayment!))!
             self.tableView.reloadData()
         })
     }
