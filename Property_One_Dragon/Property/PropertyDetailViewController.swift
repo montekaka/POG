@@ -77,16 +77,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.property = detailItem
             controller.viewTitle = "New Expense"
             // * enhancement * move the following array into a property list or json file
-            controller.arrayOfCellData = [
-                cellData(cell: "Input", code: "payment", label: "Amount")
-                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
-                //,cellData(cell: "Switch", text: "Annualized")
-                ,cellData(cell: "Picker", code: "category", label: "Category")
-                ,cellData(cell: "Picker", code: "freqency",  label: "Paid")
-                ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
-                ,cellData(cell: "Action", code: "text", label: "Notes")
-                ,cellData(cell:"Button", code: "savebutton", label:"Save")
-            ]
+            controller.arrayOfCellData = newPaymentCellData
             controller.viewType = "Expenses"
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData
@@ -108,16 +99,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             controller.property = detailItem
             controller.viewTitle = "New Income"
             // * enhancement * move the following array into a property list or json file
-            controller.arrayOfCellData = [
-                cellData(cell: "Input", code: "payment", label: "Rent Amount")
-                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
-                //,cellData(cell: "Switch", text: "Annualized")
-                ,cellData(cell: "Picker", code: "category", label: "Category")
-                ,cellData(cell: "Picker", code: "freqency",  label: "Rent paid")
-                ,cellData(cell: "Picker", code: "enddate", label: "Lease ends")
-                ,cellData(cell: "Action", code: "Text", label: "Notes")
-                ,cellData(cell:"Button", code: "savebutton", label:"Save")
-            ]
+            controller.arrayOfCellData = newRevenueCellData
             controller.viewType = "Incomes"
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData

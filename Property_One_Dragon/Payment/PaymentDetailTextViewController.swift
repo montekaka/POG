@@ -88,7 +88,7 @@ class PaymentDetailTextViewController: UIViewController, UITextViewDelegate {
         if(payment != nil) {
             // edit
             self.payment?.paymentNotes = self.textView.text
-            let post = self.payment!.toAnyObject()
+            let post = self.payment!.toAnyObject(repeatPayment: true)
             self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
             self.paymentAddViewController?.paymentNotes = self.textView.text
         } else {

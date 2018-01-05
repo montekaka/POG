@@ -57,8 +57,8 @@ class Payment {
         self.amount = Double(amount)
     }
     
-    func setPaidDate(paid_date: Date) throws {
-        let date_diff = self.dateDiff(date_x: paid_date, date_y: self.endDate!)
+    func setPaidDate(paid_date: Date, end_date: Date) throws {
+        let date_diff = self.dateDiff(date_x: paid_date, date_y: end_date)        
         if(date_diff > 0) {
             throw PaymentValidationError.InvalidPaidDate
         }
@@ -117,7 +117,7 @@ class Payment {
         self.amount = snapshotValue!["paidAmount"] as? Double
         self.date = NSDate(timeIntervalSince1970: snapshotValue!["paidDate"] as! TimeInterval) as Date
         self.categoryCode = snapshotValue!["paymentCategoryCode"] as? String
-        
+
         if((snapshotValue!["paymentEndDate"]) != nil) {
             self.endDate = NSDate(timeIntervalSince1970: snapshotValue!["paymentEndDate"] as! TimeInterval) as Date?
         }
@@ -139,7 +139,7 @@ class Payment {
         self.recurrentPaymentID = key
     }
 
-    func toAnyObject() -> Any {
+    func toAnyObject(repeatPayment: Bool) -> Any {
         //var annualizedPayment = false
 
 //        if(self.isAnnualized == true){
@@ -150,9 +150,8 @@ class Payment {
             "paidAmount": self.amount!,
             "paidDate": self.date!.timeIntervalSince1970, // get date = NSDate(timeIntervalSince1970: paidDate)
             "paymentFrequencyCode": self.frequency!.code!,
-            "paymentCategoryCode": self.category!.code!,
+            "paymentCategoryCode": self.category!.code!
             //"annualizedPayment": annualizedPayment,
-            "paymentEndDate": self.endDate!.timeIntervalSince1970
             ] as [String : Any]
         
         if((self.paymentNotes) != nil){
@@ -160,6 +159,9 @@ class Payment {
         }
         if((self.recurrentPaymentID) != nil){
             result["recurrentPaymentID"] = self.recurrentPaymentID!
+        }
+        if(repeatPayment == true){
+            result["paymentEndDate"] = self.endDate!.timeIntervalSince1970
         }
         return result
     }
@@ -187,7 +189,7 @@ class Payment {
         return result
     }
     
-    func get() -> [paymentData] {
+    func get(repeatPayment: Bool) -> [paymentData] {
         var data = [paymentData]()
         
         // date formatter
@@ -201,12 +203,16 @@ class Payment {
         
         
         let amountStr = currencyFormatter.string(from: self.amount! as NSNumber)
-            data.append(paymentData(label: "Amount", value: self.amount, format: amountStr))
+        data.append(paymentData(label: "Amount", value: self.amount, format: amountStr))
         
         
         let paidDateString = dateFormatter.string(from: self.date!)
-            data.append(paymentData(label: "Paid on", value: self.date, format: paidDateString))
+        data.append(paymentData(label: "Paid on", value: self.date, format: paidDateString))
         
+        if(repeatPayment == true){
+            let endDateString = dateFormatter.string(from: self.endDate!)
+            data.append(paymentData(label: "Ends on", value: self.endDate, format: endDateString))
+        }
 
         if ((self.category) != nil ) {
             data.append(paymentData(label: "Category", value: self.category, format: self.category?.label))

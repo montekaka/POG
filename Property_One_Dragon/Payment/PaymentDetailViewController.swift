@@ -101,27 +101,19 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
             let controller = segue.destination as! PaymentAddViewController
             controller.property = self.property
             // * enhancement * move the following array into a property list or json file
-            controller.arrayOfCellData = [
-                cellData(cell: "Input", code: "payment", label: "Amount")
-                ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
-                //,cellData(cell: "Switch", text: "Annualized")
-                ,cellData(cell: "Picker", code: "category", label: "Category")
-                ,cellData(cell: "Picker", code: "freqency",  label: "Paid")
-                ,cellData(cell: "Picker", code: "enddate", label: "Payment ends")
-                ,cellData(cell: "Action", code: "text", label: "Notes")
-                ,cellData(cell:"Button", code: "savebutton", label:"Save")
-            ]
-            
-            
+                        
             controller.payment = self.detailItem
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.viewType = self.viewType
+            
             if(self.viewType == "Expenses"){
                 controller.viewTitle = "Edit Expense"
-                controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData // depends on income or expense
+                controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData // depends on
+                controller.arrayOfCellData = editPaymentCellData // from utilis folder config fileincome or expense
             } else if(self.viewType == "Incomes") {
                 controller.viewTitle = "Edit Income"
-                controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData // depends on income or expense
+                controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData // depends on income
+                controller.arrayOfCellData = editRevenueCellData // from utilis folder config fileor expense
             } else {
                 print("Something went wrong in payment detail view controller")
             }
@@ -142,19 +134,19 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
     
     func configData(){
         self.dbReference = Database.database().reference()
-        self.paymentRecords = detailItem!.get()
+        self.paymentRecords = detailItem!.get(repeatPayment: false)
         
         detailItem?.ref?.observe(.childChanged, with: { (snapshot) in
             let sp: [String: AnyObject] = [snapshot.key: snapshot.value as AnyObject]
             self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
-            self.paymentRecords = (self.detailItem?.get())!
+            self.paymentRecords = (self.detailItem?.get(repeatPayment: false))!
             self.tableView.reloadData()
         })
         
         detailItem?.ref?.observe(.childAdded, with: {(snapshot) in
             let sp: [String: AnyObject] = [snapshot.key: snapshot.value as AnyObject]
             self.detailItem?.update(viewType: self.viewType!, snapshotValue: sp, dbReference: self.dbReference!)
-            self.paymentRecords = (self.detailItem?.get())!
+            self.paymentRecords = (self.detailItem?.get(repeatPayment: false))!
             self.tableView.reloadData()
         })
     }

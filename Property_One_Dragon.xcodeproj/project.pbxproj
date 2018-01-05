@@ -23,6 +23,7 @@
 		E53853FC1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FA1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib */; };
 		E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */; };
 		E53854001FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */; };
+		E53B2EBA1FFF318700E83866 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B2EB91FFF318700E83866 /* Config.swift */; };
 		E572FA951FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572FA931FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift */; };
 		E572FA961FC772BF00DA23F1 /* PaymentDetailTableViewCellText.xib in Resources */ = {isa = PBXBuildFile; fileRef = E572FA941FC772BE00DA23F1 /* PaymentDetailTableViewCellText.xib */; };
 		E586EE001FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */; };
@@ -73,6 +74,7 @@
 		E53853FA1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellTextField.xib; sourceTree = "<group>"; };
 		E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellSwitch.swift; sourceTree = "<group>"; };
 		E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellSwitch.xib; sourceTree = "<group>"; };
+		E53B2EB91FFF318700E83866 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E572FA931FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailTableViewCellText.swift; sourceTree = "<group>"; };
 		E572FA941FC772BE00DA23F1 /* PaymentDetailTableViewCellText.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentDetailTableViewCellText.xib; sourceTree = "<group>"; };
 		E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyViewCustomCell.swift; sourceTree = "<group>"; };
@@ -160,13 +162,22 @@
 				E5A0C4721FC8B73700F55681 /* Payment */,
 				E5056D411F9EFDF000441F02 /* Main.storyboard */,
 				E5ED69ED1FCBE73C00FC5E1C /* Models */,
-				E5A0C4701FC8AB0000F55681 /* StructCollection.swift */,
+				E53B2EB81FFF30D900E83866 /* Utilis */,
 				E5056D441F9EFDF000441F02 /* Assets.xcassets */,
 				E5056D461F9EFDF000441F02 /* LaunchScreen.storyboard */,
 				E5056D491F9EFDF000441F02 /* Info.plist */,
 				E5ED69EB1FCBBE6600FC5E1C /* GoogleService-Info.plist */,
 			);
 			path = Property_One_Dragon;
+			sourceTree = "<group>";
+		};
+		E53B2EB81FFF30D900E83866 /* Utilis */ = {
+			isa = PBXGroup;
+			children = (
+				E5A0C4701FC8AB0000F55681 /* StructCollection.swift */,
+				E53B2EB91FFF318700E83866 /* Config.swift */,
+			);
+			path = Utilis;
 			sourceTree = "<group>";
 		};
 		E572FA971FC772D100DA23F1 /* PaymentDetailTableCell */ = {
@@ -445,6 +456,7 @@
 				E5C27FAA1FA838700002FC7A /* PaymentAddViewController.swift in Sources */,
 				E5056D521F9F000B00441F02 /* PropertyViewController.swift in Sources */,
 				E5056D3E1F9EFDF000441F02 /* AppDelegate.swift in Sources */,
+				E53B2EBA1FFF318700E83866 /* Config.swift in Sources */,
 				E5C4A6061FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift in Sources */,
 				E5083B6C1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift in Sources */,
 				E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */,

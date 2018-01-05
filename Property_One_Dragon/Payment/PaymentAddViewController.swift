@@ -481,7 +481,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let propertyKey = self.property!.ref!.key
         if (self.isEditingViewController == false) {
             // new
-            var post = self.payment?.toAnyObject()
+            var post = self.payment?.toAnyObject(repeatPayment: true)
             if(self.payment?.isRecurrentPayment())!{
                 // create both payment and recurrent payment
                 let repeatPaymentRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child("recurrent").child(payment_type)
@@ -490,15 +490,14 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 postRepeatPaymentRef?.setValue(post)
                 let rpid = postRepeatPaymentRef?.key
                 self.payment?.setRecurrentPaymentID(key: rpid!)
-                post = self.payment?.toAnyObject()
-                
+                post = self.payment?.toAnyObject(repeatPayment: false)
             }
             // create payment
             let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
             propertyRef?.childByAutoId().setValue(post)
         } else {
-            // edit
-            let post = self.payment!.toAnyObject()
+            // edit non recurrent payment
+            let post = self.payment!.toAnyObject(repeatPayment: false)
             //print(post)
             self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
         }
@@ -611,7 +610,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         
         if let p = Payment(amount: bill_amount) {
             r = p
-            let end_date = self.endDate ?? Date()
+            let end_date = self.endDate ?? paid_date
             r.endDate = end_date
             if(self.paymentNotes != nil) {
                 r.paymentNotes = self.paymentNotes
@@ -619,7 +618,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             
             do {
                 try r!.setPaidAmount(amount: bill_amount)
-                try r!.setPaidDate(paid_date: paid_date)
+                try r!.setPaidDate(paid_date: paid_date, end_date: end_date)
                 try r!.setPaymentFrequency(freq: self.selectedFrequenceData)
                 try r!.setPaymentCategory(category_item: self.selectedCategoryData)
                 
@@ -657,7 +656,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         var r: Payment!
         r = self.payment
         let bill_amount = Double(self.billAmount.text!) ?? 0
-        let end_date = self.endDate ?? Date()
+        let end_date = self.endDate ?? self.paidDate
         let selected_freq_data = self.selectedFrequenceData ?? self.payment?.getPaymentFrquence()
         let selected_category_data = self.selectedCategoryData ?? self.payment?.getPaymentCategory()
         r.endDate = end_date
@@ -671,13 +670,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             
             if((self.paidDate) != nil){
                 //r?.date = self.paidDate
-                try r.setPaidDate(paid_date: self.paidDate!)
+                try r.setPaidDate(paid_date: self.paidDate!, end_date: end_date!)
             } else {
                 let paid_date = Date()
-                try r.setPaidDate(paid_date: paid_date)
+                try r.setPaidDate(paid_date: paid_date, end_date: end_date!)
             }
             
-            try r!.setPaidDate(paid_date: self.paidDate!)
+            try r!.setPaidDate(paid_date: self.paidDate!, end_date: end_date!)
             try r!.setPaymentFrequency(freq: selected_freq_data)
             try r!.setPaymentCategory(category_item: selected_category_data)
             self.updatePayment(r:r)
