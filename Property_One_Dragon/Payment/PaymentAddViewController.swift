@@ -152,14 +152,15 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         toolbar.setItems([done], animated: false)
         
         cell.TextField.inputAccessoryView = toolbar
-        cell.TextField.inputView = endDatePicker
+        cell.TextField.inputView = self.endDatePicker
         //paidDateField.inputAccessoryView = toolbar
         // paidDateField.inputView = paidDatePicker
         // format picker for date
+        self.endDatePicker.datePickerMode = .date
         if ( self.payment != nil ) {
-            endDatePicker.date = (payment?.endDate)!
+            self.endDatePicker.date = (payment?.endDate)!
         }
-        endDatePicker.datePickerMode = .date
+        
     }
     
     @objc func doneEndDatePickerPressed(){
@@ -167,7 +168,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
-//        self.endDate = self.endDatePicker.date
+        self.endDate = self.endDatePicker.date
         let dateString = formatter.string(from: endDatePicker.date)
         self.endDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
@@ -612,6 +613,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             r = p
             let end_date = self.endDate ?? paid_date
             r.endDate = end_date
+            print(paid_date)
             if(self.paymentNotes != nil) {
                 r.paymentNotes = self.paymentNotes
             }
