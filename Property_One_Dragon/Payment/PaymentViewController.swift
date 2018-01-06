@@ -17,7 +17,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     var viewTitle: String!
     var viewType: String! // "Incomes", "Expenses"
     var dataArray:[Payment] = []
-    var tableViewPickID: Int?
+    var tableViewPickID: Int? // init from the property detail view contorller
     var repeatPayment: Bool?
     
     var arrayOfFrequencyPickerData: [frequencyData] = []
@@ -47,7 +47,7 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableViewPickID = 0
+        //self.tableViewPickID = 0
         self.tabBarController?.tabBar.isHidden = true
         self.title = viewTitle
         self.dbReference = Database.database().reference()

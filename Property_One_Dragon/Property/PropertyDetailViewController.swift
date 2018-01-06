@@ -87,6 +87,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! PaymentViewController
             controller.property = detailItem
             controller.viewTitle = "Expense"
+            controller.tableViewPickID = 0
             controller.arrayOfExpenseCategoryData = self.arrayOfExpenseCategoryData
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             
@@ -116,6 +117,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! PaymentViewController
             controller.property = detailItem
             controller.viewTitle = "Income"
+            controller.tableViewPickID = 0
            // let appDelegrate = UIApplication.shared.delegate as! AppDelegate
             //controller.dataArray = appDelegrate.revenueArray
             controller.arrayOfIncomeCategoryData = self.arrayOfIncomeCategoryData
