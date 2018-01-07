@@ -212,6 +212,7 @@ class Payment {
         if(repeatPayment == true){
             let endDateString = dateFormatter.string(from: self.endDate!)
             data.append(paymentData(label: "Ends on", value: self.endDate, format: endDateString))
+            data.append(paymentData(label: "Pays", value: self.frequency, format: self.frequency?.label))
         }
 
         if ((self.category) != nil ) {
