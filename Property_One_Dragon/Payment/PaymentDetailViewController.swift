@@ -102,19 +102,28 @@ class PaymentDetailViewController: UIViewController, UITableViewDataSource, UITa
             let controller = segue.destination as! PaymentAddViewController
             controller.property = self.property
             // * enhancement * move the following array into a property list or json file
-                        
+            controller.isRecurrentPayment = self.detailItem?.isRecurrentPayment()
             controller.payment = self.detailItem
             controller.arrayOfFrequencyPickerData = self.arrayOfFrequencyPickerData
             controller.viewType = self.viewType
             
             if(self.viewType == "Expenses"){
                 controller.viewTitle = "Edit Expense"
-                controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData // depends on
-                controller.arrayOfCellData = editPaymentCellData // from utilis folder config fileincome or expense
+                controller.arrayOfCategoryData = self.arrayOfExpenseCategoryData // depends on income or expense
+                if(self.repeatPayment == true){
+                    controller.arrayOfCellData = newPaymentCellData // from utilis folder config file
+                } else {
+                    controller.arrayOfCellData = singlePaymentCellData // from utilis folder config file
+                }
+                
             } else if(self.viewType == "Incomes") {
                 controller.viewTitle = "Edit Income"
-                controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData // depends on income
-                controller.arrayOfCellData = editRevenueCellData // from utilis folder config fileor expense
+                controller.arrayOfCategoryData = self.arrayOfIncomeCategoryData // depends on income or expense
+                if(self.repeatPayment == true){
+                    controller.arrayOfCellData = newRevenueCellData // from utilis folder config file
+                } else {
+                    controller.arrayOfCellData = singleRevenueCellData // from utilis folder config file
+                }
             } else {
                 print("Something went wrong in payment detail view controller")
             }

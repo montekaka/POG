@@ -25,6 +25,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     private var categoryTextField: UITextField!
     
     var payment : Payment?
+    var isRecurrentPayment: Bool?
     private var isEditingViewController: Bool?
     private var billAmount: UITextField!
     // button

@@ -20,7 +20,7 @@ let newPaymentCellData =  [
 ]
 
 
-let editPaymentCellData =  [
+let singlePaymentCellData =  [
     cellData(cell: "Input", code: "payment", label: "Amount")
     ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
     //,cellData(cell: "Switch", text: "Annualized")
@@ -41,7 +41,7 @@ let newRevenueCellData = [
     ,cellData(cell:"Button", code: "savebutton", label:"Save")
 ]
 
-let editRevenueCellData =  [
+let singleRevenueCellData =  [
     cellData(cell: "Input", code: "payment", label: "Amount")
     ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
     //,cellData(cell: "Switch", text: "Annualized")
