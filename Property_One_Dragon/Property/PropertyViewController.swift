@@ -48,7 +48,11 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     func configureDatabase(){
         let uid = Auth.auth().currentUser?.uid
         self.dbReference = Database.database().reference()
-        self.dbHandle = self.dbReference?.child("users").child(uid!).child("properties").observe(.value, with: { snapshot in
+//        let query = self.dbReference?.child("properties").queryEqual(toValue: uid, childKey: "addedByUser")
+//        let query = self.dbReference?.child("properties").queryOrdered(byChild: "addedByUser").queryEqual(toValue: uid)
+    let query = self.dbReference?.child("properties").queryOrdered(byChild: "owners/uid").queryEqual(toValue: uid)
+        
+        self.dbHandle = query?.observe(.value, with: { snapshot in
             var newItems: [Property] = []
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {

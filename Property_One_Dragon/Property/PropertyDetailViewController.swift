@@ -240,8 +240,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
     
     func getPropertyFromFB(){
         self.dbReference = Database.database().reference()
-        _ = self.dbReference?.child("users").child(uid!).child("properties").child(propertyID!).observe(DataEventType.value, with: {(snapshot) in
+        let query = self.dbReference?.child("properties").child(self.propertyID!)
+        _ = query?.observe(DataEventType.value, with: {(snapshot) in
             let item = snapshot as DataSnapshot
+            
                 let p = Property(snapshot: item)
                 self.detailItem = p
                 self.setupUILabels()

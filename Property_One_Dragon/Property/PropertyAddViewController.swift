@@ -31,11 +31,14 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
                 
                 // save obj to firebase
                 dbReference = Database.database().reference()
-                let uid = self.currentUser?.uid
+                //let uid = self.currentUser?.uid
                 let dp = p.toAnyObject()                
-                let propertyRef = self.dbReference?.child("users").child(uid!).child("properties")
-                propertyRef?.childByAutoId().setValue(dp)
-                
+                //let propertyRef = self.dbReference?.child("users").child(uid!).child("properties")
+                let propertyRef = self.dbReference?.child("properties")
+                let pref = propertyRef?.childByAutoId()
+                let rpid = pref?.key
+                let _ = pref?.setValue(dp)
+                propertyRef?.child(rpid!).child("owners").setValue(["uid": self.currentUser?.uid])
             } else {
                 
                 let alert = UIAlertController(title: "Error", message: "Error creating property", preferredStyle: .alert)
