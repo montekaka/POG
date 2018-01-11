@@ -22,7 +22,7 @@ class Payment {
     // must fill
     private var date: Date?
     private var amount: Double?
-    var property_id: Int?
+    var property_id: String?
     var uid: String?
     
     // optional
@@ -147,6 +147,7 @@ class Payment {
 //        }
         
         var result = [
+            "propertyId": self.property_id!,
             "paidAmount": self.amount!,
             "paidDate": self.date!.timeIntervalSince1970, // get date = NSDate(timeIntervalSince1970: paidDate)
             "paymentFrequencyCode": self.frequency!.code!,

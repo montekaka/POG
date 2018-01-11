@@ -463,7 +463,9 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     func updatePayment(r: Payment){
         if self.property == nil {
         } else {
-            r.property_id = property?.id
+            //r.property_id = property?.id
+            let property_id = self.property!.ref!.key
+            r.property_id = property_id
         }
 
         if((self.endDate) != nil){
@@ -478,16 +480,17 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
     
     func addNewPayment(payment_type: String) {
         // payment_type: Expense / Incomes
-        let uid = self.property?.uid
+        //let uid = self.property?.uid
         //let key = self.property!.ref!.child("Expenses").childByAutoId().key
-        let propertyKey = self.property!.ref!.key
+        //let propertyKey = self.property!.ref!.key
         if (self.isEditingViewController == false) {
             // new
             var post = self.payment?.toAnyObject(repeatPayment: true)
             if(self.payment?.isRecurrentPayment())!{
                 // create both payment and recurrent payment
-                let repeatPaymentRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child("recurrent").child(payment_type)
-                
+                //let repeatPaymentRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child("recurrent").child(payment_type)
+
+                let repeatPaymentRef = self.dbReference?.child("recurrent_payments").child(payment_type)
                 let postRepeatPaymentRef = repeatPaymentRef?.childByAutoId()
                 postRepeatPaymentRef?.setValue(post)
                 let rpid = postRepeatPaymentRef?.key
@@ -495,7 +498,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 post = self.payment?.toAnyObject(repeatPayment: false)
             }
             // create payment
-            let propertyRef = self.dbReference?.child("users").child(uid!).child("properties").child(propertyKey).child(payment_type)
+            let propertyRef = self.dbReference?.child(payment_type)
             propertyRef?.childByAutoId().setValue(post)
         } else {
             // edit non recurrent payment
@@ -614,7 +617,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             r = p
             let end_date = self.endDate ?? paid_date
             r.endDate = end_date
-            print(paid_date)
+            
             if(self.paymentNotes != nil) {
                 r.paymentNotes = self.paymentNotes
             }

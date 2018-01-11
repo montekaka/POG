@@ -20,7 +20,7 @@ class Property {
     var ref: DatabaseReference?
     private(set) var uid: String?
     
-    private(set) var id: Int?
+    private(set) var id: String?
     private(set) var totalExpense: Double?
     private(set) var totalIncome: Double?
     private(set) var profitMargin: Double?
@@ -29,9 +29,9 @@ class Property {
         do {
             try setAddress(address: address)
             self.setUID(uid: uid)
-            let randomNum:UInt32 = arc4random_uniform(100)
-            let someInt:Int = Int(randomNum)
-            self.id = someInt
+            //let randomNum:UInt32 = arc4random_uniform(100)
+            //let someInt:Int = Int(randomNum)
+            //self.id = someInt
             self.ref = nil
             self.totalExpense = 0
             self.totalIncome = 0
@@ -90,6 +90,10 @@ class Property {
     
     func setUID(uid: String) {
         self.uid = uid;
+    }
+    
+    func setPropertyID(id: String){
+        self.id = id
     }
     
     func get() -> [tableCellData] {
