@@ -145,7 +145,10 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func configPaymentData(){
-        self.property?.ref?.child(self.viewType).observe(.value, with: { snapshot in
+        let property_key = self.property?.ref?.key
+        let query = self.dbReference?.child(self.viewType).queryOrdered(byChild: "propertyId").queryEqual(toValue: property_key)
+        
+        query?.observe(.value, with: { snapshot in
             var newItems: [Payment] = []
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
@@ -160,7 +163,10 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func configRecurrentPaymentData(){
-        self.property?.ref?.child("recurrent").child(self.viewType).observe(.value, with: { snapshot in
+        let property_key = self.property?.ref?.key
+        let query = self.dbReference?.child("recurrent_payments").child(self.viewType).queryOrdered(byChild: "propertyId").queryEqual(toValue: property_key)
+        
+        query?.observe(.value, with: { snapshot in
             var newItems: [Payment] = []
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
