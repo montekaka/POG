@@ -24,6 +24,7 @@
 		E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */; };
 		E53854001FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */; };
 		E53B2EBA1FFF318700E83866 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B2EB91FFF318700E83866 /* Config.swift */; };
+		E53B2EBD2007C57900E83866 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B2EBC2007C57900E83866 /* Service.swift */; };
 		E572FA951FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E572FA931FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift */; };
 		E572FA961FC772BF00DA23F1 /* PaymentDetailTableViewCellText.xib in Resources */ = {isa = PBXBuildFile; fileRef = E572FA941FC772BE00DA23F1 /* PaymentDetailTableViewCellText.xib */; };
 		E586EE001FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */; };
@@ -75,6 +76,7 @@
 		E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellSwitch.swift; sourceTree = "<group>"; };
 		E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellSwitch.xib; sourceTree = "<group>"; };
 		E53B2EB91FFF318700E83866 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		E53B2EBC2007C57900E83866 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E572FA931FC772BE00DA23F1 /* PaymentDetailTableViewCellText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailTableViewCellText.swift; sourceTree = "<group>"; };
 		E572FA941FC772BE00DA23F1 /* PaymentDetailTableViewCellText.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentDetailTableViewCellText.xib; sourceTree = "<group>"; };
 		E586EDFF1FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyViewCustomCell.swift; sourceTree = "<group>"; };
@@ -174,10 +176,19 @@
 		E53B2EB81FFF30D900E83866 /* Utilis */ = {
 			isa = PBXGroup;
 			children = (
+				E53B2EBB2007C55900E83866 /* Service */,
 				E5A0C4701FC8AB0000F55681 /* StructCollection.swift */,
 				E53B2EB91FFF318700E83866 /* Config.swift */,
 			);
 			path = Utilis;
+			sourceTree = "<group>";
+		};
+		E53B2EBB2007C55900E83866 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E53B2EBC2007C57900E83866 /* Service.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		E572FA971FC772D100DA23F1 /* PaymentDetailTableCell */ = {
@@ -451,6 +462,7 @@
 				E5ED69F01FCFDA9E00FC5E1C /* PropertyViewTableViewCell.swift in Sources */,
 				E5B9DC5D1FAA36F3000C1999 /* PaymentDetailViewController.swift in Sources */,
 				E586EE001FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift in Sources */,
+				E53B2EBD2007C57900E83866 /* Service.swift in Sources */,
 				E5C27FA61FA700D70002FC7A /* Payment.swift in Sources */,
 				E5A782CC1FEE033100C4C71D /* PaymentDetailTableViewCellNotes.swift in Sources */,
 				E5C27FAA1FA838700002FC7A /* PaymentAddViewController.swift in Sources */,

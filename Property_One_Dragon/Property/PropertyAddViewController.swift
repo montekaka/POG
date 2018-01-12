@@ -41,7 +41,6 @@ class PropertyAddViewController: UIViewController, UITextFieldDelegate {
                 property?.setPropertyID(id: rpid!)
                 propertyRef?.child(rpid!).child("owners").setValue(["uid": self.currentUser?.uid])
                 
-                
             } else {
                 
                 let alert = UIAlertController(title: "Error", message: "Error creating property", preferredStyle: .alert)

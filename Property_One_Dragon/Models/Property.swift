@@ -18,12 +18,16 @@ enum PropertyValidationError : Error {
 class Property {
     private(set) var address: String?
     var ref: DatabaseReference?
+    var dbReference: DatabaseReference?
     private(set) var uid: String?
     
     private(set) var id: String?
     private(set) var totalExpense: Double?
     private(set) var totalIncome: Double?
+    private(set) var totalExpenseStr: String?
+    private(set) var totalIncomeStr: String?
     private(set) var profitMargin: Double?
+    
  
     init?(address: String, uid: String){
         do {
@@ -35,7 +39,7 @@ class Property {
             self.ref = nil
             self.totalExpense = 0
             self.totalIncome = 0
-            self.profitMargin = self.getProfitMargin()
+            self.profitMargin = 0
         } catch {
             return nil
         }
@@ -47,17 +51,16 @@ class Property {
             try setAddress(address: snapshotValue!["address"] as! String)
             self.setUID(uid: snapshotValue!["addedByUser"] as! String)
             self.ref = snapshot.ref
-            self.totalExpense = self.setTotalPayment(snapshotValue: snapshotValue!, paymentType: "Expenses")
-            self.totalIncome = self.setTotalPayment(snapshotValue: snapshotValue!, paymentType: "Incomes")
-            self.profitMargin = self.getProfitMargin()
-            
+            self.totalExpense = snapshotValue!["totalExpense"] as? Double
+            self.totalIncome = snapshotValue!["totalIncome"] as? Double
+            //self.profitMargin = self.totalIncome! - self.totalExpense!
         } catch {
             return nil
         }
         
     }
     
-    func getPaymentTextLabel(paymentType: String) -> String {
+    func setPaymentTextLabel(paymentType: String) -> String {
         var amountStr: String?
         amountStr = ""
         let currencyFormatter = NumberFormatter()
@@ -73,14 +76,21 @@ class Property {
         return amountStr!
     }
     
-//    func getIncomeText() -> String {
-//        return self.getPaymentTextLabel(paymentType: "Income")
-//    }
-//
-//    func getExpenseText() -> String {
-//        return self.getPaymentTextLabel(paymentType: "Expense")
-//    }
-    
+    func getPaymentTextLabel(paymentType: String) -> String {
+        var amountStr: String?
+        amountStr = ""
+        if (paymentType == "Income") {
+            //snapValue!["label"] as? String ?? ""
+            amountStr = self.totalIncomeStr ?? ""
+        } else if (paymentType == "Expense"){
+            amountStr = self.totalExpenseStr ?? ""
+        } else if (paymentType == "ProfitLoss"){
+            amountStr = ""
+        }
+        
+        return amountStr!
+    }
+        
     func setAddress(address: String) throws {
         if (address.count < 1 ){
             throw PropertyValidationError.InvalidAddress
@@ -101,28 +111,16 @@ class Property {
         
         data = [
             tableCellData(label: "Address", value: self.address, cellType: "Text"),
-            tableCellData(label: "Income", value: self.getPaymentTextLabel(paymentType: "Income"), cellType: "CellWithButton"),
-            tableCellData(label: "Expense", value: self.getPaymentTextLabel(paymentType: "Expense"), cellType: "CellWithButton")
+            tableCellData(label: "Income", value: self.totalIncomeStr, cellType: "CellWithButton"),
+            tableCellData(label: "Expense", value: self.totalExpenseStr, cellType: "CellWithButton")
         ]                
         return data
     }
-    
-    func setTotalPayment(snapshotValue: Dictionary<String, AnyObject>, paymentType: String) -> Double {
-        var totalAmount: Double?
-        totalAmount = 0
-        let sp = snapshotValue[paymentType]
-        let payments = sp as? Dictionary<String, AnyObject>
-        if(payments != nil){
-            for payment in payments! {
-                totalAmount = totalAmount! + (payment.value["paidAmount"] as! Double)
-            }
-        }
-        return totalAmount!
-    }
-    
+        
     func getProfitMargin() -> Double {
         var result: Double?
-        result = self.totalIncome! - self.totalExpense!
+        //result = self.totalIncome! - self.totalExpense!
+        result = 0
         return result!
     }
     
@@ -130,9 +128,20 @@ class Property {
         // TO-DO: we should remove total income and expense
         return [
             "address": self.address!,
-            "addedByUser": self.uid!
+            "addedByUser": self.uid!,
+            "totalIncome": self.totalIncome!,
+            "totalExpense": self.totalExpense!
         ]
     }
     
+    func setTotalExpense(amount: Double){
+        self.totalExpense = amount
+        self.totalExpenseStr = self.setPaymentTextLabel(paymentType: "Expense")
+    }
+    
+    func setTotalIncome(amount: Double){
+        self.totalIncome = amount
+        self.totalIncomeStr = self.setPaymentTextLabel(paymentType: "Income")
+    }
     
 }

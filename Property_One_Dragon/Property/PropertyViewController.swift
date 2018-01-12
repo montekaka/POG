@@ -28,7 +28,6 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()        
         // Do any additional setup after loading the view, typically from a nib.
         self.title = "Property"
-        
         // add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
         self.navigationItem.rightBarButtonItem = addButton
@@ -46,6 +45,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func configureDatabase(){
+        print("Start loading data...")
         let uid = Auth.auth().currentUser?.uid
         self.dbReference = Database.database().reference()
 //        let query = self.dbReference?.child("properties").queryEqual(toValue: uid, childKey: "addedByUser")
@@ -58,7 +58,10 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for item in snapshots {
                     let p = Property(snapshot: item)
+                    //let property_id = p?.ref?.key
+                    // update the property payment data here
                     newItems.append(p!)
+                    
                 }
                 if (newItems.count == 0 ){
                     self.performSegue(withIdentifier: "propertyAddSegue", sender: self)
@@ -76,10 +79,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
             return
         }
         // go to add view controller
-        
         self.performSegue(withIdentifier: "propertyAddSegue", sender: self)
-        
-      
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -110,6 +110,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.address!.text = object.address
 //        cell.revenueLabel!.text =  "$\(object.totalIncome ?? 0)"
 //        cell.expenseLabel!.text =  "$\(object.totalExpense ?? 0)"
+        print("putting up the label from table cell")
         cell.revenueLabel!.text = object.getPaymentTextLabel(paymentType: "Income")
         cell.expenseLabel!.text = object.getPaymentTextLabel(paymentType: "Expense")
         cell.profitLoss!.text = object.getPaymentTextLabel(paymentType: "ProfitLoss")

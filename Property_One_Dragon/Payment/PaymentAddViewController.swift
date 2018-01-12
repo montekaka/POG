@@ -498,8 +498,10 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
                 post = self.payment?.toAnyObject(repeatPayment: false)
             }
             // create payment
-            let propertyRef = self.dbReference?.child(payment_type)
-            propertyRef?.childByAutoId().setValue(post)
+            let paymentRef = self.dbReference?.child(payment_type)
+            let _ = paymentRef?.childByAutoId().setValue(post)
+            // update property total payment
+            self.updatePropertyTotalPayment()
         } else {
             // edit non recurrent payment
             let post = self.payment!.toAnyObject(repeatPayment: false)
@@ -702,6 +704,22 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             alert.addAction(UIAlertAction(title:"Okay", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } catch {
+        }
+
+    }
+    
+    func updatePropertyTotalPayment(){
+        let property_id = self.property?.ref?.key
+        let _ = FirebaseService.sharedInstance.getTotalPayment(property_id: property_id!, paymentType: "Expenses"){
+            (totalAmount) in
+            self.property?.setTotalExpense(amount: totalAmount)
+            self.property?.ref?.updateChildValues(["totalExpense": totalAmount])
+            
+        }
+        let _ = FirebaseService.sharedInstance.getTotalPayment(property_id: property_id!, paymentType: "Incomes"){
+            (totalAmount) in
+            self.property?.setTotalIncome(amount: totalAmount)
+            self.property?.ref?.updateChildValues(["totalIncome": totalAmount])
         }
 
     }
