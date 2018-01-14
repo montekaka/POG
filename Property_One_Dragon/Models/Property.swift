@@ -24,9 +24,12 @@ class Property {
     private(set) var id: String?
     private(set) var totalExpense: Double?
     private(set) var totalIncome: Double?
+    private(set) var profitMargin: Double?
     private(set) var totalExpenseStr: String?
     private(set) var totalIncomeStr: String?
-    private(set) var profitMargin: Double?
+    private(set) var profitMarginStr: String?
+    
+    
     
  
     init?(address: String, uid: String){
@@ -51,8 +54,12 @@ class Property {
             try setAddress(address: snapshotValue!["address"] as! String)
             self.setUID(uid: snapshotValue!["addedByUser"] as! String)
             self.ref = snapshot.ref
-            self.totalExpense = snapshotValue!["totalExpense"] as? Double
-            self.totalIncome = snapshotValue!["totalIncome"] as? Double
+            let totalExpense = snapshotValue!["totalExpense"] as? Double
+            self.setTotalExpense(amount: totalExpense!)
+            let totalIncome = snapshotValue!["totalIncome"] as? Double
+            self.setTotalIncome(amount: totalIncome!)
+            self.getProfitMargin()
+            //self.totalIncome = snapshotValue!["totalIncome"] as? Double
             //self.profitMargin = self.totalIncome! - self.totalExpense!
         } catch {
             return nil
@@ -81,11 +88,11 @@ class Property {
         amountStr = ""
         if (paymentType == "Income") {
             //snapValue!["label"] as? String ?? ""
-            amountStr = self.totalIncomeStr ?? ""
+            amountStr = self.totalIncomeStr ?? "$0.00"
         } else if (paymentType == "Expense"){
-            amountStr = self.totalExpenseStr ?? ""
+            amountStr = self.totalExpenseStr ?? "$0.00"
         } else if (paymentType == "ProfitLoss"){
-            amountStr = ""
+            amountStr = self.profitMarginStr ?? "$0.00"
         }
         
         return amountStr!
@@ -117,11 +124,11 @@ class Property {
         return data
     }
         
-    func getProfitMargin() -> Double {
-        var result: Double?
-        //result = self.totalIncome! - self.totalExpense!
-        result = 0
-        return result!
+    func getProfitMargin() {
+        //var result: Double?
+        self.profitMargin = self.totalIncome! - self.totalExpense!
+        self.profitMarginStr = self.setPaymentTextLabel(paymentType: "ProfitLoss")
+        //return result!
     }
     
     func toAnyObject() -> Any {
@@ -137,6 +144,7 @@ class Property {
     func setTotalExpense(amount: Double){
         self.totalExpense = amount
         self.totalExpenseStr = self.setPaymentTextLabel(paymentType: "Expense")
+        
     }
     
     func setTotalIncome(amount: Double){

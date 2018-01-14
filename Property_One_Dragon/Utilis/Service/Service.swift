@@ -30,4 +30,21 @@ struct FirebaseService {
             completion(totalAmount)
         })
     }
+    
+    
+    func updatePropertyTotalPayment(property: Property){
+        let property_id = property.ref?.key
+        let _ = self.getTotalPayment(property_id: property_id!, paymentType: "Expenses"){
+            (totalAmount) in
+            property.setTotalExpense(amount: totalAmount)
+            property.ref?.updateChildValues(["totalExpense": totalAmount])
+            
+        }
+        let _ = self.getTotalPayment(property_id: property_id!, paymentType: "Incomes"){
+            (totalAmount) in
+            property.setTotalIncome(amount: totalAmount)
+            property.ref?.updateChildValues(["totalIncome": totalAmount])
+        }
+        
+    }
 }

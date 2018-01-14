@@ -94,6 +94,8 @@ class PaymentViewController: UIViewController, UITableViewDataSource, UITableVie
         if editingStyle == .delete {
             let p = dataArray[indexPath.row]
             p.ref?.removeValue()
+            FirebaseService.sharedInstance.updatePropertyTotalPayment(property: (self.property)!)
+            
         }
     }
     

@@ -501,12 +501,13 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
             let paymentRef = self.dbReference?.child(payment_type)
             let _ = paymentRef?.childByAutoId().setValue(post)
             // update property total payment
-            self.updatePropertyTotalPayment()
+            FirebaseService.sharedInstance.updatePropertyTotalPayment(property: self.property!)
         } else {
             // edit non recurrent payment
             let post = self.payment!.toAnyObject(repeatPayment: false)
             //print(post)
-            self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
+            let _ = self.payment?.ref?.updateChildValues(post as! [AnyHashable : Any])
+            FirebaseService.sharedInstance.updatePropertyTotalPayment(property: self.property!)
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -707,23 +708,7 @@ class PaymentAddViewController: UIViewController, UITableViewDataSource, UITable
         }
 
     }
-    
-    func updatePropertyTotalPayment(){
-        let property_id = self.property?.ref?.key
-        let _ = FirebaseService.sharedInstance.getTotalPayment(property_id: property_id!, paymentType: "Expenses"){
-            (totalAmount) in
-            self.property?.setTotalExpense(amount: totalAmount)
-            self.property?.ref?.updateChildValues(["totalExpense": totalAmount])
-            
-        }
-        let _ = FirebaseService.sharedInstance.getTotalPayment(property_id: property_id!, paymentType: "Incomes"){
-            (totalAmount) in
-            self.property?.setTotalIncome(amount: totalAmount)
-            self.property?.ref?.updateChildValues(["totalIncome": totalAmount])
-        }
-
-    }
-    
+        
     // end picker view
     /*
     // MARK: - Navigation
