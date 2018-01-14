@@ -47,4 +47,25 @@ struct FirebaseService {
         }
         
     }
+    
+    func deletePropertyPayments(property: Property){
+        self.deletePropertyPayment(property: property, payment_type: "Expenses")
+        self.deletePropertyPayment(property: property, payment_type: "Incomes")
+        self.deletePropertyPayment(property: property, payment_type: "recurrent_payments/Expenses")
+        self.deletePropertyPayment(property: property, payment_type: "recurrent_payments/Incomes")
+    }
+    
+    func deletePropertyPayment(property: Property, payment_type: String) {
+        let property_id = property.ref?.key
+        
+        let query = self.dbReference.child(payment_type).queryOrdered(byChild: "propertyId").queryEqual(toValue: property_id)
+        let _ = query.observe(.value, with: { snapshot in
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                for item in snapshots {
+                    item.ref.removeValue()
+                }
+            }
+        })
+    }
 }

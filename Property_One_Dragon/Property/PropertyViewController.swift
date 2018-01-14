@@ -90,6 +90,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let p = data[indexPath.row]
+            FirebaseService.sharedInstance.deletePropertyPayments(property: p)
             p.ref?.removeValue()
         }
     }
