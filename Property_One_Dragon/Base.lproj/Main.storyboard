@@ -743,11 +743,49 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="bEk-iP-Ghn" id="3uI-z3-Sl7"/>
+                        <segue destination="I34-Pe-uoA" kind="show" identifier="laDetailAddSegue" id="fm5-T0-wNg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9Z-IT-GJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3556" y="-545.57721139430294"/>
+        </scene>
+        <!--Lease Form View Controller-->
+        <scene sceneID="nls-jp-uVn">
+            <objects>
+                <viewController id="I34-Pe-uoA" customClass="leaseFormViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6AV-Bu-0QF"/>
+                        <viewControllerLayoutGuide type="bottom" id="jv0-9d-aop"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A8v-RB-dHy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uPo-wc-GYW">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="I34-Pe-uoA" id="yj2-IK-edT"/>
+                                    <outlet property="delegate" destination="I34-Pe-uoA" id="e62-Ah-cg3"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uPo-wc-GYW" firstAttribute="leading" secondItem="A8v-RB-dHy" secondAttribute="leading" id="0ls-br-Hcl"/>
+                            <constraint firstItem="uPo-wc-GYW" firstAttribute="top" secondItem="6AV-Bu-0QF" secondAttribute="bottom" id="5wb-vc-LT5"/>
+                            <constraint firstAttribute="trailing" secondItem="uPo-wc-GYW" secondAttribute="trailing" id="9oh-Jr-lCH"/>
+                            <constraint firstItem="jv0-9d-aop" firstAttribute="top" secondItem="uPo-wc-GYW" secondAttribute="bottom" id="dDP-8U-kng"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="uPo-wc-GYW" id="gEI-Z0-Eit"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hos-cD-iOw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3556" y="-1243.6281859070466"/>
         </scene>
         <!--Property-->
         <scene sceneID="CcW-gM-bAd">

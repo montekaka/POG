@@ -43,6 +43,23 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
         cell.label.text = arrayOfCellData[indexPath.row].label
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // detail
+        if(self.arrayOfCellData[indexPath.row].code == "lease_detail"){
+            self.performSegue(withIdentifier: "laDetailAddSegue", sender: nil)
+        }
+    }
+   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "laDetailAddSegue" {
+            //let controller = segue.destination as! leaseFormViewController
+            //controller.property = detailItem
+            print("hello world");
+        }
+    }
+    
+    // laDetailAddSegue
     /*
     // MARK: - Navigation
 

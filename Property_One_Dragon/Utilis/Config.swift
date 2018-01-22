@@ -14,6 +14,22 @@ let newLeaseAgreementCellData = [
     ,cellData(cell: "Text", code: "utility", label: "Utility")
 ]
 
+let leaseDetailCellData = [
+    cellData(cell: "Picker", code: "startdate", label: "Start Date")
+    ,cellData(cell: "Picker", code: "enddate", label: "End Date")
+    ,cellData(cell: "Input", code: "rentAmount", label: "Rent Amount")
+    ,cellData(cell: "Input", code: "dayToPayRent", label: "Day oo pay rent")
+    ,cellData(cell: "Input", code: "securityDepositAmount", label: "Security Deposit")
+    ,cellData(cell: "Input", code: "paymentType", label: "Payment Type")
+    ,cellData(cell: "Input", code: "lateFeeAmount", label: "Late Fee Amount")
+    ,cellData(cell: "Input", code: "lateFeePercentage", label: "Late Fee Percentage")
+    ,cellData(cell: "Input", code: "lateFeeDays", label: "Late Fee Days")
+    ,cellData(cell: "Input", code: "petSecurityDepositAmount", label: "Pet Security Deposit")
+    ,cellData(cell: "Input", code: "petAdditionalFee", label: "Pet Additional Fee")
+    ,cellData(cell: "Input", code: "numberOfParking", label: "Number of parking")
+    ,cellData(cell: "Input", code: "parkingFee", label: "Parking Fee")
+]
+
 let newPaymentCellData =  [
     cellData(cell: "Input", code: "payment", label: "Amount")
     ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
