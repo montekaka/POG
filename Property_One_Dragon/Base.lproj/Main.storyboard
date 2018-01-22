@@ -527,6 +527,7 @@
                         <segue destination="dLa-mH-ze2" kind="show" identifier="propertyPaymentTableSegue" id="xXu-Ao-U1t"/>
                         <segue destination="dLa-mH-ze2" kind="show" identifier="propertyRevenueTableSegue" id="3Zg-T6-vvl"/>
                         <segue destination="W0z-ff-k2p" kind="show" identifier="propertyAddRevenueSegue" id="PSb-fl-RjD"/>
+                        <segue destination="0gl-B8-CC4" kind="show" identifier="propertyAddLeaseAgreementSegue" id="tOX-ov-ze2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtc-1n-woW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -711,6 +712,43 @@
             </objects>
             <point key="canvasLocation" x="2367.1999999999998" y="-528.48575712143929"/>
         </scene>
+        <!--Lease Agreement Add View Controller-->
+        <scene sceneID="MXb-2H-JQH">
+            <objects>
+                <viewController id="0gl-B8-CC4" customClass="LeaseAgreementAddViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fk7-KY-bJx"/>
+                        <viewControllerLayoutGuide type="bottom" id="GJh-YW-rCL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pcp-Hs-ksc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bEk-iP-Ghn">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="0gl-B8-CC4" id="T0j-z0-P27"/>
+                                    <outlet property="delegate" destination="0gl-B8-CC4" id="HZc-9K-PUE"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bEk-iP-Ghn" firstAttribute="top" secondItem="Fk7-KY-bJx" secondAttribute="bottom" id="4Au-hn-QBE"/>
+                            <constraint firstAttribute="bottom" secondItem="bEk-iP-Ghn" secondAttribute="bottom" id="5EC-mn-X8h"/>
+                            <constraint firstItem="bEk-iP-Ghn" firstAttribute="leading" secondItem="pcp-Hs-ksc" secondAttribute="leading" id="cj6-Ss-5Rg"/>
+                            <constraint firstAttribute="trailing" secondItem="bEk-iP-Ghn" secondAttribute="trailing" id="s5Z-4x-XG2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="bEk-iP-Ghn" id="3uI-z3-Sl7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b9Z-IT-GJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3556" y="-545.57721139430294"/>
+        </scene>
         <!--Property-->
         <scene sceneID="CcW-gM-bAd">
             <objects>
@@ -743,7 +781,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="ETM-sr-5Yu"/>
         <segue reference="bGh-ls-JYm"/>
-        <segue reference="fGg-wr-Y9W"/>
+        <segue reference="PSb-fl-RjD"/>
         <segue reference="Lyq-oV-1dP"/>
         <segue reference="3Zg-T6-vvl"/>
         <segue reference="Xtl-6R-XX6"/>

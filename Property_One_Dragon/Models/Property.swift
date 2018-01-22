@@ -119,7 +119,8 @@ class Property {
         data = [
             tableCellData(label: "Address", value: self.address, cellType: "Text"),
             tableCellData(label: "Income", value: self.totalIncomeStr, cellType: "CellWithButton"),
-            tableCellData(label: "Expense", value: self.totalExpenseStr, cellType: "CellWithButton")
+            tableCellData(label: "Expense", value: self.totalExpenseStr, cellType: "CellWithButton"),
+            tableCellData(label: "Lease Agreements", value: "0", cellType: "CellWithButton")
         ]                
         return data
     }

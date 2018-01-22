@@ -8,6 +8,12 @@
 
 import Foundation
 
+let newLeaseAgreementCellData = [
+    cellData(cell: "Text", code: "tenant", label: "Tenant Details")
+    ,cellData(cell: "Text", code: "lease_detail", label: "Lease Details")
+    ,cellData(cell: "Text", code: "utility", label: "Utility")
+]
+
 let newPaymentCellData =  [
     cellData(cell: "Input", code: "payment", label: "Amount")
     ,cellData(cell: "Picker", code: "startdate", label: "Paid on")
