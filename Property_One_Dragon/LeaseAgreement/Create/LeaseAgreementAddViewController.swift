@@ -17,6 +17,7 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
     var arrayOfCellData = [cellData]()
     var property : Property?
     var viewTitle: String!
+    var leaseAgreement: LeaseAgreement?
     
 
     override func viewDidLoad() {
