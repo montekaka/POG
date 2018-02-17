@@ -57,7 +57,25 @@ class LeaseAgreementDetails {
     }
     
     
-    func getRentalAmountText() -> String{
-        return String(format:"%.2f", (self.rentAmount ?? 0))
+    func getPaymentAmountText(inputCode: String) -> String{
+        var result = "xxx"
+        switch inputCode {
+        case "rentAmount":
+            result = String(format:"%.2f", (self.rentAmount ?? 0))
+        case "securityDepositAmount":
+            result = String(format:"%.2f", (self.securityDepositAmount ?? 0))
+        case "lateFeeAmount":
+            result = String(format:"%.2f", (self.lateFeeAmount ?? 0))
+        case "petSecurityDepositAmount":
+            result = String(format:"%.2f", (self.petSecurityDepositAmount ?? 0))
+        case "petAdditionalFee":
+            result = String(format:"%.2f", (self.petAdditionalFee ?? 0))
+        case "parkingFee":
+            result = String(format:"%.2f", (self.parkingFee ?? 0))
+        default:
+            result = "xxx"
+        }
+        return result
     }
+    
 }

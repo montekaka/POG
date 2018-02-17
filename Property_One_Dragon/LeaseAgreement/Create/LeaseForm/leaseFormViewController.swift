@@ -27,6 +27,11 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
     
     // rental payment
     private var rentalPaymentField: UITextField!
+    private var rentalSecurityDepositField: UITextField!
+    private var lateFeeAmountField: UITextField!
+    private var petSecurityDepositAmountField: UITextField!
+    private var petAdditionalFeeField: UITextField!
+    private var parkingFeeField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,24 +61,104 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         if arrayOfCellData[indexPath.row].cell == "Input" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
+            
             // Paid Amount
             if(arrayOfCellData[indexPath.row].code == "rentAmount"){
                 if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
                     //self.billAmount = self.payment?.amount
-                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getRentalAmountText()
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
                     cell.TextField.placeholder = "Required"
                     cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
-                self.setupDoneButtonToPaymentKeyboard(textfield: cell.TextField)
+                self.setupDoneButtonNumberKeyboard(textfield: cell.TextField, inputCode: arrayOfCellData[indexPath.row].code)
                 self.rentalPaymentField = cell.TextField
                 self.inputFieldIconConfig(cell:cell, icon_name:"Money")
-//                self.setupDoneButtonToPaymentKeyboard(textfield: cell.TextField)
-//                self.billAmount = cell.TextField
-//                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
             }
+            
+            // security deposit
+            if(arrayOfCellData[indexPath.row].code == "securityDepositAmount"){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                    //self.billAmount = self.payment?.amount
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    cell.TextField.becomeFirstResponder()
+                    // add icon to the input field
+                }
+                cell.TextField.keyboardType = UIKeyboardType.decimalPad
+                self.setupDoneButtonNumberKeyboard(textfield: cell.TextField, inputCode: arrayOfCellData[indexPath.row].code)
+                self.rentalSecurityDepositField = cell.TextField
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
+            }
+            
+            // late fee
+            if(arrayOfCellData[indexPath.row].code == "lateFeeAmount"){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                    //self.billAmount = self.payment?.amount
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    cell.TextField.becomeFirstResponder()
+                    // add icon to the input field
+                }
+                cell.TextField.keyboardType = UIKeyboardType.decimalPad
+                self.setupDoneButtonNumberKeyboard(textfield: cell.TextField, inputCode: arrayOfCellData[indexPath.row].code)
+                self.lateFeeAmountField = cell.TextField
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
+            }
+            
+            // petSecurityDepositAmount
+            if(arrayOfCellData[indexPath.row].code == "petSecurityDepositAmount"){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                    //self.billAmount = self.payment?.amount
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    cell.TextField.becomeFirstResponder()
+                    // add icon to the input field
+                }
+                cell.TextField.keyboardType = UIKeyboardType.decimalPad
+                self.setupDoneButtonNumberKeyboard(textfield: cell.TextField, inputCode: arrayOfCellData[indexPath.row].code)
+                self.petSecurityDepositAmountField = cell.TextField
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
+            }
+            // petAdditionalFee
+            if(arrayOfCellData[indexPath.row].code == "petAdditionalFee"){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                    //self.billAmount = self.payment?.amount
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    cell.TextField.becomeFirstResponder()
+                    // add icon to the input field
+                }
+                cell.TextField.keyboardType = UIKeyboardType.decimalPad
+                self.setupDoneButtonNumberKeyboard(textfield: cell.TextField, inputCode: arrayOfCellData[indexPath.row].code)
+                self.petAdditionalFeeField = cell.TextField
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
+            }
+            
+            // ParkingFee
+            if(arrayOfCellData[indexPath.row].code == "parkingFee"){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                    //self.billAmount = self.payment?.amount
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    cell.TextField.becomeFirstResponder()
+                    // add icon to the input field
+                }
+                cell.TextField.keyboardType = UIKeyboardType.decimalPad
+                self.setupDoneButtonNumberKeyboard(textfield: cell.TextField, inputCode: arrayOfCellData[indexPath.row].code)
+                self.parkingFeeField = cell.TextField
+                self.inputFieldIconConfig(cell:cell, icon_name:"Money")
+            }
+            
+            
+            
             
             return cell
             
@@ -88,11 +173,6 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     
-    @objc func hidePaymentKeyboard(){
-        // to hide keyboards
-        self.rentalPaymentField.resignFirstResponder()
-    }
-    
     @objc func dismissKeyboard(){
         view.endEditing(true)
     }
@@ -106,15 +186,79 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         cell.TextField.leftViewMode = .always
     }
     
+    
     // 1. Payment Keyboard
-    func setupDoneButtonToPaymentKeyboard(textfield: UITextField){
+    func setupDoneButtonNumberKeyboard(textfield: UITextField, inputCode: String){
         let toolbarDone = UIToolbar.init()
         toolbarDone.sizeToFit()
-        self.rentalPaymentField = textfield
-        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hidePaymentKeyboard))
-        toolbarDone.setItems([done], animated: false)
         
-        textfield.inputAccessoryView = toolbarDone
+        switch inputCode {
+        case "rentAmount":
+            self.rentalPaymentField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideRentAmountKeyboard))
+            toolbarDone.setItems([done], animated: false)
+            textfield.inputAccessoryView = toolbarDone
+        case "securityDepositAmount":
+            self.rentalSecurityDepositField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideSecurityDepositAmountKeyboard))
+            toolbarDone.setItems([done], animated: false)
+            textfield.inputAccessoryView = toolbarDone
+        case "lateFeeAmount":
+            self.lateFeeAmountField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideLateFeeAmountKeyboard))
+            toolbarDone.setItems([done], animated: false)
+            textfield.inputAccessoryView = toolbarDone
+        case "petSecurityDepositAmount":
+            self.petSecurityDepositAmountField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hidePetSecurityDepositAmountKeyboard))
+            toolbarDone.setItems([done], animated: false)
+            textfield.inputAccessoryView = toolbarDone
+        case "petAdditionalFee":
+            self.petAdditionalFeeField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hidePetAdditionalFeeAmountKeyboard))
+            toolbarDone.setItems([done], animated: false)
+            textfield.inputAccessoryView = toolbarDone
+        case "parkingFee":
+            self.parkingFeeField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideParkingFeeAmountKeyboard))
+            toolbarDone.setItems([done], animated: false)
+            textfield.inputAccessoryView = toolbarDone
+            
+        default:
+            print("something is wrong")
+        }
+        
+    }
+    
+    
+    @objc func hideRentAmountKeyboard(){
+        // to hide keyboards
+        self.rentalPaymentField.resignFirstResponder()
+    }
+    
+    @objc func hideSecurityDepositAmountKeyboard(){
+        // to hide keyboards
+        self.rentalSecurityDepositField.resignFirstResponder()
+    }
+    
+    @objc func hideLateFeeAmountKeyboard(){
+        // to hide keyboards
+        self.lateFeeAmountField.resignFirstResponder()
+    }
+    
+    @objc func hidePetSecurityDepositAmountKeyboard(){
+        // to hide keyboards
+        self.petSecurityDepositAmountField.resignFirstResponder()
+    }
+    
+    @objc func hidePetAdditionalFeeAmountKeyboard(){
+        // to hide keyboards
+        self.petAdditionalFeeField.resignFirstResponder()
+    }
+    
+    @objc func hideParkingFeeAmountKeyboard(){
+        // to hide keyboards
+        self.parkingFeeField.resignFirstResponder()
     }
     /*
     // MARK: - Navigation
