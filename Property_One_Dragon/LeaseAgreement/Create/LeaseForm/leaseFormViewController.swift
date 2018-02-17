@@ -69,7 +69,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
                     cell.TextField.placeholder = "Required"
-                    cell.TextField.becomeFirstResponder()
+                    //cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
@@ -85,7 +85,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
                     cell.TextField.placeholder = "Required"
-                    cell.TextField.becomeFirstResponder()
+                    //cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
@@ -101,7 +101,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
                     cell.TextField.placeholder = "Required"
-                    cell.TextField.becomeFirstResponder()
+                    //cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
@@ -117,7 +117,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
                     cell.TextField.placeholder = "Required"
-                    cell.TextField.becomeFirstResponder()
+                    //cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
@@ -132,7 +132,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
                     cell.TextField.placeholder = "Required"
-                    cell.TextField.becomeFirstResponder()
+                    //cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
@@ -148,7 +148,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
                     cell.TextField.placeholder = "Required"
-                    cell.TextField.becomeFirstResponder()
+                    //cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
                 cell.TextField.keyboardType = UIKeyboardType.decimalPad
@@ -158,14 +158,38 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             }
             
             
+            return cell
             
+        }
+        // picker
+        else if arrayOfCellData[indexPath.row].cell == "Picker" {
+            let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
+            cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             
+            // DATE PICKERS
+            // Start Date
+            
+            if(arrayOfCellData[indexPath.row].code == "startdate"){
+                self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
+                self.startDateCell = cell
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getDateString(inputCode: arrayOfCellData[indexPath.row].code)
+                    self.startDate = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.startDate
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    //cell.TextField.becomeFirstResponder()
+                    // add icon to the input field
+                }
+
+                createStartDatePicker(cell: cell)
+            }
             return cell
             
         }
         // placeholder
         else if arrayOfCellData[indexPath.row].cell == "Placeholder" {
             let cell = Bundle.main.loadNibNamed("PlaceholderTableViewCell", owner: self, options: nil)?.first as! PlaceholderTableViewCell
+            
             return cell
             
         }
@@ -230,6 +254,39 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
+    // end date date picker
+    func createStartDatePicker(cell: PaymentAddTableViewCellTextField){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneStartDatePickerPressed))
+        toolbar.setItems([done], animated: false)
+        
+        cell.TextField.inputAccessoryView = toolbar
+        cell.TextField.inputView = self.startDatePicker
+        //paidDateField.inputAccessoryView = toolbar
+        // paidDateField.inputView = paidDatePicker
+        // format picker for date
+        self.startDatePicker.datePickerMode = .date
+        if ( self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil ) {
+            self.startDatePicker.date = (self.leaseAgreementAddViewController?.leaseAgreement?.detail?.startDate)!
+        }
+        
+    }
+    
+    @objc func doneStartDatePickerPressed(){
+        // format date
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        self.endDate = self.startDatePicker.date
+        let dateString = formatter.string(from: startDatePicker.date)
+        self.startDateCell?.TextField.text = "\(dateString)"
+        //paidDateField.text = "\(dateString)"
+        self.view.endEditing(true)
+    }
+    
+    
     
     @objc func hideRentAmountKeyboard(){
         // to hide keyboards
@@ -260,6 +317,8 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         // to hide keyboards
         self.parkingFeeField.resignFirstResponder()
     }
+    
+    
     /*
     // MARK: - Navigation
 

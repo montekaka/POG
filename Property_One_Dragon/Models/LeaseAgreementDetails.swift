@@ -43,7 +43,7 @@ class LeaseAgreementDetails {
     {
         self.startDate         = startDate
         self.endDate           = endDate
-        self.rentAmount = rentAmount
+        self.rentAmount        = rentAmount
         self.dayToPayRent       = dayToPayRent
         self.securityDepositAmount      = securityDepositAmount
         self.paymentType        = paymentType
@@ -58,24 +58,43 @@ class LeaseAgreementDetails {
     
     
     func getPaymentAmountText(inputCode: String) -> String{
-        var result = "xxx"
+        var result = ""
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        
         switch inputCode {
         case "rentAmount":
-            result = String(format:"%.2f", (self.rentAmount ?? 0))
+            result = currencyFormatter.string(from: self.rentAmount! as NSNumber)!
         case "securityDepositAmount":
-            result = String(format:"%.2f", (self.securityDepositAmount ?? 0))
+            result = currencyFormatter.string(from: self.securityDepositAmount! as NSNumber)!
         case "lateFeeAmount":
-            result = String(format:"%.2f", (self.lateFeeAmount ?? 0))
+            result = currencyFormatter.string(from: self.lateFeeAmount! as NSNumber)!
         case "petSecurityDepositAmount":
-            result = String(format:"%.2f", (self.petSecurityDepositAmount ?? 0))
+            result = currencyFormatter.string(from: self.petSecurityDepositAmount! as NSNumber)!
         case "petAdditionalFee":
-            result = String(format:"%.2f", (self.petAdditionalFee ?? 0))
+            result = currencyFormatter.string(from: self.petAdditionalFee! as NSNumber)!
         case "parkingFee":
-            result = String(format:"%.2f", (self.parkingFee ?? 0))
+            result = currencyFormatter.string(from: self.parkingFee! as NSNumber)!
         default:
-            result = "xxx"
+            result = ""
         }
         return result
+    }
+    
+    func getDateString(inputCode: String) -> String{
+        var result: String = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        switch inputCode {
+            case "startdate":
+                result = dateFormatter.string(from: self.startDate!)
+            case "enddate":
+                result = dateFormatter.string(from: self.endDate!)
+            default:
+                result = ""
+        }
+        return result;
     }
     
 }
