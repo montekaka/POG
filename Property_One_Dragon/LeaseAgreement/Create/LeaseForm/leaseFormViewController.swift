@@ -183,6 +183,23 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
 
                 createStartDatePicker(cell: cell)
             }
+            // End Date
+            
+            if(arrayOfCellData[indexPath.row].code == "enddate"){
+                self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
+                self.endDateCell = cell
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                    cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getDateString(inputCode: arrayOfCellData[indexPath.row].code)
+                    self.endDate = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.endDate
+                } else {
+                    cell.TextField.placeholder = "Required"
+                    //cell.TextField.becomeFirstResponder()
+                    // add icon to the input field
+                }
+                
+                createEndDatePicker(cell: cell)
+            }
+            
             return cell
             
         }
@@ -254,7 +271,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
-    // end date date picker
+    // start date date picker
     func createStartDatePicker(cell: PaymentAddTableViewCellTextField){
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
@@ -274,19 +291,50 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
+    // end date date picker
+    func createEndDatePicker(cell: PaymentAddTableViewCellTextField){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        // done button for toolbar
+        let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneEndDatePickerPressed))
+        toolbar.setItems([done], animated: false)
+        
+        cell.TextField.inputAccessoryView = toolbar
+        cell.TextField.inputView = self.endDatePicker
+        //paidDateField.inputAccessoryView = toolbar
+        // paidDateField.inputView = paidDatePicker
+        // format picker for date
+        self.endDatePicker.datePickerMode = .date
+        if ( self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil ) {
+            self.endDatePicker.date = (self.leaseAgreementAddViewController?.leaseAgreement?.detail?.endDate)!
+        }
+        
+    }
+    
+    
     @objc func doneStartDatePickerPressed(){
         // format date
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
-        self.endDate = self.startDatePicker.date
+        self.startDate = self.startDatePicker.date
         let dateString = formatter.string(from: startDatePicker.date)
         self.startDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
         self.view.endEditing(true)
     }
     
-    
+    @objc func doneEndDatePickerPressed(){
+        // format date
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        self.endDate = self.endDatePicker.date
+        let dateString = formatter.string(from: endDatePicker.date)
+        self.endDateCell?.TextField.text = "\(dateString)"
+        //paidDateField.text = "\(dateString)"
+        self.view.endEditing(true)
+    }
     
     @objc func hideRentAmountKeyboard(){
         // to hide keyboards
