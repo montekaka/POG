@@ -54,9 +54,20 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "laDetailAddSegue" {
-            //let controller = segue.destination as! leaseFormViewController
-            //controller.property = detailItem
-            print("hello world");
+            let controller = segue.destination as! leaseFormViewController
+//            print("Property Id")
+//            print(self.property?.ref?.key)
+            //self.setupLeaseAgreement()
+            controller.leaseAgreementAddViewController = self
+            ////controller.property = detailItem
+            //print("hello world");
+        }
+    }
+    
+    func setupLeaseAgreement(){
+         if self.leaseAgreement == nil {
+            let la = LeaseAgreement(propertyKey: (self.property?.ref?.key)!)
+            self.leaseAgreement = la
         }
     }
     

@@ -16,8 +16,8 @@ import Firebase
 class LeaseAgreement {
     var dbReference: DatabaseReference?
     var ref: DatabaseReference?
-    private(set) var uid: String?
-    private(set) var propertyId: String?
+    //private(set) var uid: String?
+    private(set) var propertyKey: String?
     
     var detail: LeaseAgreementDetails?
     // Utility
@@ -29,9 +29,13 @@ class LeaseAgreement {
     var leadPaintDisclosure: Bool?
     var epaPamphletDisclosure: Bool?
     
-    init?(uid: String, propertyId: String, detail: LeaseAgreementDetails){
-        self.propertyId = propertyId;
-        self.uid = uid;
+    init?( propertyKey: String, detail: LeaseAgreementDetails){
+        self.propertyKey = propertyKey;
         self.detail = detail
+    }
+    
+    init?( propertyKey: String){
+        self.propertyKey = propertyKey;
+        self.detail = LeaseAgreementDetails()
     }
 }

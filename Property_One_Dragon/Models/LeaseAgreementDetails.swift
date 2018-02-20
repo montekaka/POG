@@ -56,6 +56,10 @@ class LeaseAgreementDetails {
         self.parkingFee = parkingFee
     }
     
+    init(){
+       print("init the lease agreement detail")
+    }
+    
     
     func getPaymentAmountText(inputCode: String) -> String{
         var result = ""

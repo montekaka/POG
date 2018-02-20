@@ -25,6 +25,8 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
     private var endDateCell: PaymentAddTableViewCellTextField?
     private let endDatePicker = UIDatePicker()
     
+    private var formValues = [String: Any]()
+    
     // rental payment
     private var rentalPaymentField: UITextField!
     private var rentalSecurityDepositField: UITextField!
@@ -32,6 +34,14 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
     private var petSecurityDepositAmountField: UITextField!
     private var petAdditionalFeeField: UITextField!
     private var parkingFeeField: UITextField!
+    
+    private var rentalPaymentVal: String!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //self.tabBarController?.tabBar.isHidden = true
+        // Save Button
+        self.configRightBarButton()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,10 +68,10 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
         cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
         
+        //self.formValues[arrayOfCellData[indexPath.row].label] = cell.TextField
         if arrayOfCellData[indexPath.row].cell == "Input" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
-            
             // Paid Amount
             if(arrayOfCellData[indexPath.row].code == "rentAmount"){
                 if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
@@ -322,6 +332,8 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         self.startDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
         self.view.endEditing(true)
+        
+        self.setFormValues()
     }
     
     @objc func doneEndDatePickerPressed(){
@@ -334,40 +346,106 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         self.endDateCell?.TextField.text = "\(dateString)"
         //paidDateField.text = "\(dateString)"
         self.view.endEditing(true)
+        self.setFormValues()
     }
     
     @objc func hideRentAmountKeyboard(){
         // to hide keyboards
+        self.setFormValues()
         self.rentalPaymentField.resignFirstResponder()
     }
     
     @objc func hideSecurityDepositAmountKeyboard(){
         // to hide keyboards
+        self.setFormValues()
         self.rentalSecurityDepositField.resignFirstResponder()
     }
     
     @objc func hideLateFeeAmountKeyboard(){
         // to hide keyboards
+        self.setFormValues()
         self.lateFeeAmountField.resignFirstResponder()
     }
     
     @objc func hidePetSecurityDepositAmountKeyboard(){
         // to hide keyboards
+        self.setFormValues()
         self.petSecurityDepositAmountField.resignFirstResponder()
     }
     
     @objc func hidePetAdditionalFeeAmountKeyboard(){
         // to hide keyboards
+        self.setFormValues()
         self.petAdditionalFeeField.resignFirstResponder()
     }
     
     @objc func hideParkingFeeAmountKeyboard(){
         // to hide keyboards
+        self.setFormValues()
         self.parkingFeeField.resignFirstResponder()
     }
     
     
+// Save button
+    func configRightBarButton(){
+        self.setupSavingButton()
+    }
+    
+    func setupSavingButton(){
+        let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updateLeaseForm))
+        self.navigationItem.rightBarButtonItem = saveTextButton
+        self.tableView.becomeFirstResponder()
+    }
+    
+    @objc func updateLeaseForm(){
+        //self.navigationController?.popViewController(animated: true)
+        print(self.formValues)
+    }
+    
+    func setFormValues(){
+//        private var rentalPaymentField: UITextField!
+//        private var rentalSecurityDepositField: UITextField!
+//        private var lateFeeAmountField: UITextField!
+//        private var petSecurityDepositAmountField: UITextField!
+//        private var petAdditionalFeeField: UITextField!
+//        private var parkingFeeField: UITextField!
+//        private var endDateField: UITextField!
+//        private var startDateField: UITextField!
+        
+        if((self.rentalPaymentField.text) != nil){
+            self.formValues["rentAmount"] = self.rentalPaymentField.text
+        }
+        if((self.rentalSecurityDepositField.text) != nil){
+            self.formValues["securityDepositAmount"] = self.rentalSecurityDepositField.text
+        }
+        if((self.lateFeeAmountField.text) != nil){
+            self.formValues["lateFeeAmount"] = self.lateFeeAmountField.text
+        }
+        if((self.petSecurityDepositAmountField.text) != nil){
+            self.formValues["petSecurityDepositAmount"] = self.petSecurityDepositAmountField.text
+        }
+        if((self.petAdditionalFeeField.text) != nil){
+            self.formValues["petAdditionalFee"] = self.petAdditionalFeeField.text
+        }
+        if((self.parkingFeeField.text) != nil){
+            self.formValues["parkingFee"] = self.parkingFeeField.text
+        }
+        if((self.startDate) != nil){
+            self.formValues["startDate"] = self.startDate
+        }
+        if((self.endDate) != nil){
+            self.formValues["endDate"] = self.endDate
+        }
+//        if((self.startDateField.text) != nil){
+//            self.formValues["startDate"] = self.startDateField.text
+//        }
+//        if((self.endDateField.text) != nil){
+//            self.formValues["endDate"] = self.endDateField.text
+//        }
+        
+    }
     /*
+     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

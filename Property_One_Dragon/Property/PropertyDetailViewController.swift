@@ -71,11 +71,12 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! PropertyAddViewController
             controller.property = detailItem
         }
-        // Lease Agreement
-        if segue.identifier == "addLeaseAgreementButtonPressed" {
+        // Lease Agreement propertyAddLeaseAgreementSegue
+        if segue.identifier == "propertyAddLeaseAgreementSegue" {
             let controller = segue.destination as! LeaseAgreementAddViewController
             controller.property = self.detailItem
-            
+//            print("property key")
+//            print(self.detailItem?.ref?.key)
         }
         
         // Expense
