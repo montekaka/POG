@@ -19,7 +19,11 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
     var viewTitle: String!
     var leaseAgreement: LeaseAgreement?
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        //self.tabBarController?.tabBar.isHidden = true
+        // Save Button
+        self.configRightBarButton()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         arrayOfCellData = newLeaseAgreementCellData;
@@ -57,7 +61,7 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
             let controller = segue.destination as! leaseFormViewController
 //            print("Property Id")
 //            print(self.property?.ref?.key)
-            //self.setupLeaseAgreement()
+            self.setupLeaseAgreement()
             controller.leaseAgreementAddViewController = self
             ////controller.property = detailItem
             //print("hello world");
@@ -69,6 +73,26 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
             let la = LeaseAgreement(propertyKey: (self.property?.ref?.key)!)
             self.leaseAgreement = la
         }
+    }
+    
+    func configRightBarButton(){
+        self.setupSavingButton()
+    }
+    
+    func setupSavingButton(){
+        let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(savePost))
+        self.navigationItem.rightBarButtonItem = saveTextButton
+    }
+    
+    @objc func savePost(){
+        print("start saving...")
+        let post = self.leaseAgreement?.toAnyObject()
+        //self.leaseAgreement?.detail
+        self.dbReference = Database.database().reference()
+        //print(post)
+        let leaseAgreementRef = self.dbReference?.child("lease_agreement").childByAutoId()
+        leaseAgreementRef?.setValue(post)
+        
     }
     
     // laDetailAddSegue

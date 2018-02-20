@@ -25,7 +25,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
     private var endDateCell: PaymentAddTableViewCellTextField?
     private let endDatePicker = UIDatePicker()
     
-    private var formValues = [String: Any]()
+    private var formValues: LeaseAgreementDetails!
     
     // rental payment
     private var rentalPaymentField: UITextField!
@@ -41,6 +41,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         //self.tabBarController?.tabBar.isHidden = true
         // Save Button
         self.configRightBarButton()
+        self.formValues = LeaseAgreementDetails()
     }
     
     override func viewDidLoad() {
@@ -74,7 +75,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
             // Paid Amount
             if(arrayOfCellData[indexPath.row].code == "rentAmount"){
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.rentAmount != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
@@ -90,7 +91,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             
             // security deposit
             if(arrayOfCellData[indexPath.row].code == "securityDepositAmount"){
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.securityDepositAmount != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
@@ -106,7 +107,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             
             // late fee
             if(arrayOfCellData[indexPath.row].code == "lateFeeAmount"){
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.lateFeeAmount != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
@@ -122,7 +123,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             
             // petSecurityDepositAmount
             if(arrayOfCellData[indexPath.row].code == "petSecurityDepositAmount"){
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.petSecurityDepositAmount != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
@@ -137,7 +138,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             }
             // petAdditionalFee
             if(arrayOfCellData[indexPath.row].code == "petAdditionalFee"){
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.petAdditionalFee != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
@@ -153,7 +154,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             
             // ParkingFee
             if(arrayOfCellData[indexPath.row].code == "parkingFee"){
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.parkingFee != nil){
                     //self.billAmount = self.payment?.amount
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getPaymentAmountText(inputCode: arrayOfCellData[indexPath.row].code)
                 } else {
@@ -182,7 +183,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             if(arrayOfCellData[indexPath.row].code == "startdate"){
                 self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
                 self.startDateCell = cell
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.startDate != nil){
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getDateString(inputCode: arrayOfCellData[indexPath.row].code)
                     self.startDate = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.startDate
                 } else {
@@ -198,7 +199,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             if(arrayOfCellData[indexPath.row].code == "enddate"){
                 self.inputFieldIconConfig(cell:cell, icon_name:"CalendarIcon")
                 self.endDateCell = cell
-                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil){
+                if(self.leaseAgreementAddViewController?.leaseAgreement?.detail?.endDate != nil){
                     cell.TextField.text = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.getDateString(inputCode: arrayOfCellData[indexPath.row].code)
                     self.endDate = self.leaseAgreementAddViewController?.leaseAgreement?.detail?.endDate
                 } else {
@@ -295,7 +296,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         // paidDateField.inputView = paidDatePicker
         // format picker for date
         self.startDatePicker.datePickerMode = .date
-        if ( self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil ) {
+        if ( self.leaseAgreementAddViewController?.leaseAgreement?.detail?.startDate != nil ) {
             self.startDatePicker.date = (self.leaseAgreementAddViewController?.leaseAgreement?.detail?.startDate)!
         }
         
@@ -315,7 +316,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         // paidDateField.inputView = paidDatePicker
         // format picker for date
         self.endDatePicker.datePickerMode = .date
-        if ( self.leaseAgreementAddViewController?.leaseAgreement?.detail != nil ) {
+        if ( self.leaseAgreementAddViewController?.leaseAgreement?.detail?.endDate != nil ) {
             self.endDatePicker.date = (self.leaseAgreementAddViewController?.leaseAgreement?.detail?.endDate)!
         }
         
@@ -398,50 +399,40 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @objc func updateLeaseForm(){
-        //self.navigationController?.popViewController(animated: true)
-        print(self.formValues)
+//        print(self.formValues.rentAmount)
+//        print(self.formValues.securityDepositAmount)
+//        print(self.formValues.startDate)
+        self.leaseAgreementAddViewController?.leaseAgreement?.detail = self.formValues
+        
+        self.navigationController?.popViewController(animated: true)
     }
     
     func setFormValues(){
-//        private var rentalPaymentField: UITextField!
-//        private var rentalSecurityDepositField: UITextField!
-//        private var lateFeeAmountField: UITextField!
-//        private var petSecurityDepositAmountField: UITextField!
-//        private var petAdditionalFeeField: UITextField!
-//        private var parkingFeeField: UITextField!
-//        private var endDateField: UITextField!
-//        private var startDateField: UITextField!
-        
         if((self.rentalPaymentField.text) != nil){
-            self.formValues["rentAmount"] = self.rentalPaymentField.text
+            self.formValues.rentAmount = Double(self.rentalPaymentField.text!) ?? 0
         }
         if((self.rentalSecurityDepositField.text) != nil){
-            self.formValues["securityDepositAmount"] = self.rentalSecurityDepositField.text
+            self.formValues.securityDepositAmount = Double(self.rentalSecurityDepositField.text!) ?? 0
         }
         if((self.lateFeeAmountField.text) != nil){
-            self.formValues["lateFeeAmount"] = self.lateFeeAmountField.text
+            self.formValues.lateFeeAmount = Double(self.lateFeeAmountField.text!) ?? 0
         }
         if((self.petSecurityDepositAmountField.text) != nil){
-            self.formValues["petSecurityDepositAmount"] = self.petSecurityDepositAmountField.text
+            self.formValues.petSecurityDepositAmount = Double(self.petSecurityDepositAmountField.text!) ?? 0
         }
         if((self.petAdditionalFeeField.text) != nil){
-            self.formValues["petAdditionalFee"] = self.petAdditionalFeeField.text
+            self.formValues.petAdditionalFee = Double(self.petAdditionalFeeField.text!) ?? 0
         }
         if((self.parkingFeeField.text) != nil){
-            self.formValues["parkingFee"] = self.parkingFeeField.text
+            self.formValues.parkingFee = Double(self.parkingFeeField.text!) ?? 0
         }
         if((self.startDate) != nil){
-            self.formValues["startDate"] = self.startDate
+            self.formValues.startDate = self.startDate
         }
         if((self.endDate) != nil){
-            self.formValues["endDate"] = self.endDate
+            self.formValues.endDate = self.endDate
         }
-//        if((self.startDateField.text) != nil){
-//            self.formValues["startDate"] = self.startDateField.text
-//        }
-//        if((self.endDateField.text) != nil){
-//            self.formValues["endDate"] = self.endDateField.text
-//        }
+      
         
     }
     /*

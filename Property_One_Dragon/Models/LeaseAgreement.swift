@@ -38,4 +38,17 @@ class LeaseAgreement {
         self.propertyKey = propertyKey;
         self.detail = LeaseAgreementDetails()
     }
+    
+    func toAnyObject() -> Any {
+        var result = [String: Any]()
+        result["propertyKey"] = self.propertyKey
+        if((self.detail?.startDate) != nil){
+            result["startDate"] = self.detail?.startDate!.timeIntervalSince1970
+        }
+        if((self.detail?.startDate) != nil){
+            result["rentAmount"] = self.detail?.rentAmount
+        }
+        return result;
+    }
+
 }
