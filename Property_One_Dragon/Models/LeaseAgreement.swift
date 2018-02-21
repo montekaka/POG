@@ -20,6 +20,8 @@ class LeaseAgreement {
     private(set) var propertyKey: String?
     
     var detail: LeaseAgreementDetails?
+    var tenants: [LeaseAgreementTenant]?
+    
     // Utility
     var payElectricity: Bool?
     var water: Bool?
