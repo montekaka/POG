@@ -390,7 +390,7 @@
 				TargetAttributes = {
 					E5056D391F9EFDF000441F02 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = 7C7HF43335;
+						DevelopmentTeam = 5FP5HD6HPX;
 						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -682,10 +682,10 @@
 			baseConfigurationReference = 29961CF744516238C7BCC217 /* Pods-Property_One_Dragon.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7C7HF43335;
+				DEVELOPMENT_TEAM = 5FP5HD6HPX;
 				INFOPLIST_FILE = Property_One_Dragon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bruinSquare.Property-One-Dragon";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bruinsquare.propertyman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -697,10 +697,10 @@
 			baseConfigurationReference = 2334945973566B9BE5F1B79B /* Pods-Property_One_Dragon.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7C7HF43335;
+				DEVELOPMENT_TEAM = 5FP5HD6HPX;
 				INFOPLIST_FILE = Property_One_Dragon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bruinSquare.Property-One-Dragon";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bruinsquare.propertyman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
