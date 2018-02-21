@@ -57,6 +57,8 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
             // let name:String? = snapshot.value as? String
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for item in snapshots {
+                    print("start adding property")
+                    print(item)
                     let p = Property(snapshot: item)
                     //let property_id = p?.ref?.key
                     // update the property payment data here
@@ -111,7 +113,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.address!.text = object.address
 //        cell.revenueLabel!.text =  "$\(object.totalIncome ?? 0)"
 //        cell.expenseLabel!.text =  "$\(object.totalExpense ?? 0)"
-        print("putting up the label from table cell")
+
         cell.revenueLabel!.text = object.getPaymentTextLabel(paymentType: "Income")
         cell.expenseLabel!.text = object.getPaymentTextLabel(paymentType: "Expense")
         cell.profitLoss!.text = object.getPaymentTextLabel(paymentType: "ProfitLoss")

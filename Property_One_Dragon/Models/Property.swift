@@ -50,21 +50,22 @@ class Property {
     
     init?(snapshot: DataSnapshot) {
         let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
-        do {
-            try setAddress(address: snapshotValue!["address"] as! String)
-            self.setUID(uid: snapshotValue!["addedByUser"] as! String)
-            self.ref = snapshot.ref
-            let totalExpense = snapshotValue!["totalExpense"] as? Double
-            self.setTotalExpense(amount: totalExpense!)
-            let totalIncome = snapshotValue!["totalIncome"] as? Double
-            self.setTotalIncome(amount: totalIncome!)
-            self.getProfitMargin()
-            //self.totalIncome = snapshotValue!["totalIncome"] as? Double
-            //self.profitMargin = self.totalIncome! - self.totalExpense!
-        } catch {
-            return nil
+        if((snapshotValue) != nil){
+            do {
+                try setAddress(address: snapshotValue!["address"] as! String)
+                self.setUID(uid: snapshotValue!["addedByUser"] as! String)
+                self.ref = snapshot.ref
+                let totalExpense = snapshotValue!["totalExpense"] as? Double
+                self.setTotalExpense(amount: totalExpense!)
+                let totalIncome = snapshotValue!["totalIncome"] as? Double
+                self.setTotalIncome(amount: totalIncome!)
+                self.getProfitMargin()
+                //self.totalIncome = snapshotValue!["totalIncome"] as? Double
+                //self.profitMargin = self.totalIncome! - self.totalExpense!
+            } catch {
+                return nil
+            }
         }
-        
     }
     
     func setPaymentTextLabel(paymentType: String) -> String {
