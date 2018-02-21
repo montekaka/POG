@@ -71,6 +71,14 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             let controller = segue.destination as! PropertyAddViewController
             controller.property = detailItem
         }
+        // Lease Agreement propertyAddLeaseAgreementSegue
+        if segue.identifier == "propertyAddLeaseAgreementSegue" {
+            let controller = segue.destination as! LeaseAgreementAddViewController
+            controller.property = self.detailItem
+//            print("property key")
+//            print(self.detailItem?.ref?.key)
+        }
+        
         // Expense
         if segue.identifier == "propertyAddPaymentSegue" {
             let controller = segue.destination as! PaymentAddViewController
@@ -147,6 +155,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         self.performSegue(withIdentifier: "propertyRevenueTableSegue", sender: self)
     }
     
+    @objc func addLeaseAgreementButtonPressed() {
+        self.performSegue(withIdentifier: "propertyAddLeaseAgreementSegue", sender: self)
+    }
+    
    // table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return propertyTableCells.count
@@ -160,12 +172,15 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
             cell.label.text = propertyTableCells[indexPath.row].label
             cell.value.text = propertyTableCells[indexPath.row].value
             cell.selectionStyle = .none
+            
             if (p.label == "Expense") {
                 cell.newButton.addTarget(self, action: #selector(addPaymentButtonPressed), for: .touchUpInside)
                 cell.detailButton.addTarget(self, action: #selector(viewPaymentButtonPressed), for: .touchUpInside)
             } else if (p.label == "Income") {
                 cell.newButton.addTarget(self, action: #selector(addRevenueButtonPressed), for: .touchUpInside)
                 cell.detailButton.addTarget(self, action: #selector(viewRevenueButtonPressed), for: .touchUpInside)
+            } else if (p.label == "Lease Agreements"){
+                cell.newButton.addTarget(self, action: #selector(addLeaseAgreementButtonPressed), for: .touchUpInside)
             }
             return cell
         } else {

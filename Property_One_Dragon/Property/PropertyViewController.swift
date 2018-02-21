@@ -41,7 +41,7 @@ class PropertyViewController: UIViewController, UITableViewDataSource, UITableVi
         
         // to handle update info from new/edit view
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        //self.tabBarController?.tabBar.isHidden = false
     }
     
     func configureDatabase(){
