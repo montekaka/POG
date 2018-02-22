@@ -39,6 +39,7 @@ class LeaseAgreement {
     init?( propertyKey: String){
         self.propertyKey = propertyKey;
         self.detail = LeaseAgreementDetails()
+        self.tenants = []
     }
     
     func toAnyObject() -> Any {

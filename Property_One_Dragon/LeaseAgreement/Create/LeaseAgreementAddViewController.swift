@@ -54,6 +54,11 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
         if(self.arrayOfCellData[indexPath.row].code == "lease_detail"){
             self.performSegue(withIdentifier: "laDetailAddSegue", sender: nil)
         }
+        
+        if(self.arrayOfCellData[indexPath.row].code == "tenant"){
+            self.performSegue(withIdentifier: "laTenantsSegue", sender: nil)
+        }
+        
     }
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,6 +66,14 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
             let controller = segue.destination as! leaseFormViewController
 //            print("Property Id")
 //            print(self.property?.ref?.key)
+            self.setupLeaseAgreement()
+            controller.leaseAgreementAddViewController = self
+            ////controller.property = detailItem
+            //print("hello world");
+        }
+        //laTenantsSegue
+        if segue.identifier == "laTenantsSegue" {
+            let controller = segue.destination as! TenantsViewController
             self.setupLeaseAgreement()
             controller.leaseAgreementAddViewController = self
             ////controller.property = detailItem
@@ -76,7 +89,9 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
     }
     
     func configRightBarButton(){
-        self.setupSavingButton()
+        if(self.leaseAgreement != nil){
+         self.setupSavingButton()
+        }
     }
     
     func setupSavingButton(){

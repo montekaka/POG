@@ -759,11 +759,49 @@
                     <connections>
                         <outlet property="tableView" destination="bEk-iP-Ghn" id="3uI-z3-Sl7"/>
                         <segue destination="I34-Pe-uoA" kind="show" identifier="laDetailAddSegue" id="fm5-T0-wNg"/>
+                        <segue destination="iSo-X8-uLU" kind="show" identifier="laTenantsSegue" id="3EL-ax-Df4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9Z-IT-GJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3556" y="-545.57721139430294"/>
+        </scene>
+        <!--Tenants View Controller-->
+        <scene sceneID="zhM-FK-Pon">
+            <objects>
+                <viewController id="iSo-X8-uLU" customClass="TenantsViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tRa-YH-H0G"/>
+                        <viewControllerLayoutGuide type="bottom" id="bQ0-LX-pHF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="URN-Pm-9lc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZWP-IJ-ysz">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="iSo-X8-uLU" id="89e-e9-Yf7"/>
+                                    <outlet property="delegate" destination="iSo-X8-uLU" id="UHd-fm-5DG"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZWP-IJ-ysz" firstAttribute="leading" secondItem="URN-Pm-9lc" secondAttribute="leading" id="Kbb-kv-B8F"/>
+                            <constraint firstItem="ZWP-IJ-ysz" firstAttribute="top" secondItem="tRa-YH-H0G" secondAttribute="bottom" id="MnA-xZ-oXq"/>
+                            <constraint firstAttribute="trailing" secondItem="ZWP-IJ-ysz" secondAttribute="trailing" id="c5Z-Fb-37b"/>
+                            <constraint firstAttribute="bottom" secondItem="ZWP-IJ-ysz" secondAttribute="bottom" id="jCl-LU-iPG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="ZWP-IJ-ysz" id="hY6-34-cWa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Kp-8e-OYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4389.6000000000004" y="-546.47676161919048"/>
         </scene>
         <!--Lease Form View Controller-->
         <scene sceneID="nls-jp-uVn">
@@ -834,7 +872,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="ETM-sr-5Yu"/>
         <segue reference="0WM-px-7qa"/>
-        <segue reference="K7q-6i-H8e"/>
+        <segue reference="i2I-Zi-YwS"/>
         <segue reference="Lyq-oV-1dP"/>
         <segue reference="3Zg-T6-vvl"/>
         <segue reference="Xtl-6R-XX6"/>

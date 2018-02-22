@@ -20,4 +20,8 @@ class LeaseAgreementTenant {
     func getFullName() -> String{
         return self.firstName! + " " + self.lastName!
     }
+    
+    func getPhoneNumber() -> String {
+        return self.phoneNumber!
+    }
 }

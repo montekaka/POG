@@ -26,6 +26,9 @@
 		E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */; };
 		E53854001FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */; };
 		E539A19F203D4E45007B16D9 /* LeaseAgreementTenant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539A19E203D4E45007B16D9 /* LeaseAgreementTenant.swift */; };
+		E539A1A2203E9067007B16D9 /* TenantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539A1A1203E9067007B16D9 /* TenantsViewController.swift */; };
+		E539A1A5203E93B9007B16D9 /* TenantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539A1A3203E93B9007B16D9 /* TenantsTableViewCell.swift */; };
+		E539A1A6203E93B9007B16D9 /* TenantsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E539A1A4203E93B9007B16D9 /* TenantsTableViewCell.xib */; };
 		E53B2EBA1FFF318700E83866 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B2EB91FFF318700E83866 /* Config.swift */; };
 		E53B2EBD2007C57900E83866 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B2EBC2007C57900E83866 /* Service.swift */; };
 		E558776F20159C480012D483 /* LeaseAgreementAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558776E20159C480012D483 /* LeaseAgreementAddViewController.swift */; };
@@ -87,6 +90,9 @@
 		E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellSwitch.swift; sourceTree = "<group>"; };
 		E53853FE1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellSwitch.xib; sourceTree = "<group>"; };
 		E539A19E203D4E45007B16D9 /* LeaseAgreementTenant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseAgreementTenant.swift; sourceTree = "<group>"; };
+		E539A1A1203E9067007B16D9 /* TenantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenantsViewController.swift; sourceTree = "<group>"; };
+		E539A1A3203E93B9007B16D9 /* TenantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenantsTableViewCell.swift; sourceTree = "<group>"; };
+		E539A1A4203E93B9007B16D9 /* TenantsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TenantsTableViewCell.xib; sourceTree = "<group>"; };
 		E53B2EB91FFF318700E83866 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E53B2EBC2007C57900E83866 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E558776E20159C480012D483 /* LeaseAgreementAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseAgreementAddViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +201,9 @@
 		E539A1A0203D4FD7007B16D9 /* Tenant */ = {
 			isa = PBXGroup;
 			children = (
+				E539A1A1203E9067007B16D9 /* TenantsViewController.swift */,
+				E539A1A3203E93B9007B16D9 /* TenantsTableViewCell.swift */,
+				E539A1A4203E93B9007B16D9 /* TenantsTableViewCell.xib */,
 			);
 			path = Tenant;
 			sourceTree = "<group>";
@@ -437,6 +446,7 @@
 				E5083B6D1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.xib in Resources */,
 				E5A0C4781FC8C2D000F55681 /* PropertyDetailTableViewCellText.xib in Resources */,
 				E53853FC1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib in Resources */,
+				E539A1A6203E93B9007B16D9 /* TenantsTableViewCell.xib in Resources */,
 				E5AA53221FDE362A00A1FBE2 /* PaymentAddTableViewCellButton.xib in Resources */,
 				E5ED69EC1FCBBE6700FC5E1C /* GoogleService-Info.plist in Resources */,
 				E53854001FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.xib in Resources */,
@@ -522,6 +532,7 @@
 				E5056D401F9EFDF000441F02 /* ViewController.swift in Sources */,
 				E5ED69F01FCFDA9E00FC5E1C /* PropertyViewTableViewCell.swift in Sources */,
 				E5B9DC5D1FAA36F3000C1999 /* PaymentDetailViewController.swift in Sources */,
+				E539A1A5203E93B9007B16D9 /* TenantsTableViewCell.swift in Sources */,
 				E586EE001FB2A5FA00D7EB8F /* PropertyViewCustomCell.swift in Sources */,
 				E53B2EBD2007C57900E83866 /* Service.swift in Sources */,
 				E5C27FA61FA700D70002FC7A /* Payment.swift in Sources */,
@@ -534,6 +545,7 @@
 				E5056D3E1F9EFDF000441F02 /* AppDelegate.swift in Sources */,
 				E53B2EBA1FFF318700E83866 /* Config.swift in Sources */,
 				E5C4A6061FEB833D00F08092 /* PaymentAddTableViewCellTextView.swift in Sources */,
+				E539A1A2203E9067007B16D9 /* TenantsViewController.swift in Sources */,
 				E5083B6C1FC2B12500CF9756 /* PaymentAddTableViewCellPicker.swift in Sources */,
 				E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */,
 				E539A19F203D4E45007B16D9 /* LeaseAgreementTenant.swift in Sources */,
