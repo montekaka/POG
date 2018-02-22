@@ -19,7 +19,13 @@ class TenantsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTenant))
+        self.navigationItem.rightBarButtonItem = addButton
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+        //print(self.leaseAgreementAddViewController?.leaseAgreement?.tenants)
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,7 +45,17 @@ class TenantsViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
-
+    @objc func addTenant(){
+        // go to add view controller
+        self.performSegue(withIdentifier: "tenantNewSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tenantNewSegue" {
+            let controller = segue.destination as! TenantNewViewController
+            controller.leaseAgreementAddViewController = self.leaseAgreementAddViewController
+        }
+    }
     /*
     // MARK: - Navigation
 

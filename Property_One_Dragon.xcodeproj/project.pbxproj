@@ -29,6 +29,7 @@
 		E539A1A2203E9067007B16D9 /* TenantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539A1A1203E9067007B16D9 /* TenantsViewController.swift */; };
 		E539A1A5203E93B9007B16D9 /* TenantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539A1A3203E93B9007B16D9 /* TenantsTableViewCell.swift */; };
 		E539A1A6203E93B9007B16D9 /* TenantsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E539A1A4203E93B9007B16D9 /* TenantsTableViewCell.xib */; };
+		E539A1A8203EA095007B16D9 /* TenantNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E539A1A7203EA095007B16D9 /* TenantNewViewController.swift */; };
 		E53B2EBA1FFF318700E83866 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B2EB91FFF318700E83866 /* Config.swift */; };
 		E53B2EBD2007C57900E83866 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B2EBC2007C57900E83866 /* Service.swift */; };
 		E558776F20159C480012D483 /* LeaseAgreementAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E558776E20159C480012D483 /* LeaseAgreementAddViewController.swift */; };
@@ -93,6 +94,7 @@
 		E539A1A1203E9067007B16D9 /* TenantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenantsViewController.swift; sourceTree = "<group>"; };
 		E539A1A3203E93B9007B16D9 /* TenantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenantsTableViewCell.swift; sourceTree = "<group>"; };
 		E539A1A4203E93B9007B16D9 /* TenantsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TenantsTableViewCell.xib; sourceTree = "<group>"; };
+		E539A1A7203EA095007B16D9 /* TenantNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenantNewViewController.swift; sourceTree = "<group>"; };
 		E53B2EB91FFF318700E83866 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		E53B2EBC2007C57900E83866 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		E558776E20159C480012D483 /* LeaseAgreementAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseAgreementAddViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				E539A1A1203E9067007B16D9 /* TenantsViewController.swift */,
+				E539A1A7203EA095007B16D9 /* TenantNewViewController.swift */,
 				E539A1A3203E93B9007B16D9 /* TenantsTableViewCell.swift */,
 				E539A1A4203E93B9007B16D9 /* TenantsTableViewCell.xib */,
 			);
@@ -553,6 +556,7 @@
 				E5A782D51FF9828F00C4C71D /* HomePageViewController.swift in Sources */,
 				E5A0C47B1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.swift in Sources */,
 				E558777B2015BB3A0012D483 /* leaseFormViewController.swift in Sources */,
+				E539A1A8203EA095007B16D9 /* TenantNewViewController.swift in Sources */,
 				E55877792015B3C00012D483 /* LeaseAgreementDetails.swift in Sources */,
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,
 				E5A782D11FF6F84000C4C71D /* ProfileSettingViewController.swift in Sources */,
