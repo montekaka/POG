@@ -105,8 +105,18 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
         //self.leaseAgreement?.detail
         self.dbReference = Database.database().reference()
         //print(post)
-        let leaseAgreementRef = self.dbReference?.child("lease_agreement").childByAutoId()
-        leaseAgreementRef?.setValue(post)
+        let leaseAgreementRef = self.dbReference?.child("lease_agreement")
+        let lRef =  leaseAgreementRef?.childByAutoId()
+        let rlid = lRef?.key
+        let _ = lRef?.setValue(post)
+        for tenant in (self.leaseAgreement?.tenants)! {
+            let tenant_p = tenant.toAnyObject()
+            leaseAgreementRef?.child(rlid!).child("tenants").childByAutoId().setValue(tenant_p)
+        }
+        
+        //leaseAgreementRef?.setValue(post)
+        
+        
         
     }
     

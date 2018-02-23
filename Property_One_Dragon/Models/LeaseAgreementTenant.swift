@@ -24,4 +24,14 @@ class LeaseAgreementTenant {
     func getPhoneNumber() -> String {
         return self.phoneNumber!
     }
+    
+    func toAnyObject() -> Any {
+        var result = [String: Any]()
+        result["firstName"] = self.firstName
+        result["lastName"] = self.lastName
+        if((self.phoneNumber) != nil){
+            result["phoneNumber"] = self.phoneNumber
+        }
+        return result;
+    }
 }
