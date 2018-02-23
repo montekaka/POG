@@ -840,7 +840,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRS-JH-ZNI">
                                 <rect key="frame" x="16" y="571" width="343" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveTenant:" destination="M2G-Uk-5QT" eventType="touchUpInside" id="ZWT-gb-EgX"/>
                                 </connections>
@@ -863,7 +863,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
-                        <outlet property="firstNameInputField" destination="aVY-Kn-ve1" id="UbT-cd-rpW"/>
+                        <outlet property="firstNameInputField" destination="iKq-Vz-CE5" id="J5P-gQ-k6q"/>
                         <outlet property="lastNameInputField" destination="aVY-Kn-ve1" id="dlF-NB-Iae"/>
                         <outlet property="pageTitle" destination="61C-6B-Jn1" id="mrM-31-ZM3"/>
                         <outlet property="phoneNumberTextField" destination="gRD-a2-ySG" id="Sas-45-kfR"/>
