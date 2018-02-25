@@ -79,6 +79,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
 //            print(self.detailItem?.ref?.key)
         }
         
+        if segue.identifier == "propertyListLeaseAgreementSegue"{
+            let controller = segue.destination as! LeaseAgreementViewController
+            controller.property = self.detailItem
+        }
         // Expense
         if segue.identifier == "propertyAddPaymentSegue" {
             let controller = segue.destination as! PaymentAddViewController
@@ -159,6 +163,10 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
         self.performSegue(withIdentifier: "propertyAddLeaseAgreementSegue", sender: self)
     }
     
+    @objc func listLeaseAgreementButtonPressed() {
+        self.performSegue(withIdentifier: "propertyListLeaseAgreementSegue", sender: self)
+    }
+    
    // table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return propertyTableCells.count
@@ -181,6 +189,7 @@ class PropertyDetailViewController: UIViewController, UITableViewDataSource, UIT
                 cell.detailButton.addTarget(self, action: #selector(viewRevenueButtonPressed), for: .touchUpInside)
             } else if (p.label == "Lease Agreements"){
                 cell.newButton.addTarget(self, action: #selector(addLeaseAgreementButtonPressed), for: .touchUpInside)
+                cell.detailButton.addTarget(self, action: #selector(listLeaseAgreementButtonPressed), for: .touchUpInside)
             }
             return cell
         } else {

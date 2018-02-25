@@ -7,7 +7,12 @@
 //
 
 import Foundation
+import Firebase
+
 class LeaseAgreementTenant {
+    
+    var ref: DatabaseReference?
+    
     var firstName: String?
     var lastName: String?
     var phoneNumber: String?
@@ -15,6 +20,22 @@ class LeaseAgreementTenant {
     init(firstName: String, lastName: String){
         self.firstName = firstName
         self.lastName = lastName
+    }
+    
+    init?(snapshot: DataSnapshot){
+        let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
+        if((snapshotValue) != nil){
+            self.ref = snapshot.ref
+            if((snapshotValue!["firstName"]) != nil) {
+                self.firstName = snapshotValue!["firstName"] as? String
+            }
+            if((snapshotValue!["lastName"]) != nil) {
+                self.lastName = snapshotValue!["lastName"] as? String
+            }
+            if((snapshotValue!["phoneNumber"]) != nil) {
+                self.phoneNumber = snapshotValue!["phoneNumber"] as? String
+            }
+        }
     }
         
     func getFullName() -> String{

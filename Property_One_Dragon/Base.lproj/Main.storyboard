@@ -348,7 +348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lFn-Xt-aYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4432.8000000000002" y="148.87556221889056"/>
+            <point key="canvasLocation" x="4332" y="1018"/>
         </scene>
         <!--Payment Detail View Controller-->
         <scene sceneID="iMF-5y-dYf">
@@ -387,7 +387,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTD-Ml-d6f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4092.753623188406" y="1018.2065217391305"/>
+            <point key="canvasLocation" x="3554" y="1018"/>
         </scene>
         <!--Payment Detail Text View Controller-->
         <scene sceneID="93r-TQ-JQa">
@@ -423,7 +423,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZO-d3-63H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3844" y="1783.3583208395803"/>
+            <point key="canvasLocation" x="3174" y="1791"/>
         </scene>
         <!--Payment Add View Controller-->
         <scene sceneID="wIK-Od-Ros">
@@ -461,7 +461,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nOy-PL-ncl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215.9420289855075" y="1018.2065217391305"/>
+            <point key="canvasLocation" x="2825" y="1018"/>
         </scene>
         <!--Property View Controller-->
         <scene sceneID="NZf-50-mqQ">
@@ -543,6 +543,7 @@
                         <segue destination="dLa-mH-ze2" kind="show" identifier="propertyRevenueTableSegue" id="3Zg-T6-vvl"/>
                         <segue destination="W0z-ff-k2p" kind="show" identifier="propertyAddRevenueSegue" id="PSb-fl-RjD"/>
                         <segue destination="0gl-B8-CC4" kind="show" identifier="propertyAddLeaseAgreementSegue" id="tOX-ov-ze2"/>
+                        <segue destination="A5O-8k-aF9" kind="show" identifier="propertyListLeaseAgreementSegue" id="UPX-Op-06Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtc-1n-woW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -643,7 +644,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mc-So-bVN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2485.5999999999999" y="1018.7406296851575"/>
+            <point key="canvasLocation" x="2028" y="1004"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="kXM-d2-dN9">
@@ -766,6 +767,24 @@
             </objects>
             <point key="canvasLocation" x="3556" y="-545.57721139430294"/>
         </scene>
+        <!--Lease Agreement View Controller-->
+        <scene sceneID="ztv-wq-Ykk">
+            <objects>
+                <viewController id="A5O-8k-aF9" customClass="LeaseAgreementViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mvc-Cg-sLM"/>
+                        <viewControllerLayoutGuide type="bottom" id="AqO-Oo-iTr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xhO-iI-kJd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t9e-rx-DCH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4332" y="148.87556221889056"/>
+        </scene>
         <!--Tenants View Controller-->
         <scene sceneID="zhM-FK-Pon">
             <objects>
@@ -802,7 +821,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Kp-8e-OYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4433" y="-1244"/>
+            <point key="canvasLocation" x="4332" y="-1244"/>
         </scene>
         <!--Tenant New View Controller-->
         <scene sceneID="0tJ-lK-oTb">
@@ -871,7 +890,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQP-1s-fbo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5237.6000000000004" y="-1245.4272863568217"/>
+            <point key="canvasLocation" x="5092" y="-1245"/>
         </scene>
         <!--Lease Form View Controller-->
         <scene sceneID="nls-jp-uVn">
@@ -941,9 +960,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ETM-sr-5Yu"/>
-        <segue reference="0WM-px-7qa"/>
+        <segue reference="bGh-ls-JYm"/>
         <segue reference="i2I-Zi-YwS"/>
-        <segue reference="Lyq-oV-1dP"/>
+        <segue reference="K1m-zU-fJe"/>
         <segue reference="3Zg-T6-vvl"/>
         <segue reference="Xtl-6R-XX6"/>
         <segue reference="aYE-Ez-HKl"/>

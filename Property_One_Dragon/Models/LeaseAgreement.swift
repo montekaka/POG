@@ -18,6 +18,7 @@ class LeaseAgreement {
     var ref: DatabaseReference?
     //private(set) var uid: String?
     private(set) var propertyKey: String?
+    //private(set) var tenantsDatasnapshot: DataSnapshot?
     
     var detail: LeaseAgreementDetails?
     var tenants: [LeaseAgreementTenant]?
@@ -31,6 +32,7 @@ class LeaseAgreement {
     var leadPaintDisclosure: Bool?
     var epaPamphletDisclosure: Bool?
     
+    
     init?( propertyKey: String, detail: LeaseAgreementDetails){
         self.propertyKey = propertyKey;
         self.detail = detail
@@ -40,6 +42,34 @@ class LeaseAgreement {
         self.propertyKey = propertyKey;
         self.detail = LeaseAgreementDetails()
         self.tenants = []
+    }
+    
+    init?(snapshot: DataSnapshot){
+        let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
+        if((snapshotValue) != nil){
+            self.ref = snapshot.ref
+            self.propertyKey = snapshotValue!["propertyKey"] as? String
+            // lease agreement detail
+            self.detail = LeaseAgreementDetails()
+            if((snapshotValue!["rentAmount"]) != nil) {
+                self.detail?.rentAmount = snapshotValue!["rentAmount"] as? Double
+            }
+            if((snapshotValue!["starDate"]) != nil) {
+                self.detail?.startDate = firebaseDateToNSDate(firebase_date: snapshotValue!["starDate"] as! TimeInterval)
+            }
+            // tenants
+            self.tenants = []
+            if(snapshotValue!["tenants"] != nil){
+                
+                if let tenant_snapshots = snapshotValue!["tenants"]?.children.allObjects as? [DataSnapshot]{
+                    for t_sp in tenant_snapshots {
+                        let tenant = LeaseAgreementTenant(snapshot: t_sp)
+                        self.tenants?.append(tenant!)
+                    }
+                }
+                
+            }
+        }
     }
     
     func toAnyObject() -> Any {
@@ -53,6 +83,11 @@ class LeaseAgreement {
         }
         return result;
     }
+    
+    func firebaseDateToNSDate(firebase_date: TimeInterval) -> Date {
+        return (NSDate(timeIntervalSince1970: firebase_date ) as Date?)!
+    }
+    
     
 //    func tenantsToAny() -> Any {
 //        
