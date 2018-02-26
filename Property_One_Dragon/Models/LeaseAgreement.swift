@@ -48,27 +48,35 @@ class LeaseAgreement {
         let snapshotValue = snapshot.value as? Dictionary<String, AnyObject>
         if((snapshotValue) != nil){
             self.ref = snapshot.ref
+            //print(ref)
             self.propertyKey = snapshotValue!["propertyKey"] as? String
             // lease agreement detail
             self.detail = LeaseAgreementDetails()
             if((snapshotValue!["rentAmount"]) != nil) {
                 self.detail?.rentAmount = snapshotValue!["rentAmount"] as? Double
             }
-            if((snapshotValue!["starDate"]) != nil) {
-                self.detail?.startDate = firebaseDateToNSDate(firebase_date: snapshotValue!["starDate"] as! TimeInterval)
+            if((snapshotValue!["startDate"]) != nil) {
+                self.detail?.startDate = firebaseDateToNSDate(firebase_date: snapshotValue!["startDate"] as! TimeInterval)
             }
-            // tenants
-            self.tenants = []
-            if(snapshotValue!["tenants"] != nil){
-                
-                if let tenant_snapshots = snapshotValue!["tenants"]?.children.allObjects as? [DataSnapshot]{
-                    for t_sp in tenant_snapshots {
-                        let tenant = LeaseAgreementTenant(snapshot: t_sp)
-                        self.tenants?.append(tenant!)
-                    }
-                }
-                
-            }
+//            // tenants
+//            if((snapshotValue!["tenants"]) != nil) {
+//
+//                let queryTenants = snapshot.ref.child("tenants")
+//                print("Yeah....")
+//                queryTenants.observe(.value, with: { spTenants in
+//                        var newItems: [LeaseAgreementTenant] = []
+//                        if let tenantsSp = spTenants.children.allObjects as? [DataSnapshot] {
+//                            print(tenantsSp)
+//                            for tenantSp in tenantsSp {
+//                                let t = LeaseAgreementTenant(snapshot: tenantSp)
+//                                newItems.append(t!)
+//                            }
+//                            self.tenants = newItems
+//                        }
+//
+//                    }
+//                )
+//            }
         }
     }
     
@@ -76,7 +84,7 @@ class LeaseAgreement {
         var result = [String: Any]()
         result["propertyKey"] = self.propertyKey
         if((self.detail?.startDate) != nil){
-            result["startDate"] = self.detail?.startDate!.timeIntervalSince1970
+            result["startDate"] = self.NSDateToFirebaseDate(input_date: (self.detail?.startDate)!)
         }
         if((self.detail?.startDate) != nil){
             result["rentAmount"] = self.detail?.rentAmount
@@ -88,6 +96,36 @@ class LeaseAgreement {
         return (NSDate(timeIntervalSince1970: firebase_date ) as Date?)!
     }
     
+    func NSDateToFirebaseDate(input_date: Date) -> TimeInterval{
+        return input_date.timeIntervalSince1970
+    }
+
+    
+    func getFormattedString(valueType:String) -> String{
+        var result: String = ""
+        // date formatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        
+        // currency formatter
+        let currencyFormatter = NumberFormatter()
+        currencyFormatter.numberStyle = .currency
+        if (valueType == "startDate") {
+            result = dateFormatter.string(from: (self.detail?.startDate)!)
+        }
+        if (valueType == "endDate") {
+            result = dateFormatter.string(from: (self.detail?.endDate)!)
+        }
+        if (valueType == "rentAmount") {
+            result = currencyFormatter.string(from: (self.detail?.rentAmount)! as NSNumber)!
+        }
+        if (valueType == "tenantsCount") {
+            result = String(describing: self.tenants?.count)
+        }
+        
+        return result
+    }
     
 //    func tenantsToAny() -> Any {
 //        

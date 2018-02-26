@@ -22,6 +22,8 @@
 		E521226420186FF60008F0E0 /* PlaceholderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521226220186FF60008F0E0 /* PlaceholderTableViewCell.swift */; };
 		E521226520186FF60008F0E0 /* PlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E521226320186FF60008F0E0 /* PlaceholderTableViewCell.xib */; };
 		E5229249204243850006B5AD /* LeaseAgreementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5229248204243850006B5AD /* LeaseAgreementViewController.swift */; };
+		E522924C204364FC0006B5AD /* LeaseAgreementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E522924A204364FC0006B5AD /* LeaseAgreementTableViewCell.swift */; };
+		E522924D204364FC0006B5AD /* LeaseAgreementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E522924B204364FC0006B5AD /* LeaseAgreementTableViewCell.xib */; };
 		E53853FB1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853F91FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift */; };
 		E53853FC1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib in Resources */ = {isa = PBXBuildFile; fileRef = E53853FA1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib */; };
 		E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */; };
@@ -88,6 +90,8 @@
 		E521226220186FF60008F0E0 /* PlaceholderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceholderTableViewCell.swift; path = Property_One_Dragon/PlaceholderTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		E521226320186FF60008F0E0 /* PlaceholderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaceholderTableViewCell.xib; path = Property_One_Dragon/PlaceholderTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		E5229248204243850006B5AD /* LeaseAgreementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseAgreementViewController.swift; sourceTree = "<group>"; };
+		E522924A204364FC0006B5AD /* LeaseAgreementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaseAgreementTableViewCell.swift; sourceTree = "<group>"; };
+		E522924B204364FC0006B5AD /* LeaseAgreementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaseAgreementTableViewCell.xib; sourceTree = "<group>"; };
 		E53853F91FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellTextField.swift; sourceTree = "<group>"; };
 		E53853FA1FBC13DD0091C2E0 /* PaymentAddTableViewCellTextField.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAddTableViewCellTextField.xib; sourceTree = "<group>"; };
 		E53853FD1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAddTableViewCellSwitch.swift; sourceTree = "<group>"; };
@@ -206,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				E5229248204243850006B5AD /* LeaseAgreementViewController.swift */,
+				E522924A204364FC0006B5AD /* LeaseAgreementTableViewCell.swift */,
+				E522924B204364FC0006B5AD /* LeaseAgreementTableViewCell.xib */,
 			);
 			path = Read;
 			sourceTree = "<group>";
@@ -452,6 +458,7 @@
 				E5AA53271FDE70AF00A1FBE2 /* PaymentTableViewCell.xib in Resources */,
 				E5056D481F9EFDF000441F02 /* LaunchScreen.storyboard in Resources */,
 				E5A0C47C1FC8C48300F55681 /* PropertyDetailTableViewCellWithButton.xib in Resources */,
+				E522924D204364FC0006B5AD /* LeaseAgreementTableViewCell.xib in Resources */,
 				E572FA961FC772BF00DA23F1 /* PaymentDetailTableViewCellText.xib in Resources */,
 				E5C4A6071FEB833D00F08092 /* PaymentAddTableViewCellTextView.xib in Resources */,
 				E5ED69F11FCFDA9E00FC5E1C /* PropertyViewTableViewCell.xib in Resources */,
@@ -573,6 +580,7 @@
 				E5056D581FA2FCE000441F02 /* PropertyAddViewController.swift in Sources */,
 				E5A782D11FF6F84000C4C71D /* ProfileSettingViewController.swift in Sources */,
 				E53853FF1FBC14660091C2E0 /* PaymentAddTableViewCellSwitch.swift in Sources */,
+				E522924C204364FC0006B5AD /* LeaseAgreementTableViewCell.swift in Sources */,
 				E558776F20159C480012D483 /* LeaseAgreementAddViewController.swift in Sources */,
 				E5C4A6031FEB781E00F08092 /* PaymentDetailTextViewController.swift in Sources */,
 			);

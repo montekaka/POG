@@ -9,12 +9,14 @@
 import UIKit
 import Firebase
 
-class LeaseAgreementViewController: UIViewController {
+class LeaseAgreementViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var property : Property?
     // firebase
     var dbReference: DatabaseReference?
     var dbHandle: DatabaseHandle?
+    var dataArray:[LeaseAgreement] = []
     
+    @IBOutlet weak var table: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -41,15 +43,38 @@ class LeaseAgreementViewController: UIViewController {
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for item in snapshots {
                     let p = LeaseAgreement(snapshot: item)
+                    //print("created new lease agreement...")
                     newItems.append(p!)
                 }
-                //self.dataArray = newItems
-                //self.table.reloadData()
+                self.dataArray = newItems
+                self.table.reloadData()
+                print("reloaded...")
+                
             }
         })
         
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        
+        let object = dataArray[indexPath.row]
+        
+        let cell = Bundle.main.loadNibNamed("LeaseAgreementTableViewCell", owner: self, options: nil)?.first as! LeaseAgreementTableViewCell
+        
+        cell.fromDateLabel.text = object.getFormattedString(valueType: "startDate")
+        cell.rentAmountLabel.text = object.getFormattedString(valueType: "rentAmount")
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
     /*
     // MARK: - Navigation
 

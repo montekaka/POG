@@ -37,7 +37,7 @@ class LeaseAgreementTenant {
             }
         }
     }
-        
+            
     func getFullName() -> String{
         return (self.firstName! + " " + self.lastName!)
     }
