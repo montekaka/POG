@@ -8,13 +8,19 @@
 
 import UIKit
 
-class LeaseAgreementShowViewController: UIViewController {
+class LeaseAgreementShowViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var agreement: LeaseAgreement?
+    
+    @IBOutlet weak var table: UITableView!
+    var tableData: [tableCellData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableData = (self.agreement?.toTableCells())!
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,7 +28,24 @@ class LeaseAgreementShowViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //let appDelegrate = UIApplication.shared.delegate as! AppDelegate
+        //return appDelegrate.propertiesArray.count
+        return self.tableData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = Bundle.main.loadNibNamed("LeaseAgreementShowTableViewCell", owner: self, options: nil)?.first as! LeaseAgreementShowTableViewCell
+        let object = self.tableData[indexPath.row]
+        cell.filedLabel.text = object.label
+        cell.fieldValueLabel.text = object.value
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
     /*
     // MARK: - Navigation
 

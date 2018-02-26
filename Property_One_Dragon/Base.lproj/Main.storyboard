@@ -767,10 +767,10 @@
             </objects>
             <point key="canvasLocation" x="3556" y="-545.57721139430294"/>
         </scene>
-        <!--View Controller-->
+        <!--Lease Agreement Show View Controller-->
         <scene sceneID="tYV-AE-ZMY">
             <objects>
-                <viewController id="kkE-PB-NlD" sceneMemberID="viewController">
+                <viewController id="kkE-PB-NlD" customClass="LeaseAgreementShowViewController" customModule="Property_One_Dragon" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OGh-RK-rNL"/>
                         <viewControllerLayoutGuide type="bottom" id="ep4-Rp-Eqr"/>
@@ -778,12 +778,31 @@
                     <view key="view" contentMode="scaleToFill" id="xMP-LS-jua">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0aC-RA-KXs">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="kkE-PB-NlD" id="HKo-Bb-gS6"/>
+                                    <outlet property="delegate" destination="kkE-PB-NlD" id="7eq-x3-PbF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="0aC-RA-KXs" secondAttribute="bottom" id="0Qb-pt-T0s"/>
+                            <constraint firstItem="0aC-RA-KXs" firstAttribute="leading" secondItem="xMP-LS-jua" secondAttribute="leading" id="C9x-TY-joa"/>
+                            <constraint firstAttribute="trailing" secondItem="0aC-RA-KXs" secondAttribute="trailing" id="TnV-2v-VTa"/>
+                            <constraint firstItem="0aC-RA-KXs" firstAttribute="top" secondItem="OGh-RK-rNL" secondAttribute="bottom" id="tdY-aG-RGZ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="table" destination="0aC-RA-KXs" id="OW2-CE-jEQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qn1-UJ-fD9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4332" y="-546"/>
+            <point key="canvasLocation" x="4332" y="-546.47676161919048"/>
         </scene>
         <!--Lease Agreement View Controller-->
         <scene sceneID="ztv-wq-Ykk">
