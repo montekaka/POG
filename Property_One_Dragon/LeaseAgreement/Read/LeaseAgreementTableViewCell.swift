@@ -13,6 +13,7 @@ class LeaseAgreementTableViewCell: UITableViewCell {
     @IBOutlet weak var fromDateLabel: UILabel!
     @IBOutlet weak var rentAmountLabel: UILabel!
         
+    @IBOutlet weak var tenantsLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

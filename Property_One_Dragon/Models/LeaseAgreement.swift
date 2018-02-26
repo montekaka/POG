@@ -58,7 +58,17 @@ class LeaseAgreement {
             if((snapshotValue!["startDate"]) != nil) {
                 self.detail?.startDate = firebaseDateToNSDate(firebase_date: snapshotValue!["startDate"] as! TimeInterval)
             }
+            self.tenants = []
 //            // tenants
+            if((snapshotValue!["tenants"]) != nil) {
+                for tenant in (snapshotValue!["tenants"]  as? Dictionary<String, AnyObject>)! {
+                    let firstName = tenant.value["firstName"] as! String
+                    let lastName = tenant.value["lastName"] as! String
+                    let t = LeaseAgreementTenant(firstName: firstName, lastName: lastName)
+                    self.tenants?.append(t)
+                }
+            }
+            
 //            if((snapshotValue!["tenants"]) != nil) {
 //
 //                let queryTenants = snapshot.ref.child("tenants")

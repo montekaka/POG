@@ -48,8 +48,6 @@ class LeaseAgreementViewController: UIViewController, UITableViewDataSource, UIT
                 }
                 self.dataArray = newItems
                 self.table.reloadData()
-                print("reloaded...")
-                
             }
         })
         
@@ -68,7 +66,7 @@ class LeaseAgreementViewController: UIViewController, UITableViewDataSource, UIT
         
         cell.fromDateLabel.text = object.getFormattedString(valueType: "startDate")
         cell.rentAmountLabel.text = object.getFormattedString(valueType: "rentAmount")
-        
+        cell.tenantsLabel.text = object.getFormattedString(valueType: "tenantsCount")
         return cell
     }
     
