@@ -73,6 +73,19 @@ class LeaseAgreementViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "leaseAgreementShowSegue", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "leaseAgreementShowSegue" {
+            let detailView: LeaseAgreementShowViewController = segue.destination as! LeaseAgreementShowViewController
+            let selectedRow = table.indexPathForSelectedRow!.row
+            let object = dataArray[selectedRow]
+            detailView.agreement = object
+        }
+    }
     /*
     // MARK: - Navigation
 

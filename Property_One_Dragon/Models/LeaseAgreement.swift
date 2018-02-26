@@ -67,26 +67,7 @@ class LeaseAgreement {
                     let t = LeaseAgreementTenant(firstName: firstName, lastName: lastName)
                     self.tenants?.append(t)
                 }
-            }
-            
-//            if((snapshotValue!["tenants"]) != nil) {
-//
-//                let queryTenants = snapshot.ref.child("tenants")
-//                print("Yeah....")
-//                queryTenants.observe(.value, with: { spTenants in
-//                        var newItems: [LeaseAgreementTenant] = []
-//                        if let tenantsSp = spTenants.children.allObjects as? [DataSnapshot] {
-//                            print(tenantsSp)
-//                            for tenantSp in tenantsSp {
-//                                let t = LeaseAgreementTenant(snapshot: tenantSp)
-//                                newItems.append(t!)
-//                            }
-//                            self.tenants = newItems
-//                        }
-//
-//                    }
-//                )
-//            }
+            }        
         }
     }
     
@@ -132,6 +113,31 @@ class LeaseAgreement {
         }
         if (valueType == "tenantsCount") {
             result = String(describing: self.tenants?.count)
+        }
+        
+        return result
+    }
+    
+    func toTableCells() -> [tableCellData]{
+        var result: [tableCellData]
+        result = []
+        
+        // detail
+        if((self.detail?.startDate) != nil){
+            let startDateText = self.getFormattedString(valueType: "startDate")
+            result.append(tableCellData(label: "Start Date", value: startDateText, cellType: "detail"))
+        }
+        
+        if((self.detail?.startDate) != nil){
+            let rentAmount = self.getFormattedString(valueType: "rentAmount")
+            result.append(tableCellData(label: "Rent Amount", value: rentAmount, cellType: "detail"))
+        }
+        
+        // tenants
+        if((self.tenants) != nil){
+            for tenant in tenants! {
+                result.append(tableCellData(label: "Tenant Name", value: tenant.getFullName(), cellType: "tenant"))
+            }
         }
         
         return result
