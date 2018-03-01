@@ -8,8 +8,8 @@
 
 import UIKit
 
-class leaseFormViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class leaseFormViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
     @IBOutlet weak var tableView: UITableView!
     weak var leaseAgreementAddViewController : LeaseAgreementAddViewController?
     var arrayOfCellData = [cellData]()
@@ -37,6 +37,22 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
     
     private var rentalPaymentVal: String!
     
+    // Payment Type picker view
+    private var pickerViewItems = ["paymentType","lateFeePercentage"]
+    var paymentTypeData = [pickerItemData]()
+    private var paymentTypePickerView = UIPickerView()
+    private var paymentTypePickerCell: PaymentAddTableViewCellTextField?
+    private var selectedPaymentTypeData: pickerItemData?
+    private var selectedPaymentTypeId: Int!
+    private var paymentTypeTextField: UITextField!
+    // Late Fee Percentage picker view
+    var lateFeePercentageData = [pickerItemData]()
+    private var lateFeePercentagePickerView = UIPickerView()
+    private var lateFeePercentagePickerCell: PaymentAddTableViewCellTextField?
+    private var selectedlateFeePercentageData: pickerItemData?
+    private var selectedlateFeePercentageId: Int!
+    private var lateFeePercentageTextField: UITextField!
+    
     override func viewWillAppear(_ animated: Bool) {
         //self.tabBarController?.tabBar.isHidden = true
         // Save Button
@@ -54,7 +70,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
         tableView.tableFooterView = UIView()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -172,7 +188,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
             return cell
             
         }
-        // picker
+            // picker
         else if arrayOfCellData[indexPath.row].cell == "Picker" {
             let cell = Bundle.main.loadNibNamed("PaymentAddTableViewCellTextField", owner: self, options: nil)?.first as! PaymentAddTableViewCellTextField
             cell.TextFieldLabel.text = arrayOfCellData[indexPath.row].label
@@ -191,7 +207,7 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                     //cell.TextField.becomeFirstResponder()
                     // add icon to the input field
                 }
-
+                
                 createStartDatePicker(cell: cell)
             }
             // End Date
@@ -211,10 +227,23 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
                 createEndDatePicker(cell: cell)
             }
             
+            // Payment Type
+            if let _ =  self.pickerViewItems.index(of: arrayOfCellData[indexPath.row].code) {
+                switch arrayOfCellData[indexPath.row].code {
+                case "paymentType":
+                    self.paymentTypePickerCell = cell
+                case "lateFeePercentage":
+                    self.lateFeePercentagePickerCell = cell
+                default:
+                    print("something is wrong of picker view in table view")
+                }
+                
+                self.createPicker(cell: cell, inputCode: arrayOfCellData[indexPath.row].code)
+            }
             return cell
             
         }
-        // placeholder
+            // placeholder
         else if arrayOfCellData[indexPath.row].cell == "Placeholder" {
             let cell = Bundle.main.loadNibNamed("PlaceholderTableViewCell", owner: self, options: nil)?.first as! PlaceholderTableViewCell
             
@@ -350,6 +379,163 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         self.setFormValues()
     }
     
+    // Save button
+    func configRightBarButton(){
+        self.setupSavingButton()
+    }
+    
+    func setupSavingButton(){
+        let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updateLeaseForm))
+        self.navigationItem.rightBarButtonItem = saveTextButton
+        self.tableView.becomeFirstResponder()
+    }
+    
+    @objc func updateLeaseForm(){
+        //        print(self.formValues.rentAmount)
+        //        print(self.formValues.securityDepositAmount)
+        //        print(self.formValues.startDate)
+        self.leaseAgreementAddViewController?.leaseAgreement?.detail = self.formValues
+        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func setFormValues(){
+        if((self.rentalPaymentField.text) != nil){
+            self.formValues.rentAmount = Double(self.rentalPaymentField.text!) ?? 0
+        }
+        if((self.rentalSecurityDepositField.text) != nil){
+            self.formValues.securityDepositAmount = Double(self.rentalSecurityDepositField.text!) ?? 0
+        }
+        if((self.lateFeeAmountField.text) != nil){
+            self.formValues.lateFeeAmount = Double(self.lateFeeAmountField.text!) ?? 0
+        }
+        if((self.petSecurityDepositAmountField.text) != nil){
+            self.formValues.petSecurityDepositAmount = Double(self.petSecurityDepositAmountField.text!) ?? 0
+        }
+        if((self.petAdditionalFeeField.text) != nil){
+            self.formValues.petAdditionalFee = Double(self.petAdditionalFeeField.text!) ?? 0
+        }
+        if((self.parkingFeeField.text) != nil){
+            self.formValues.parkingFee = Double(self.parkingFeeField.text!) ?? 0
+        }
+        if((self.startDate) != nil){
+            self.formValues.startDate = self.startDate
+        }
+        if((self.endDate) != nil){
+            self.formValues.endDate = self.endDate
+        }
+        
+        
+    }
+    
+    // picker view implemenation
+    
+    
+    func setupDoneButtonToPicker(textfield: UITextField, inputCode:String){
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        switch inputCode {
+        case "paymentType":
+            self.paymentTypeTextField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hidePaymentTypePicker))
+            toolbarDone.setItems([done], animated: false)
+        case "lateFeePercentage":
+            self.lateFeePercentageTextField = textfield
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(hideLateFeePercentagePicker))
+            toolbarDone.setItems([done], animated: false)
+        default:
+            print("gg")
+        }
+        
+        textfield.inputAccessoryView = toolbarDone
+    }
+    
+    // picker veiw
+    func createPicker(cell: PaymentAddTableViewCellTextField, inputCode: String){
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        if inputCode == "paymentType"{
+            self.paymentTypePickerView.delegate = self
+            self.paymentTypePickerView.dataSource = self
+            self.paymentTypePickerView.tag = 1
+            cell.TextField.inputAccessoryView = toolbar
+            cell.TextField.inputView = self.paymentTypePickerView
+            cell.TextField.placeholder = "e.g. Check"
+        }
+        
+        if inputCode == "lateFeePercentage"{
+            self.lateFeePercentagePickerView.delegate = self
+            self.lateFeePercentagePickerView.dataSource = self
+            self.lateFeePercentagePickerView.tag = 2
+            cell.TextField.inputAccessoryView = toolbar
+            cell.TextField.inputView = self.lateFeePercentagePickerView
+            cell.TextField.placeholder = "e.g. 10%"
+        }
+        
+        self.setupDoneButtonToPicker(textfield: cell.TextField, inputCode: inputCode)
+        
+        //        if(self.payment != nil){
+        //            let freq = self.payment?.getPaymentFrquence()
+        //            //let id = self.arrayOfFrequencyPickerData.index
+        //            let id = self.findIdFromArray(item_name: "frequence", val_code: (freq?.code)!)
+        //            fequencyPickerView.selectRow(id, inComponent: 0, animated: false)
+        //        }
+        
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+        var count = 0
+        if(pickerView.tag == 1) {
+            // frequency
+            count = self.paymentTypeData.count
+        }
+        
+        if(pickerView.tag == 2) {
+            // category
+            count = lateFeePercentageData.count
+        }
+        
+        return count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        var label = ""
+        
+        if(pickerView.tag == 1) {
+            // payment type
+            label = self.paymentTypeData[row].label
+        }
+        
+        if(pickerView.tag == 2) {
+            // category
+            label = self.lateFeePercentageData[row].label
+        }
+        
+        return label
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if (pickerView.tag == 1) {
+            self.selectedPaymentTypeId = row
+            self.paymentTypePickerCell?.TextField.text = self.paymentTypeData[row].label
+            self.selectedPaymentTypeData = self.paymentTypeData[row]
+            self.paymentTypePickerCell?.TextField.resignFirstResponder()
+        }
+        if (pickerView.tag == 2){
+            self.selectedlateFeePercentageId = row
+            self.lateFeePercentagePickerCell?.TextField.text = self.lateFeePercentageData[row].label
+            self.selectedlateFeePercentageData = self.lateFeePercentageData[row]
+            self.lateFeePercentagePickerCell?.TextField.resignFirstResponder()
+        }
+    }
+    
     @objc func hideRentAmountKeyboard(){
         // to hide keyboards
         self.setFormValues()
@@ -386,64 +572,39 @@ class leaseFormViewController: UIViewController, UITableViewDataSource, UITableV
         self.parkingFeeField.resignFirstResponder()
     }
     
-    
-// Save button
-    func configRightBarButton(){
-        self.setupSavingButton()
+    @objc func hidePaymentTypePicker(){
+        // to hide keyboards
+        if(self.selectedPaymentTypeId == nil){
+            self.selectedPaymentTypeId = 0;
+        }
+        let row = self.selectedPaymentTypeId!
+        //print(row)
+        self.paymentTypeTextField.text = self.paymentTypeData[row].label
+        self.selectedPaymentTypeData = paymentTypeData[row]
+        self.paymentTypeTextField.resignFirstResponder()
     }
     
-    func setupSavingButton(){
-        let saveTextButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updateLeaseForm))
-        self.navigationItem.rightBarButtonItem = saveTextButton
-        self.tableView.becomeFirstResponder()
-    }
-    
-    @objc func updateLeaseForm(){
-//        print(self.formValues.rentAmount)
-//        print(self.formValues.securityDepositAmount)
-//        print(self.formValues.startDate)
-        self.leaseAgreementAddViewController?.leaseAgreement?.detail = self.formValues
-        
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    func setFormValues(){
-        if((self.rentalPaymentField.text) != nil){
-            self.formValues.rentAmount = Double(self.rentalPaymentField.text!) ?? 0
+    @objc func hideLateFeePercentagePicker(){
+        // to hide keyboards
+        if(self.selectedlateFeePercentageId == nil){
+            self.selectedlateFeePercentageId = 0
         }
-        if((self.rentalSecurityDepositField.text) != nil){
-            self.formValues.securityDepositAmount = Double(self.rentalSecurityDepositField.text!) ?? 0
-        }
-        if((self.lateFeeAmountField.text) != nil){
-            self.formValues.lateFeeAmount = Double(self.lateFeeAmountField.text!) ?? 0
-        }
-        if((self.petSecurityDepositAmountField.text) != nil){
-            self.formValues.petSecurityDepositAmount = Double(self.petSecurityDepositAmountField.text!) ?? 0
-        }
-        if((self.petAdditionalFeeField.text) != nil){
-            self.formValues.petAdditionalFee = Double(self.petAdditionalFeeField.text!) ?? 0
-        }
-        if((self.parkingFeeField.text) != nil){
-            self.formValues.parkingFee = Double(self.parkingFeeField.text!) ?? 0
-        }
-        if((self.startDate) != nil){
-            self.formValues.startDate = self.startDate
-        }
-        if((self.endDate) != nil){
-            self.formValues.endDate = self.endDate
-        }
-      
-        
+        let row = self.selectedlateFeePercentageId!
+        //print(row)
+        self.lateFeePercentageTextField.text = self.lateFeePercentageData[row].label
+        self.selectedlateFeePercentageData = self.lateFeePercentageData[row]
+        self.lateFeePercentageTextField.resignFirstResponder()
     }
     /*
      
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
+

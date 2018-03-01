@@ -77,9 +77,43 @@ class LeaseAgreement {
         if((self.detail?.startDate) != nil){
             result["startDate"] = self.NSDateToFirebaseDate(input_date: (self.detail?.startDate)!)
         }
-        if((self.detail?.startDate) != nil){
+        if((self.detail?.endDate) != nil){
+            result["endDate"] = self.NSDateToFirebaseDate(input_date: (self.detail?.endDate)!)
+        }
+        if((self.detail?.rentAmount) != nil){
             result["rentAmount"] = self.detail?.rentAmount
         }
+        if((self.detail?.dayToPayRent) != nil){
+            result["dayToPayRent"] = self.detail?.dayToPayRent
+        }
+        if((self.detail?.securityDepositAmount) != nil){
+            result["securityDepositAmount"] = self.detail?.securityDepositAmount
+        }
+        if((self.detail?.paymentType) != nil){
+            result["paymentType"] = self.detail?.paymentType
+        }
+        if((self.detail?.lateFeeAmount) != nil){
+            result["lateFeeAmount"] = self.detail?.lateFeeAmount
+        }
+        if((self.detail?.lateFeePercentage) != nil){
+            result["lateFeePercentage"] = self.detail?.lateFeePercentage
+        }
+        if((self.detail?.lateFeeDays) != nil){
+            result["lateFeeDays"] = self.detail?.lateFeeDays
+        }
+        if((self.detail?.petSecurityDepositAmount) != nil){
+            result["petSecurityDepositAmount"] = self.detail?.petSecurityDepositAmount
+        }
+        if((self.detail?.petAdditionalFee) != nil){
+            result["petAdditionalFee"] = self.detail?.petAdditionalFee
+        }
+        if((self.detail?.numberOfParking) != nil){
+            result["numberOfParking"] = self.detail?.numberOfParking
+        }
+        if((self.detail?.parkingFee) != nil){
+            result["parkingFee"] = self.detail?.parkingFee
+        }
+            
         return result;
     }
     

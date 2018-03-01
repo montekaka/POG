@@ -22,7 +22,7 @@ let leaseDetailCellData = [
     ,cellData(cell: "Input", code: "securityDepositAmount", label: "Security Deposit")
     ,cellData(cell: "Picker", code: "paymentType", label: "Payment Type")
     ,cellData(cell: "Input", code: "lateFeeAmount", label: "Late Fee Amount")
-    ,cellData(cell: "Input", code: "lateFeePercentage", label: "Late Fee Percentage")
+    ,cellData(cell: "Picker", code: "lateFeePercentage", label: "Late Fee Percentage")
     ,cellData(cell: "Input", code: "lateFeeDays", label: "Late Fee Days")
     ,cellData(cell: "Input", code: "petSecurityDepositAmount", label: "Pet Security Deposit")
     ,cellData(cell: "Input", code: "petAdditionalFee", label: "Pet Additional Fee")

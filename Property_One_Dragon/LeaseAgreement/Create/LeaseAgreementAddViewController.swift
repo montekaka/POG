@@ -12,6 +12,8 @@ import Firebase
 class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // firebase
     var dbReference: DatabaseReference?
+    private var paymentTypeData = [pickerItemData]()
+    private var lateFeePercentageData = [pickerItemData]()
     
     @IBOutlet weak var tableView: UITableView!
     var arrayOfCellData = [cellData]()
@@ -22,7 +24,11 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
     override func viewWillAppear(_ animated: Bool) {
         //self.tabBarController?.tabBar.isHidden = true
         // Save Button
+        self.dbReference = Database.database().reference()
         self.configRightBarButton()
+        self.getPickerOptionsFromFB(inputField: "payment_type")
+        self.getPickerOptionsFromFB(inputField: "late_fee_percentage")
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +74,8 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
 //            print(self.property?.ref?.key)
             self.setupLeaseAgreement()
             controller.leaseAgreementAddViewController = self
+            controller.paymentTypeData = self.paymentTypeData
+            controller.lateFeePercentageData = self.lateFeePercentageData
             ////controller.property = detailItem
             //print("hello world");
         }
@@ -103,7 +111,6 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
         print("start saving...")
         let post = self.leaseAgreement?.toAnyObject()
         //self.leaseAgreement?.detail
-        self.dbReference = Database.database().reference()
         //print(post)
         let leaseAgreementRef = self.dbReference?.child("lease_agreement")
         let lRef =  leaseAgreementRef?.childByAutoId()
@@ -120,15 +127,26 @@ class LeaseAgreementAddViewController: UIViewController, UITableViewDataSource, 
         
     }
     
-    // laDetailAddSegue
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func getPickerOptionsFromFB(inputField: String!) {
+        // get frequency from firebase
+        
+        _ = (self.dbReference?.child(inputField))?.queryOrdered(byChild: "value").observe(.value, with: { snapshot in
+            var newItems: [pickerItemData] = []
+            // let name:String? = snapshot.value as? String
+            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                for item in snapshots {
+                    let snapshotValue = item.value as? Dictionary<String, AnyObject>
+                    let p = pickerItemData(label: snapshotValue!["label"] as! String, code: snapshotValue!["code"] as! String, value: snapshotValue!["value"] as! Double)
+                    newItems.append(p)
+                }
+                if(inputField == "payment_type"){
+                    self.paymentTypeData = newItems;
+                }
+                if(inputField == "late_fee_percentage"){
+                    self.lateFeePercentageData = newItems;
+                }
+            }
+        })
     }
-    */
 
 }

@@ -21,6 +21,12 @@ struct categoryData {
     let value: Float32!
 }
 
+struct pickerItemData {
+    let label: String!
+    let code: String!
+    let value: Double!
+}
+
 struct paymentData {
     let label: String!
     let value: Any!
